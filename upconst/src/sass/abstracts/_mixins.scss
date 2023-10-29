@@ -1,0 +1,17 @@
+@use './variables' as v;
+
+@mixin btn($color, $padding-x, $padding-y, $size){
+    border: none;
+    cursor: pointer;
+    color: v.$color-white;
+    border-radius: v.$b-radius-btn;
+    padding: $padding-x $padding-y;
+    background-color: $color;
+    font-weight: v.$weight-800;
+    font-size: $size;
+}
+
+@mixin title($size){
+    font-size: $size;
+    font-weight: v.$weight-black;
+}

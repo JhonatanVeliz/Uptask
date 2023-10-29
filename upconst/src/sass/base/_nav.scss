@@ -1,0 +1,21 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins';
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &__icon{
+        color: v.$color-primary;
+        padding-bottom: 2rem;
+        border-bottom: 1rem solid v.$color-primary;
+        display: inline-block;
+        font-weight: v.$weight-black;
+        font-size: 3.5rem;
+    }
+
+    &__user-root{
+        @include mixins.btn(v.$color-violet, 1.8rem, 4.5rem, 1.8rem);
+    }
+}
