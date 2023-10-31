@@ -15,12 +15,26 @@
     &__layout {
         display: grid;
         place-items: center;
+        width: 100%;
+        max-width: 50rem;
     }
 
     &__form {
-        padding-top: 5rem;
+        padding-top: 3rem;
         display: grid;
         gap: 2rem;
+        width: 100%;
+
+        &__invalid-text{
+            color: transparent;
+            font-weight: v.$weight-800;
+            transition: .3s ease-in-out;
+            height: 2.1rem;
+            font-size: 1.8rem;
+            &--active{
+                color: v.$color-red;
+            }
+        }
 
         &__content-inputs {
             display: grid;
@@ -33,12 +47,28 @@
             text-transform: capitalize;
         }
 
+        &__input__box{
+            position: relative;
+
+            &__img{
+                position: absolute;
+                width: 3rem;
+                top: 24%;
+                right: 1rem;
+                cursor: pointer;
+            }
+        }
+
         &__input{
             padding: 1.5rem;
             width: 45rem;
             border: none;
             border-radius: v.$b-radius-input;
             background-color: v.$color-white;
+            width: 100%;
+            &--password{
+                padding-right: 5rem;
+            }
         }
 
         &__buttons{

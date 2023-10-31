@@ -1,4 +1,3 @@
-
 const FormInputs = ({ title = "", type = "text"}) => {
   return (
     <div className="login__form__content-inputs">

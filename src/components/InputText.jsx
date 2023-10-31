@@ -1,6 +1,10 @@
-import React from 'react'
+const InputText = ({ title = '', changeData = '', name = '', value = '' }) => {
 
-const InputText = ({title = ''}) => {
+  const writingData = (e) => {
+    const { value, name } = e.target;
+    changeData(value, name);
+  };
+
   return (
     <>
 
@@ -14,8 +18,11 @@ const InputText = ({title = ''}) => {
       <input
         type="text"
         id={title}
-        placeholder={`escribe tu ${title}:`}
+        placeholder={`Escribe tu ${title}:`}
         className="login__form__input"
+        onChange={writingData}
+        name={name}
+        value={value}
       />
 
     </>

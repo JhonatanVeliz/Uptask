@@ -4,6 +4,10 @@
 // COMPONENTS
 @use './nav';
 @use './login';
+@use './dashboard';
+@use './newProyect';
+@use './section';
+@use './modal';
 
 // CODE
 body{
