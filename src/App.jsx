@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import NewProject from "./pages/NewProject";
 
 import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
+import MicroTasks from "./pages/MicroTasks";
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
           <Route element={<ProtectedRoute isAllowed={user} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/new-project/:user" element={<NewProject />} />
+            <Route path="/tasks" element={<MicroTasks />} />
           </Route>
 
           <Route path="*" element={

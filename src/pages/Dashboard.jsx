@@ -60,7 +60,7 @@ const Dashboard = () => {
           stateProjects.map( ( project, index ) => (
             <CardsDashboard 
               key={index} 
-              routeTo={`/`} 
+              routeTo={`/tasks`} 
               title={project.project}
               description={project.description}
             />
