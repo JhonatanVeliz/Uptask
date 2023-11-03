@@ -25,23 +25,24 @@
             max-width: 100%;
             padding: 3rem 2rem;
             border-radius: .5rem;
-            gap: 2rem;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
             overflow: auto;
             cursor: pointer;
-            background-color: v.$color-blue;
+            background-color: #00AAFF20;
             color: v.$color-white;
+            z-index: 10;
 
             &:hover{
-                opacity: .8;
+                opacity: .9;
             }
 
             h3{
                 font-size: 2.5rem;
                 text-align: center;
                 text-transform: capitalize;
+                padding-bottom: 2rem;
             }
 
             p{

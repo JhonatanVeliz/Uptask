@@ -25,7 +25,7 @@ const App = () => {
           <Route element={<ProtectedRoute isAllowed={user} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/new-project/:user" element={<NewProject />} />
-            <Route path="/tasks" element={<MicroTasks />} />
+            <Route path="/tasks/:id" element={<MicroTasks />} />
           </Route>
 
           <Route path="*" element={

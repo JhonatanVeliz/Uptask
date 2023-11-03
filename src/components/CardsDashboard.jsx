@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-const CardsDashboard = ({ routeTo = '/dashboard', title = '', description = '' }) => {
+const CardsDashboard = ({ routeTo = '/dashboard', title = '', description = '', id = '' }) => {
+
   return (
 
     <NavLink to={routeTo} className="dashboard__container__card">

@@ -3,9 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createProject } from "../features/projects/projectsSlice";
 
+// Components
 import FormTextArea from "../components/FormTextArea";
 import MessageError from "../components/MessageError";
 import InputText from "../components/InputText";
+
+// Helpers
+import { generatorId } from "../helpers/index";
 
 const NewProject = () => {
 
@@ -29,8 +33,9 @@ const NewProject = () => {
       setInvalidText({ invalid : true, text : 'Todos los campos son obligatorios' });
       return;
     }
-
-    dispatch(createProject(data));
+    
+    const projectData = { ...data, id : generatorId() };
+    dispatch(createProject(projectData));
     setData(initialStateData);
     return navigate('/dashboard');
   }

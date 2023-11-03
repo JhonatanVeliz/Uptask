@@ -1,15 +1,19 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // COMPONENTS
 import CardsDashboard from "../components/CardsDashboard";
 import Modal from "../components/Modal";
-import { useEffect, useState } from "react";
+
+// SLICE
+import { deleteProject } from "../features/projects/projectsSlice";
 
 const Dashboard = () => {
 
   const user = useSelector(state => state.login.user);
   const stateProjects = useSelector( state => state.projects );
+  const dispatch = useDispatch();
 
   const initialStateModal = false;
   const [showModal, setShowModal] = useState(initialStateModal);
@@ -43,6 +47,10 @@ const Dashboard = () => {
     localStorage.removeItem('warning');
   }
 
+  const removeProject = projectId => {
+    dispatch(deleteProject(projectId));
+  }
+
   return (
     <section className='section dashboard'>
 
@@ -57,21 +65,21 @@ const Dashboard = () => {
         </div>
 
         {
-          stateProjects.map( ( project, index ) => (
+          stateProjects.map( ( project ) => (
             <CardsDashboard 
-              key={index} 
-              routeTo={`/tasks`} 
+              key={project.id} 
+              routeTo={`/tasks/${project.id}`} 
               title={project.project}
               description={project.description}
+              id={ project.id }
             />
           ))
         }
-
       </div>
 
       {
         showModal
-          ? <Modal title="Advertencia" text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
+          ? <Modal title="Advertencia" text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta totalmente gratuita para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
             removeModal={removeModal}
           />
           : null
