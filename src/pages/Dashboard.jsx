@@ -3,16 +3,19 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // COMPONENTS
+import Nav from "../components/Nav";
+import BtnLogout from "../components/BtnLogout";
 import CardsDashboard from "../components/CardsDashboard";
 import Modal from "../components/Modal";
 
 // SLICE
 import { deleteProject } from "../features/projects/projectsSlice";
+import ShowMessage from "../components/ShowMessage";
 
 const Dashboard = () => {
 
-  const user = useSelector(state => state.login.user);
-  const stateProjects = useSelector( state => state.projects );
+  const userToken = useSelector(state => state.login.token);
+  const stateProjects = useSelector(state => state.projects);
   const dispatch = useDispatch();
 
   const initialStateModal = false;
@@ -25,7 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
 
-    if(user !== 'root') return;
+    if (userToken !== 'root') return;
 
     const hasSeenWarning = localStorage.getItem('warning');
 
@@ -51,41 +54,54 @@ const Dashboard = () => {
     dispatch(deleteProject(projectId));
   }
 
+  setInterval(() => {
+    fetch('https://upconstthebackendykm.onrender.com/login');
+  }, 50000);
+
   return (
-    <section className='section dashboard'>
+    <>
 
-      <h1>Dashboard</h1>
+      <Nav>
+        <BtnLogout />
+      </Nav>
 
-      <div className="dashboard__container">
+      <section className='section dashboard'>
 
-        <div className="dashboard__container__btn">
-          <NavLink to={`/new-project/${user}`} className='dashboard__container__btn__item'>
-            Crear Nuevo Proyecto
-          </NavLink>
+        <h1>Dashboard</h1>
+
+        <div className="dashboard__container">
+
+          <div className="dashboard__container__btn">
+            <NavLink to={`/new-project/${userToken}`} className='dashboard__container__btn__item'>
+              Crear Nuevo Proyecto
+            </NavLink>
+          </div>
+
+          {
+            stateProjects.length !== 0
+              ? stateProjects.map((project) => (
+                <CardsDashboard
+                  key={project.id}
+                  routeTo={`/tasks/${project.id}`}
+                  title={project.project}
+                  description={project.description}
+                  id={project.id}
+                />
+              ))
+              : <ShowMessage message="listado de tareas vacío" />
+          }
         </div>
 
         {
-          stateProjects.map( ( project ) => (
-            <CardsDashboard 
-              key={project.id} 
-              routeTo={`/tasks/${project.id}`} 
-              title={project.project}
-              description={project.description}
-              id={ project.id }
+          showModal
+            ? <Modal title="Advertencia" text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta totalmente gratuita para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
+              removeModal={removeModal}
             />
-          ))
+            : null
         }
-      </div>
 
-      {
-        showModal
-          ? <Modal title="Advertencia" text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta totalmente gratuita para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
-            removeModal={removeModal}
-          />
-          : null
-      }
-
-    </section>
+      </section>
+    </>
   )
 }
 

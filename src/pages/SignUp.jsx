@@ -4,25 +4,25 @@ import { NavLink, useNavigate } from "react-router-dom";
 // REDUX TOOLKIT
 import { useDispatch, useSelector } from "react-redux";
 
+// HELPERS
+import { verifyData } from "../helpers";
+import { createUser } from "../data/login";
+
 // Components
 import Nav from "../components/Nav";
 import BtnNotLogin from "../components/BtnNotLogin";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
+import InputFileImg from "../components/inputFileImg";
 import MessageError from "../components/MessageError";
 import { login as loginSlice } from "../features/login/loginSlice";
-
-// HELPERS
-import { userLogin } from "../data/login";
-import { verifyData } from "../helpers";
+// import useFetchLogin from "../hooks/useFetchLogin";
 
 const Login = () => {
 
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
-  const initialState = { password: '', email: '' }
+  const initialState = { name: '', password: '', email: '' }
   const [data, setData] = useState(initialState);
   const [invalidText, setInvalidText] = useState({ invalid: false, text: '' });
 
@@ -30,8 +30,9 @@ const Login = () => {
     setData({ ...data, [name]: value });
   }
 
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
 
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const verifiedData = verifyData(data);
@@ -45,30 +46,20 @@ const Login = () => {
       return setInvalidText(verifiedData);
     }
 
-    fetchUser(data)
-  }
-
-  const fetchUser = async (userData) => {
-
     try {
-      const token = await userLogin(`https://upconstthebackendykm.onrender.com/login`, userData);
-      dispatch(loginSlice(token));
+      const createdUser = await createUser('https://upconstthebackendykm.onrender.com/sign_up', data);
+      console.log(createdUser, 'usuario creado');
     }
     catch (error) {
-      setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });
-      console.log(error);
+      setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });
       return;
     }
 
+    dispatch(loginSlice(data));
+    localStorage.setItem('user', JSON.stringify(data.name));
+    setData(initialState)
     navigate('/dashboard');
   }
-
-  useEffect(() => {
-
-    const userData = JSON.parse(localStorage.getItem('userData')) || null;
-    if (userData) fetchUser(userData);
-
-  }, [])
 
   return (
     <>
@@ -76,11 +67,11 @@ const Login = () => {
         <BtnNotLogin />
       </Nav>
 
-      <div className='login'>
+      <section className='login'>
 
         <div className="login__layout">
 
-          <h2 className='login__title'>Iniciar Sesión</h2>
+          <h2 className='login__title'>Crea Una Cuenta</h2>
 
           <form className="login__form" onSubmit={handleSubmit}>
 
@@ -95,6 +86,13 @@ const Login = () => {
                 value={data.email}
               />
 
+              <InputText
+                title="nombre"
+                changeData={changeData}
+                name="name"
+                value={data.name}
+              />
+
               <InputPassword
                 title="contraseña"
                 changeData={changeData}
@@ -104,19 +102,25 @@ const Login = () => {
             </div>
 
             <div className="login__form__buttons">
-              <NavLink to="/signup" className="login__form__btn-red">Crea una cuenta</NavLink>
-              <button type="submit" className="login__form__btn-login">Ingesar</button>
+
+              {/* <InputFileImg 
+                fileValue={ data.file } 
+                changeData={ changeData }
+              /> */}
+
+              <button type="submit" className="login__form__btn-login">Crear</button>
+
             </div>
 
           </form>
 
-          <NavLink to={'/'} className="login__remember-password">
-            Olvide mi contraseña
+          <NavLink to={'/login'} className="login__remember-password">
+            Ya Tengo Una Cuenta
           </NavLink>
 
         </div>
 
-      </div>
+      </section>
 
     </>
   )

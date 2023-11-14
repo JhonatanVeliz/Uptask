@@ -1,0 +1,18 @@
+ @use '../abstracts/variables' as v;
+
+ .message__info{
+
+    width: 100%;
+    display: grid;
+    grid-column: 1 / -1;
+    justify-content: center;
+
+    p{
+        text-align: center;
+        padding: 2rem 0;
+        font-size: 5rem;
+        text-transform: capitalize;
+        font-weight: v.$weight-800;
+    }
+
+ }

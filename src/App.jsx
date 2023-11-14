@@ -1,38 +1,47 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Nav from "./components/Nav";
+// PAGES
+import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NewProject from "./pages/NewProject";
-
-import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
 import MicroTasks from "./pages/MicroTasks";
+
+// COMPONENTS
+import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
 
 const App = () => {
 
-  const user = useSelector( state => state.login.user );
+  const userToken = useSelector(state => state.login.token);
 
   return (
     <BrowserRouter>
       <main className="container">
 
-        <Nav />
-
         <Routes>
-          <Route index element={<Login />} />
 
-          <Route element={<ProtectedRoute isAllowed={user} />}>
+          <Route index element={
+            <ProtectedRoute isAllowed={userToken} redirectTo="/login">
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route element={<ProtectedRoute isAllowed={userToken} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/new-project/:user" element={<NewProject />} />
             <Route path="/tasks/:id" element={<MicroTasks />} />
           </Route>
 
           <Route path="*" element={
-            <ProtectedRoute isAllowed={user} redirectTo="/">
+            <ProtectedRoute isAllowed={userToken} redirectTo="/">
               <Dashboard />
             </ProtectedRoute>
           } />
+
+          <Route path="/signup" element={<SignUp />} />
 
         </Routes>
 

@@ -41,6 +41,7 @@ const InputPassword = ({ title = '', changeData = '', value = '' }) => {
           className="login__form__input login__form__input--password"
           onChange={writingData}
           name="password"
+          value={value}
         />
 
         <img 
