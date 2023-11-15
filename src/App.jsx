@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 // PAGES
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Farewell from "./pages/Farewell";
 import Dashboard from "./pages/Dashboard";
 import NewProject from "./pages/NewProject";
 import MicroTasks from "./pages/MicroTasks";
@@ -42,6 +43,7 @@ const App = () => {
           } />
 
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/farewell" element={<Farewell />} />
 
         </Routes>
 

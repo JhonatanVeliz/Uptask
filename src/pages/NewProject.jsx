@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { createProject } from "../features/projects/projectsSlice";
 
 // Components
+import Nav from "../components/Nav";
 import FormTextArea from "../components/FormTextArea";
 import MessageError from "../components/MessageError";
 import InputText from "../components/InputText";

@@ -10,7 +10,7 @@ import { createUser } from "../data/login";
 
 // Components
 import Nav from "../components/Nav";
-import BtnNotLogin from "../components/BtnNotLogin";
+import BtnNotRegistered from "../components/BtnNotRegistered";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
 import InputFileImg from "../components/inputFileImg";
@@ -63,9 +63,7 @@ const Login = () => {
 
   return (
     <>
-      <Nav>
-        <BtnNotLogin />
-      </Nav>
+      <Nav/>
 
       <section className='login'>
 

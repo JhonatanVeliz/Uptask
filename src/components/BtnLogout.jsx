@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 // SLICE
 import { useDispatch } from "react-redux";
-import { logout as logoutSlice } from "../features/login/loginSlice";
 
 // HELPERS
 import { userLogout } from "../data/login";
+import { logout as logoutSlice } from "../features/login/loginSlice";
 
 const BtnLogout = () => {
 
@@ -16,11 +16,11 @@ const BtnLogout = () => {
   const logout = async () => {
 
     const token = localStorage.getItem('token') || null;
+    navigate('/farewell');
     dispatch(logoutSlice());
 
     if (!token) {
       const deleteDataNoRegistred = localStorage.clear();
-      navigate('/');
       return;
     };
 
@@ -30,15 +30,10 @@ const BtnLogout = () => {
       console.log(error);
       return;
     }
-
-    setTimeout( () => {
-      navigate('/');
-    }, 1000)
-
   };
 
   return (
-    <button onClick={logout}>
+    <button className="login__form__btn-red" onClick={logout}>
       Cerrar Sesión
     </button>
   )

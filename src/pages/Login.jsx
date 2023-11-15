@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Nav from "../components/Nav";
-import BtnNotLogin from "../components/BtnNotLogin";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
 import MessageError from "../components/MessageError";
+
+// REDUCERS SLICE DIFFERENT STATES
 import { login as loginSlice } from "../features/login/loginSlice";
+import { modifyState } from "../features/firstVisit/firstVistiSlice";
 
 // HELPERS
 import { userLogin } from "../data/login";
@@ -19,8 +21,8 @@ import { verifyData } from "../helpers";
 const Login = () => {
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  const firtsVisitState = useSelector( state => state.firstVisit.value );
 
   const initialState = { password: '', email: '' }
   const [data, setData] = useState(initialState);
@@ -65,16 +67,21 @@ const Login = () => {
 
   useEffect(() => {
 
+    if(!firtsVisitState){
+      return;
+    }
+
+    // hace la llamada para iniciar sesion de inmediato si el usuario ya ingreso con anterioridad
     const userData = JSON.parse(localStorage.getItem('userData')) || null;
     if (userData) fetchUser(userData);
+    dispatch(modifyState(false));
 
   }, [])
 
   return (
-    <>
-      <Nav>
-        <BtnNotLogin />
-      </Nav>
+    <> 
+
+      <Nav />
 
       <div className='login'>
 

@@ -61,9 +61,7 @@ const Dashboard = () => {
   return (
     <>
 
-      <Nav>
-        <BtnLogout />
-      </Nav>
+      <Nav />
 
       <section className='section dashboard'>
 

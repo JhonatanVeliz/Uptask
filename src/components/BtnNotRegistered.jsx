@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login as loginSlice } from "../features/login/loginSlice";
 
-const BtnNotLogin = () => {
+const BtnNotRegistered = () => {
 
   const user = useSelector(state => state.login.user);
   const dispatch = useDispatch();
@@ -24,4 +24,4 @@ const BtnNotLogin = () => {
   )
 }
 
-export default BtnNotLogin
+export default BtnNotRegistered
