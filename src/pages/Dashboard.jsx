@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 // COMPONENTS
 import Nav from "../components/Nav";
-import BtnLogout from "../components/BtnLogout";
 import CardsDashboard from "../components/CardsDashboard";
 import Modal from "../components/Modal";
+import MessageWelcome from "../components/MessageWelcome";
 
 // SLICE
 import { deleteProject } from "../features/projects/projectsSlice";
@@ -20,6 +20,7 @@ const Dashboard = () => {
 
   const initialStateModal = false;
   const [showModal, setShowModal] = useState(initialStateModal);
+  const userName = localStorage.getItem('userName') || 'user root';
 
   const removeModal = () => {
     setShowModal(initialStateModal);
@@ -63,7 +64,11 @@ const Dashboard = () => {
 
       <Nav />
 
+      <MessageWelcome userName={userName} />
+
       <section className='section dashboard'>
+
+
 
         <h1>Dashboard</h1>
 
@@ -86,7 +91,7 @@ const Dashboard = () => {
                   id={project.id}
                 />
               ))
-              : <ShowMessage message="listado de tareas vacío" />
+              : <ShowMessage message="listado de proyectos vacío" />
           }
         </div>
 

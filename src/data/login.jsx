@@ -26,12 +26,14 @@ const userLogin = async (url, data) => {
   const response = await fetch(url, options);
   const json =  await response.json();
   const token = response.headers.get('Authorization');
+  const userName = await json.status.data.user.name;
 
   if (response.status !== 200 || !response.ok) throw new Error(`${response.status}`);
 
   if(token){
     localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(data));
+    localStorage.setItem('userName', userName);
     return token;
   }
 

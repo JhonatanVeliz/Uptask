@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Nav from "../components/Nav";
+import Loader from "../components/Loader";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
 import MessageError from "../components/MessageError";
@@ -27,6 +28,7 @@ const Login = () => {
   const initialState = { password: '', email: '' }
   const [data, setData] = useState(initialState);
   const [invalidText, setInvalidText] = useState({ invalid: false, text: '' });
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const changeData = (value, name) => {
     setData({ ...data, [name]: value });
@@ -44,7 +46,8 @@ const Login = () => {
         setInvalidText({ invalid: false, text: '' });
       }, 6000);
 
-      return setInvalidText(verifiedData);
+      setInvalidText(verifiedData);
+      return;
     }
 
     fetchUser(data)
@@ -52,12 +55,15 @@ const Login = () => {
 
   const fetchUser = async (userData) => {
 
+    setIsLoading(true);
+
     try {
       const token = await userLogin(`https://upconstthebackendykm.onrender.com/login`, userData);
       dispatch(loginSlice(token));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });
+      setIsLoading(false);
       console.log(error);
       return;
     }
@@ -67,13 +73,15 @@ const Login = () => {
 
   useEffect(() => {
 
-    if(!firtsVisitState){
-      return;
-    }
+    // funcion para que otro usuario pueda usar el mismo dispositivo pero con una cuenta diferente
+    if(!firtsVisitState) return;
+    
 
     // hace la llamada para iniciar sesion de inmediato si el usuario ya ingreso con anterioridad
     const userData = JSON.parse(localStorage.getItem('userData')) || null;
-    if (userData) fetchUser(userData);
+    if (userData){
+      fetchUser(userData);
+    }
     dispatch(modifyState(false));
 
   }, [])
@@ -81,9 +89,15 @@ const Login = () => {
   return (
     <> 
 
+      {
+        isLoading 
+        ? <Loader />
+        : null
+      }
+
       <Nav />
 
-      <div className='login'>
+      <section className='login'>
 
         <div className="login__layout">
 
@@ -123,7 +137,7 @@ const Login = () => {
 
         </div>
 
-      </div>
+      </section>
 
     </>
   )

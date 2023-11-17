@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-// REDUX TOOLKIT
-import { useDispatch, useSelector } from "react-redux";
-
 // HELPERS
 import { verifyData } from "../helpers";
 import { createUser } from "../data/login";
 
 // Components
 import Nav from "../components/Nav";
-import BtnNotRegistered from "../components/BtnNotRegistered";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
 import InputFileImg from "../components/inputFileImg";
 import MessageError from "../components/MessageError";
-import { login as loginSlice } from "../features/login/loginSlice";
-// import useFetchLogin from "../hooks/useFetchLogin";
 
 const Login = () => {
 
@@ -29,8 +23,6 @@ const Login = () => {
   const changeData = (value, name) => {
     setData({ ...data, [name]: value });
   }
-
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,17 +40,13 @@ const Login = () => {
 
     try {
       const createdUser = await createUser('https://upconstthebackendykm.onrender.com/sign_up', data);
-      console.log(createdUser, 'usuario creado');
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });
       return;
     }
 
-    dispatch(loginSlice(data));
-    localStorage.setItem('user', JSON.stringify(data.name));
-    setData(initialState)
-    navigate('/dashboard');
+    navigate('/login');
   }
 
   return (

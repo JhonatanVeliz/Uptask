@@ -1,12 +1,9 @@
 import { useState } from "react";
 
-import seePasword from "../assets/icons/password.png";
-import closePassword from "../assets/icons/no-password.png";
-
 const InputPassword = ({ title = '', changeData = '', value = '' }) => {
 
-  const initialState = { type: 'password', img : seePasword };
-  const secondState = { type: 'text', img : closePassword };
+  const initialState = { type: 'password', img : "/img/icons/password.png" };
+  const secondState = { type: 'text', img : "/img/icons/no-password.png" };
 
   const [ stateInput, setStateInput ] = useState(initialState);
 

@@ -3,6 +3,42 @@
 
 .dashboard{
 
+    &__welcome{
+        padding: 1.5rem 3rem;
+        background: #242C32;
+        border-radius: 1rem;
+        display: grid;
+        grid-template-areas: 
+        "icon title"
+        "icon text";
+        column-gap: 1.5rem;
+        align-items: center;
+        box-shadow: 0px 2px v.$color-primary;
+        position: fixed;
+        top: -50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: top .5s ease-in-out;
+        animation: appear 4s ease-out forwards;
+
+        &__img{
+            max-width: 4rem;
+            grid-area: icon;
+        }
+        &__title{
+            grid-area: title;
+            text-align: center;
+            font-weight: v.$weight-800;
+            padding-bottom: .7rem;
+            font-size: 2rem;
+        }
+        &__name{
+            grid-area: text;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    }
+
     &__container{
         width: 100%;
         display: grid;
@@ -50,5 +86,22 @@
                 font-size: 2rem;
             }
         }
+    }
+}
+
+@keyframes appear {
+    from{
+        top: -50%;
+    }
+    20%{
+        top: 6rem;
+    }
+    90%{
+        top: 6rem;
+        opacity: 1;
+    }
+    100%{
+        top: 6rem;
+        opacity: 0;
     }
 }

@@ -1,4 +1,3 @@
-import githubIcon from '../assets/profiles/github.png';
 
 const FarewellImg = ({ img = '', title = '', refTo = '#' }) => {
   return (
@@ -7,7 +6,7 @@ const FarewellImg = ({ img = '', title = '', refTo = '#' }) => {
       <img className='farewell__img' src={img} alt={`perfil de ${title}`} />
 
       <aside className='farewell__info'>
-        <img src={ githubIcon } alt="mini perfil" />
+        <img src="/img/profiles/github.png" alt="icono de github" />
         <span>{ title }</span>
       </aside>
 

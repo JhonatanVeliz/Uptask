@@ -3,9 +3,6 @@ import { NavLink } from 'react-router-dom';
 // Components
 import FarewellImg from '../components/FarewellImg';
 
-import profileErick from '../assets/profiles/erick.png';
-import profileJhonatan from '../assets/profiles/jhonatan.png';
-
 const Farewell = () => {
 
   return (
@@ -20,13 +17,13 @@ const Farewell = () => {
       <div className='farewell__links-content'>
 
         <FarewellImg 
-          img={ profileErick } 
+          img="/img/profiles/erick.png"
           title='Erick'
           refTo='https://github.com/kotoykm'
         />
 
         <FarewellImg 
-          img={ profileJhonatan } 
+          img="/img/profiles/jhonatan.png"
           title='Jhonatan Veliz'
           refTo='https://github.com/JhonatanVeliz'
         />
