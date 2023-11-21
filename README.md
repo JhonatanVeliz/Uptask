@@ -9,7 +9,6 @@ App made for track personal tasks over time ✨
 **Team proyect made by**
 
 <a href="https://github.com/JhonatanVeliz">@JhonatanVeliz</a> ( Frontend ) —
-<a href="https://github.com/francoarturo93">@francoarturo93</a> ( Frontend ) —
 <a href="https://github.com/kotoykm">@kotoykm</a> ( Backend )
 
 <br />
