@@ -20,7 +20,6 @@ const Dashboard = () => {
 
   const initialStateModal = false;
   const [showModal, setShowModal] = useState(initialStateModal);
-  const userName = localStorage.getItem('userName') || 'user root';
 
   const removeModal = () => {
     setShowModal(initialStateModal);
@@ -64,11 +63,9 @@ const Dashboard = () => {
 
       <Nav />
 
-      <MessageWelcome userName={userName} />
+      <MessageWelcome />
 
       <section className='section dashboard'>
-
-
 
         <h1>Dashboard</h1>
 

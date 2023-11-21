@@ -25,7 +25,7 @@ const BtnLogout = () => {
     };
 
     try {
-      await userLogout('https://upconstthebackendykm.onrender.com/logout', token);
+      await userLogout(import.meta.env.VITE_API_URL + 'logout', token);
     } catch (error) {
       console.log(error);
       return;

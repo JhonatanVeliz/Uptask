@@ -1,9 +1,19 @@
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+// REDUX
+import { useDispatch } from 'react-redux';
+import { changeMessageStatus } from '../features/messageWelcome/messageWelcomeSlice';
 
 // Components
 import FarewellImg from '../components/FarewellImg';
 
 const Farewell = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect( () => {
+    const removeMessageState = dispatch(changeMessageStatus(true));  
+  }, []);
 
   return (
     <section className="farewell">

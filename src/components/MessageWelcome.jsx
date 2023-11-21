@@ -1,23 +1,38 @@
-import { useState } from 'react';
-import imgSucces from '../assets/icons/succes.svg'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// FUNTIONALITIES SLICE
+import { changeMessageStatus } from '../features/messageWelcome/messageWelcomeSlice';
+// IMAGES
+import imgSucces from '../assets/icons/succes.svg';
+// DEFAULT VALUES
+const defaultUserName = 'userRoot';
 
-const MessageWelcome = ({ userName = 'userRoot' }) => {
+const MessageWelcome = () => {
 
-  const [isActive, setIsActive] = useState(true);
+  const [isShowMessage, setIsShowMessage] = useState(true);
+  const isShowMessageState = useSelector( state => state.isShowMessageWelcome.isShow );
+  const dispatch = useDispatch();
 
-  const removeComponent = () => {
-    setIsActive(false);
-  }
+  const userName = localStorage.getItem('userName') || 'user root';
 
-  setTimeout( () => {
-    removeComponent();
-  }, 4100);
+  const removeComponent = () => setIsShowMessage(false);
+
+  const disassembly = 4100;
+  setTimeout( removeComponent, disassembly);
+
+  useEffect(() => {
+    if (!isShowMessageState) {
+      setIsShowMessage(false)
+    };
+    dispatch(changeMessageStatus(false));  
+
+  }, [])
+  
 
   return (
-
     <>
       {
-        isActive
+        isShowMessage
           ?
           <div className="dashboard__welcome">
             <img className="dashboard__welcome__img" src={imgSucces} alt="bienvenido" />

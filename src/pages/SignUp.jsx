@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     try {
-      const createdUser = await createUser('https://upconstthebackendykm.onrender.com/sign_up', data);
+      const createdUser = await createUser( import.meta.env.VITE_API_URL + '/sign_up', data);
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });

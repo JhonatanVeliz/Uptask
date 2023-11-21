@@ -58,7 +58,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const token = await userLogin(`https://upconstthebackendykm.onrender.com/login`, userData);
+      const token = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
     }
     catch (error) {
