@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 // HELPERS
-import { verifyData } from "../helpers";
+import { verifyDataSignup } from "../helpers";
 import { createUser } from "../data/login";
 
 // Components
@@ -16,7 +16,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const initialState = { name: '', password: '', email: '' }
+  const initialState = { name: '', password: '', password2 : '', email: '' }
   const [data, setData] = useState(initialState);
   const [invalidText, setInvalidText] = useState({ invalid: false, text: '' });
 
@@ -27,19 +27,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const verifiedData = verifyData(data);
+    const verifiedData = verifyDataSignup(data);
 
     if (verifiedData.invalid) {
-
-      setTimeout(() => {
-        setInvalidText({ invalid: false, text: '' });
-      }, 6000);
-
+      const removeInvalidText = 6000;
+      setTimeout(() => setInvalidText({ invalid: false, text: '' }), removeInvalidText);
       return setInvalidText(verifiedData);
     }
 
     try {
-      const createdUser = await createUser( import.meta.env.VITE_API_URL + '/sign_up', data);
+      const newData = { name : data.name, password : data.password, email : data.email };
+      const createdUser = await createUser( import.meta.env.VITE_API_URL + '/sign_up', newData);
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });
@@ -83,6 +81,14 @@ const Login = () => {
                 title="contraseña"
                 changeData={changeData}
                 value={data.password}
+                name="password"
+              />
+
+              <InputPassword
+                title="repetir contraseña"
+                changeData={changeData}
+                value={data.password2}
+                name="password2"
               />
 
             </div>

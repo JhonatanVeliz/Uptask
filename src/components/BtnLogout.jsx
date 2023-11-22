@@ -33,7 +33,7 @@ const BtnLogout = () => {
   };
 
   return (
-    <button className="login__form__btn-red" onClick={logout}>
+    <button className="navSettings__li__btn" onClick={logout}>
       Cerrar Sesión
     </button>
   )

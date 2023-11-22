@@ -12,29 +12,24 @@ import MessageWelcome from "../components/MessageWelcome";
 import { deleteProject } from "../features/projects/projectsSlice";
 import ShowMessage from "../components/ShowMessage";
 
+// Helpers
+import { getApiConst } from "../helpers";
+
 const Dashboard = () => {
 
-  const userToken = useSelector(state => state.login.token);
-  const stateProjects = useSelector(state => state.projects);
+  const { token } = useSelector( ({ login }) => login );
+  const stateProjects = useSelector( ({projects}) => projects);
   const dispatch = useDispatch();
 
-  const initialStateModal = false;
-  const [showModal, setShowModal] = useState(initialStateModal);
-
-  const removeModal = () => {
-    setShowModal(initialStateModal);
-    localStorage.setItem('warning', JSON.stringify('false'));
-  }
+  const initialStateModal = localStorage.getItem('warning') ? false : true;
+  const [showModal, setShowModal] = useState( token !== 'root' ? false : initialStateModal );
 
   useEffect(() => {
 
-    if (userToken !== 'root') return;
+    const getDataConst = getApiConst();
 
-    const hasSeenWarning = localStorage.getItem('warning');
-
-    if (!hasSeenWarning) {
-      setShowModal(true);
-    }
+    if (token !== 'root') return;
+    localStorage.setItem('warning', JSON.stringify(true));
 
     // Agregar un event listener para que al salir el usuario se elimine su registro
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -54,10 +49,6 @@ const Dashboard = () => {
     dispatch(deleteProject(projectId));
   }
 
-  setInterval(() => {
-    fetch('https://upconstthebackendykm.onrender.com/login');
-  }, 50000);
-
   return (
     <>
 
@@ -72,7 +63,7 @@ const Dashboard = () => {
         <div className="dashboard__container">
 
           <div className="dashboard__container__btn">
-            <NavLink to={`/new-project/${userToken}`} className='dashboard__container__btn__item'>
+            <NavLink to={`/new-project/${token}`} className='dashboard__container__btn__item'>
               Crear Nuevo Proyecto
             </NavLink>
           </div>
@@ -93,11 +84,11 @@ const Dashboard = () => {
         </div>
 
         {
-          showModal
-            ? <Modal title="Advertencia" text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta totalmente gratuita para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
-              removeModal={removeModal}
+          showModal &&
+            <Modal 
+              title="Advertencia" 
+              text="Hola, por ahora estas de visita eso significa que cuando salgas no podremos guardar tus cambios y tareas. Pero puedes crear una cuenta totalmente gratuita para que podamos llevar un seguimiento de tus tareas. ¡ Espero que la aplicación sea de tu agrado !"
             />
-            : null
         }
 
       </section>

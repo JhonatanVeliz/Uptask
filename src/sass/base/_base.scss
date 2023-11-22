@@ -12,6 +12,8 @@
 @use './showMessage';
 @use './farewell';
 @use './loader';
+@use './navSettings';
+@use './editUser';
 
 // CODE
 body{
@@ -21,8 +23,8 @@ body{
 }
 
 .container{
-    padding: 3rem;
+    padding: 1.5rem 3rem;
     margin: 0 auto;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
 }

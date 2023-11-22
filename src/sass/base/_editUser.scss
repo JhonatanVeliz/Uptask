@@ -1,0 +1,65 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins';
+
+.editUser{
+    width: 100%;
+    min-height: 95vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #89789d;
+    border-radius: 1rem;
+
+    &__view{
+        width: 50%;
+        min-height: 95vh;
+        background-color: v.$color-violet;
+        padding: 10rem 5rem;
+        display: grid;
+        place-items: center;
+        border-bottom-left-radius: 2rem;
+        border-top-left-radius: 2rem;
+
+        &__img{
+            max-width: 15rem;
+        }
+
+        &__ul{
+            display: grid;
+            gap: 1rem;
+        }
+
+        &__li{
+            list-style: none;
+            font-weight: v.$weight-800;
+            font-size: 2rem;
+            width: 100%;
+            max-width: 30rem;
+            text-overflow: ellipsis;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        &__btn{
+            @include mixins.btn(v.$color-bg, 1.7rem, 5rem, 1.8rem)
+        }
+    }
+
+    &__data{
+        width: 50%;
+        height: 95vh;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        &__title{
+            display: grid;
+            place-items: center;
+            font-size: 4rem;
+            font-weight: v.$weight-800;
+            padding-bottom: 6rem;
+        }
+    }
+}

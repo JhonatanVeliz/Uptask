@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // components
-import BtnLogout from "./BtnLogout";
+import NavSettings from "./NavSettings";
 import BtnNotRegistered from "./BtnNotRegistered";
 
 const Nav = () => {
 
-  const userToken = useSelector( state => state.login.token );
+  const { token } = useSelector( ({ login }) => login );
 
   return (
     <nav className="nav">
@@ -18,8 +18,8 @@ const Nav = () => {
       </NavLink>
 
       {
-        userToken
-        ? <BtnLogout />
+        token
+        ? <NavSettings />
         : <BtnNotRegistered />
       }
 

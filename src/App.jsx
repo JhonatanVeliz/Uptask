@@ -8,13 +8,14 @@ import Farewell from "./pages/Farewell";
 import Dashboard from "./pages/Dashboard";
 import NewProject from "./pages/NewProject";
 import MicroTasks from "./pages/MicroTasks";
+import EditUser from "./pages/EditUser";
 
 // COMPONENTS
 import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
 
 const App = () => {
 
-  const userToken = useSelector(state => state.login.token);
+  const { token } = useSelector(({ login }) => login );
 
   return (
     <BrowserRouter>
@@ -23,21 +24,22 @@ const App = () => {
         <Routes>
 
           <Route index element={
-            <ProtectedRoute isAllowed={userToken} redirectTo="/login">
+            <ProtectedRoute isAllowed={token} redirectTo="/login">
               <Dashboard />
             </ProtectedRoute>
           } />
 
           <Route path="/login" element={<Login />} />
 
-          <Route element={<ProtectedRoute isAllowed={userToken} />}>
+          <Route element={<ProtectedRoute isAllowed={token} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/new-project/:user" element={<NewProject />} />
             <Route path="/tasks/:id" element={<MicroTasks />} />
+            <Route path="/editUser/:token" element={<EditUser />} />
           </Route>
 
           <Route path="*" element={
-            <ProtectedRoute isAllowed={userToken} redirectTo="/">
+            <ProtectedRoute isAllowed={token} redirectTo="/">
               <Dashboard />
             </ProtectedRoute>
           } />

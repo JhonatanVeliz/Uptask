@@ -1,0 +1,68 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins';
+
+.navSettings{
+    position: relative;
+
+    &__btn{
+        display: flex;
+        background: transparent;
+        border: none;
+        max-width: 8rem;
+        cursor: pointer;
+        z-index: 55;
+        position: relative;
+    }
+
+    &__ul{
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 35rem;
+        height: 100vh;
+        background: #242C32;
+        padding: 9rem  1rem 5rem 1rem;
+        display: grid;
+        place-items: center;
+        gap: 1rem;
+        transition: right .3s ease-in-out;
+        z-index: 20;
+        box-shadow: -1px 1px 5px #191919;
+
+        &--active{
+            right: 0;
+        }
+    }
+
+    &__li{
+        text-decoration: none;
+        list-style: none;
+        font-weight: v.$weight-800;
+        cursor: pointer;
+        font-size: 1.8rem;
+        width: 100%;
+        max-width: 30rem;
+        text-overflow: ellipsis;
+        text-align: center;
+        overflow: hidden;
+
+        a{
+            color: v.$color-white;
+        }
+
+        &:hover{
+            opacity: .9;
+        }
+
+        &__img{
+            width: 25rem;
+            height: 25rem;
+            object-fit: contain;
+        }
+
+        &__btn{
+            @include mixins.btn(v.$color-violet, 1.5rem, 3rem, 2rem)
+        }
+    }
+}

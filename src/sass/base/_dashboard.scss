@@ -20,6 +20,7 @@
         transform: translate(-50%, -50%);
         transition: top .5s ease-in-out;
         animation: appear 4s ease-out forwards;
+        z-index: 75;
 
         &__img{
             max-width: 4rem;
@@ -66,7 +67,7 @@
             word-wrap: break-word;
             overflow: auto;
             cursor: pointer;
-            background-color: #00AAFF20;
+            background-color: v.$color-bg-project;
             color: v.$color-white;
             z-index: 10;
 

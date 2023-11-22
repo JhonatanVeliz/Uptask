@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const InputPassword = ({ title = '', changeData = '', value = '' }) => {
+const InputPassword = ({ title = '', changeData = '', value = '', name = '' }) => {
 
   const initialState = { type: 'password', img : "/img/icons/password.png" };
   const secondState = { type: 'text', img : "/img/icons/no-password.png" };
@@ -37,7 +37,7 @@ const InputPassword = ({ title = '', changeData = '', value = '' }) => {
           placeholder={`Escribe tu ${title}:`}
           className="login__form__input login__form__input--password"
           onChange={writingData}
-          name="password"
+          name={name}
           value={value}
         />
 

@@ -46,38 +46,42 @@ const NewProject = () => {
   }
 
   return (
-    <div className='section new-proyect'>
+    <>
+      <Nav />
 
-      <h1>Crear un proyecto</h1>
+      <div className='section new-proyect'>
 
-      <form className="new-project__form" onSubmit={handleSubmit}>
+        <h1>Crear un proyecto</h1>
 
-        <MessageError invalid={InvalidText.invalid} text={InvalidText.text} />
+        <form className="new-project__form" onSubmit={handleSubmit}>
 
-        <InputText 
-          title="Nombre del proyecto" 
-          changeData={changeData}
-          name="project"
-          value={data.project}
-        />
+          <MessageError invalid={InvalidText.invalid} text={InvalidText.text} />
 
-        <FormTextArea 
-          title="Descripción del proyecto" 
-          name="description" 
-          changeData={changeData}
-          value={data.description}
-        />
+          <InputText 
+            title="Nombre del proyecto" 
+            changeData={changeData}
+            name="project"
+            value={data.project}
+          />
 
-        <button 
-          className="new-project__form__btn"
-          type="submit"
-        >
-          Iniciar proyecto
-        </button>
+          <FormTextArea 
+            title="Descripción del proyecto" 
+            name="description" 
+            changeData={changeData}
+            value={data.description}
+          />
 
-      </form>
+          <button 
+            className="new-project__form__btn"
+            type="submit"
+          >
+            Iniciar proyecto
+          </button>
 
-    </div>
+        </form>
+
+      </div>
+    </>
   )
 }
 

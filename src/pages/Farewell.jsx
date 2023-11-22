@@ -13,6 +13,7 @@ const Farewell = () => {
 
   useEffect( () => {
     const removeMessageState = dispatch(changeMessageStatus(true));  
+    const removeMessageWelcomeStorage = localStorage.removeItem('userName');
   }, []);
 
   return (

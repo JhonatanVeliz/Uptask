@@ -120,6 +120,7 @@ const Login = () => {
                 title="contraseña"
                 changeData={changeData}
                 value={data.password}
+                name="password"
               />
 
             </div>

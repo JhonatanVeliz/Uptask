@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Modal = ({ title = '', text = '', removeModal = '' }) => {
+const Modal = ({ title = '', text = '' }) => {
+
+  const [isShow, setIsShow] = useState(true);
+
+  const removeModal = () => {
+    setIsShow(!isShow);
+  };
+
   return (
-    <aside className='modal'>
+    <>
+      {
+        isShow &&
+        <aside className='modal'>
 
-      <div className="modal__content">
+          <div className="modal__content">
 
-        <h2>{title}</h2>
-        <p>{text}</p>
+            <h2>{title}</h2>
+            <p>{text}</p>
 
-        <button onClick={removeModal}>
-          aceptar
-        </button>
+            <button onClick={removeModal}>
+              aceptar
+            </button>
 
-      </div>
+          </div>
 
-    </aside>
+        </aside>
+      }
+    </>
   )
 }
 

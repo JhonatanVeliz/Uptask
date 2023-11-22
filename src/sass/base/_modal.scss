@@ -11,6 +11,7 @@
     display: grid;
     place-items: center;
     color: v.$color-bg;
+    z-index: 70;
 
     &__content{
         width: 90%;
