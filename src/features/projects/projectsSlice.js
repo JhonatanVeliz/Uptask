@@ -4,7 +4,6 @@ const initialState = [];
 
 export const projectSlice = createSlice({
     name : 'projects',
-
     initialState,
     reducers: {
         createProject : (state, actions) => {
@@ -20,5 +19,4 @@ export const projectSlice = createSlice({
 })
 
 export const { createProject, deleteProject } = projectSlice.actions;
-
 export default projectSlice.reducer;

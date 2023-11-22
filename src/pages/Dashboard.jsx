@@ -19,6 +19,7 @@ const Dashboard = () => {
 
   const { token } = useSelector( ({ login }) => login );
   const stateProjects = useSelector( ({projects}) => projects);
+  const { userData } = useSelector( ({ user }) => user);
   const dispatch = useDispatch();
 
   const initialStateModal = localStorage.getItem('warning') ? false : true;

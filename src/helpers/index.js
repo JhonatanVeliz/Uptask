@@ -46,13 +46,13 @@ const verifyDataSignup = ( data ) => {
     return { invalid: true, text: 'tu contraseña no coicide' };
   }
 
-  if(name.includes('')) return { invalid : true, text : 'Tu nombre se encuentra vacío' };
+  if(name === '') return { invalid : true, text : 'Tu nombre se encuentra vacío' };
 
   return { invalid: false, text: '' };
 }
 
 const fetchData = async () => {
-    const response = await fetch('https://upconstthebackendykm.onrender.com/login');
+    const response = await fetch( import.meta.env.VITE_API_URL + '/login');
 };
 
 const getApiConst = () => {

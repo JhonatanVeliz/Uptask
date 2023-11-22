@@ -1,4 +1,5 @@
 // REACT UTILITIES
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -6,7 +7,7 @@ import { useSelector } from "react-redux";
 import NavSettings from "./NavSettings";
 import BtnNotRegistered from "./BtnNotRegistered";
 
-const Nav = () => {
+const Nav = React.memo(() => {
 
   const { token } = useSelector( ({ login }) => login );
 
@@ -25,6 +26,6 @@ const Nav = () => {
 
     </nav>
   )
-}
+})
 
 export default Nav

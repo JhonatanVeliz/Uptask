@@ -13,7 +13,8 @@ import MessageError from "../components/MessageError";
 
 // REDUCERS SLICE DIFFERENT STATES
 import { login as loginSlice } from "../features/login/loginSlice";
-import { modifyState } from "../features/firstVisit/firstVistiSlice";
+import { modifyState as modifyFisrtVisit } from "../features/firstVisit/firstVistiSlice";
+import { changeUserState } from "../features/user/userSlice";
 
 // HELPERS
 import { userLogin } from "../data/login";
@@ -50,7 +51,7 @@ const Login = () => {
       return;
     }
 
-    fetchUser(data)
+    fetchUser(data);
   }
 
   const fetchUser = async (userData) => {
@@ -60,6 +61,7 @@ const Login = () => {
     try {
       const token = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
+      dispatch(changeUserState({ ...userData, isRegistered : true}));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });
@@ -82,7 +84,7 @@ const Login = () => {
     if (userData){
       fetchUser(userData);
     }
-    dispatch(modifyState(false));
+    dispatch(modifyFisrtVisit(false));
 
   }, [])
 

@@ -37,7 +37,7 @@ const Login = () => {
 
     try {
       const newData = { name : data.name, password : data.password, email : data.email };
-      const createdUser = await createUser( import.meta.env.VITE_API_URL + '/sign_up', newData);
+      const createdUser = await createUser( import.meta.env.VITE_API_URL + 'sign_up', newData);
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });
