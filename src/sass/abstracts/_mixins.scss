@@ -9,6 +9,7 @@
     background-color: $color;
     font-weight: v.$weight-800;
     font-size: $size;
+    text-align: center;
 }
 
 @mixin title($size){

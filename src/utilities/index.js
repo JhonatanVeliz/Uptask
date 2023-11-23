@@ -1,0 +1,1 @@
+export const disassemblyTime = 4100;

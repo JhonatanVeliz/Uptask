@@ -55,7 +55,7 @@
         }
 
         &__btn{
-            @include mixins.btn(v.$color-bg, 1.7rem, 5rem, 1.8rem)
+            @include mixins.btn(v.$color-bg, 1.7rem, 5rem, 1.8rem);
         }
     }
 
@@ -74,6 +74,13 @@
             font-size: 4rem;
             font-weight: v.$weight-800;
             padding-bottom: 6rem;
+        }
+
+        &__img{
+            display: none;
+            &__label{
+                @include mixins.btn(v.$color-bg-project, 1.7rem, 5rem, 1.8rem);
+            }
         }
     }
 }

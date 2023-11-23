@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import Nav from "../components/Nav";
 
 const MicroTasks = () => {
 
@@ -10,11 +11,15 @@ const MicroTasks = () => {
   const project = state.find( projectItem => projectItem.id == id );
 
   return (
-    <div className="viewTask section">
-        
-        <h1 className="viewTask__title">{ project.project }</h1>
+    <>
+      <Nav />
 
-    </div>
+      <div className="viewTask section">
+          
+          <h1 className="viewTask__title">{ project.project }</h1>
+
+      </div>
+    </>
   )
 }
 

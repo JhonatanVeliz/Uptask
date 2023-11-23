@@ -59,9 +59,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const token = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
+      const {token, userName} = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
-      dispatch(changeUserState({ ...userData, isRegistered : true}));
+      dispatch(changeUserState({ ...userData, name : userName, isRegistered : true}));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });

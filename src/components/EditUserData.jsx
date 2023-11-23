@@ -1,5 +1,6 @@
 import InputText from "./InputText";
-import imgPerfil from '../../public/img/profiles/user-perfil.svg';
+
+import InputImg from "./InputImg";
 
 const EditUserData = ({ changeDataUser = () => {}, user = {} }) => {
 
@@ -11,16 +12,10 @@ const EditUserData = ({ changeDataUser = () => {}, user = {} }) => {
 
     if(!file.type.includes('image')) return;
 
-    if (file) {
       const reader = new FileReader(); // Crear un lector de archivos
-
-      reader.onloadend = () => {
-        // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
-        changeDataUser(reader.result, 'img');
-      };
-
+      // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
+      reader.onloadend = () => changeDataUser(reader.result, 'img');
       reader.readAsDataURL(file); // Convertir el archivo a una URL base64
-    }
   }
 
   return (
@@ -42,7 +37,11 @@ const EditUserData = ({ changeDataUser = () => {}, user = {} }) => {
           value={ password }
         />
 
-        <input type="file" onChange={handleFileChange}/>
+        <InputImg 
+          handleFileChange={ handleFileChange }
+          title="Ingresar una imagen"
+          id="editUser-img"
+        />
 
     </form>
   )

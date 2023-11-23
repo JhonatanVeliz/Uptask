@@ -34,7 +34,7 @@ const userLogin = async (url, data) => {
     localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(data));
     localStorage.setItem('userName', userName);
-    return token;
+    return {token, userName};
   }
 
 }

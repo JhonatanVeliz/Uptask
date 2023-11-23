@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-const Modal = ({ title = '', text = '' }) => {
+const Modal = ({ title = '', text = '', initialState = true }) => {
 
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(initialState);
 
   const removeModal = () => {
     setIsShow(!isShow);
