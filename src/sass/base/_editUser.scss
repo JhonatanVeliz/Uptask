@@ -36,6 +36,19 @@
 
         &__img{
             max-width: 15rem;
+            position: relative;
+            
+            &__label{
+                position: absolute;
+                top: -2rem;
+                right: -5.5rem;
+                width: 5rem;
+                height: 5rem;
+                cursor: pointer;
+                background: v.$color-bg;
+                padding: .8rem;
+                border-radius: 1rem;
+            }
         }
 
         &__ul{
@@ -55,6 +68,7 @@
         }
 
         &__btn{
+            margin-top: 4rem;
             @include mixins.btn(v.$color-bg, 1.7rem, 5rem, 1.8rem);
         }
     }
@@ -78,9 +92,6 @@
 
         &__img{
             display: none;
-            &__label{
-                @include mixins.btn(v.$color-bg-project, 1.7rem, 5rem, 1.8rem);
-            }
         }
     }
 }

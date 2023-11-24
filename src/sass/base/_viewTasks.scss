@@ -1,0 +1,22 @@
+@use '../abstracts/variables' as v;
+
+.viewTask{
+
+    &__title{
+        text-transform: capitalize;
+    }
+
+    &__text{
+        font-size: 1.8rem;
+        font-weight: v.$weight-800;
+        text-align: left;
+        width: 100%;
+        display: flex;
+        padding: 2rem 0;
+        color: v.$color-bg-task;
+        span{
+            padding-left: 1rem;
+            color: v.$color-violet;
+        }
+    }
+}

@@ -6,7 +6,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Farewell from "./pages/Farewell";
 import Dashboard from "./pages/Dashboard";
-import NewProject from "./pages/NewProject";
+import NewMacroTask from "./pages/NewMacroTask";
 import MicroTasks from "./pages/MicroTasks";
 import EditUser from "./pages/EditUser";
 
@@ -33,7 +33,7 @@ const App = () => {
 
           <Route element={<ProtectedRoute isAllowed={token} />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/new-project/:user" element={<NewProject />} />
+            <Route path="/new-project/:user" element={<NewMacroTask />} />
             <Route path="/tasks/:id" element={<MicroTasks />} />
             <Route path="/editUser/:token" element={<EditUser />} />
           </Route>

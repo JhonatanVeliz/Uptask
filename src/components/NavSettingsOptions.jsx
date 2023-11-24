@@ -6,10 +6,9 @@ import img from '../../public/img/profiles/user-perfil.svg';
 
 const NavSettingsOptions = ({ isShow = false }) => {
 
-  const token = localStorage.getItem('token');
+  const { token } = useSelector( ({ login }) => login );
   const userDefault = { email: ' no registrado ', name: 'user root' };
-  const { userData } = useSelector( ({ user }) => user );
-  const userName = localStorage.getItem('userName') || userDefault.name;
+  const { email, name } = useSelector( ({ user }) => user.userData );
 
   return (
     <ul className={`navSettings__ul ${isShow ? 'navSettings__ul--active' : ''}`}>
@@ -19,20 +18,22 @@ const NavSettingsOptions = ({ isShow = false }) => {
       </li>
 
       {
-        token &&
+        token !== 'root'
+        ?
         <li className="navSettings__li" >
           <Link to={`/editUser/${token}`}>
             Editar mi perfil
           </Link>
         </li>
+        : null
       }
 
       <li className="navSettings__li" >
-        {userName}
+        { name || userDefault.name }
       </li>
 
       <li className="navSettings__li navSettings__li__gmail" >
-        {userData.email || userDefault.email}
+        { email || userDefault.email}
       </li>
 
       <li className="navSettings__li" >

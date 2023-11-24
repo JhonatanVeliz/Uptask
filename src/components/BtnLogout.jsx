@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 // SLICE
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // HELPERS
 import { userLogout } from "../data/login";
@@ -11,15 +11,15 @@ import { logout as logoutSlice } from "../features/login/loginSlice";
 const BtnLogout = () => {
 
   const dispatch = useDispatch();
+  const { token } = useSelector( ({ login }) => login);
   const navigate = useNavigate();
 
   const logout = async () => {
 
-    const token = localStorage.getItem('token') || null;
     navigate('/farewell');
     dispatch(logoutSlice());
 
-    if (!token) {
+    if (!token || token === 'root') {
       const deleteDataNoRegistred = localStorage.clear();
       return;
     };

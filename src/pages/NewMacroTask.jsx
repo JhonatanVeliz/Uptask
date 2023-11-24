@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createProject } from "../features/projects/projectsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { createMacroTask } from "../features/macroTasks/macroTaskSlice";
 
 // Components
 import Nav from "../components/Nav";
@@ -11,33 +11,40 @@ import InputText from "../components/InputText";
 
 // Helpers
 import { generatorId } from "../helpers/index";
+import { clearThisState } from "../utilities";
 
-const NewProject = () => {
+// FUNCTIONS API
+import { createMacroTaskApi } from "../data/macroTasks";
+
+const NewMacroTask = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id, name } = useSelector( ({ user }) => user.userData );
 
-  const initialStateData = { project : '', description: '' }
-  const [ InvalidText, setInvalidText ] = useState({ invalid : false, text : '' });
+  const initialStateData = { title : '', description: '' }
   const [ data, setData ] = useState(initialStateData);
+  const [ InvalidText, setInvalidText ] = useState({ invalid : false, text : '' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setTimeout( () => {
-      setInvalidText({ invalid: false, text: '' });
-    }, 5000);
-
+    // Se utiliza para que el usuario no cree una MacroTask vacia
     const dataClean = Object.values(data).map( eachString => eachString.trim());
 
     if(dataClean.includes('')){
       setInvalidText({ invalid : true, text : 'Todos los campos son obligatorios' });
+      setTimeout( () => setInvalidText({ invalid: false, text: '' }), clearThisState);
       return;
     }
     
-    const projectData = { ...data, id : generatorId() };
-    dispatch(createProject(projectData));
-    setData(initialStateData);
+    const macroTask = { name : data.title, user_id : id };
+
+    try {
+      const createdMacroTask = await createMacroTaskApi( import.meta.env.VITE_API_URL + `habits`, macroTask );
+      dispatch(createMacroTask(macroTask));
+    } 
+    catch (error) { console.log(error) }
     return navigate('/dashboard');
   }
 
@@ -60,8 +67,8 @@ const NewProject = () => {
           <InputText 
             title="Nombre del proyecto" 
             changeData={changeData}
-            name="project"
-            value={data.project}
+            name="title"
+            value={data.title}
           />
 
           <FormTextArea 
@@ -85,4 +92,4 @@ const NewProject = () => {
   )
 }
 
-export default NewProject
+export default NewMacroTask;

@@ -1,9 +1,22 @@
 import { Link } from 'react-router-dom';
 
-import imgPerfil from '../../public/img/profiles/user-perfil.svg';
+import InputImg from './InputImg';
+
 import imgCancel from '../assets/icons/cancel.svg';
 
-const EditUserView = ({ name = '', password = '', img = '', handleSave = () => {}}) => { 
+const EditUserView = ({ name = '', password = '', img, handleSave = () => {}, changeDataUser = () => {} }) => { 
+
+  const handleFileChange = (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file.type.includes('image')) return;
+
+    const reader = new FileReader(); // Crear un lector de archivos
+    // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
+    reader.onloadend = () => changeDataUser(reader.result, 'img');
+    reader.readAsDataURL(file); // Convertir el archivo a una URL base64
+  }
 
   return (
     <aside className='editUser__view'>
@@ -12,9 +25,12 @@ const EditUserView = ({ name = '', password = '', img = '', handleSave = () => {
         <img src={ imgCancel } alt="salir" />
       </Link>
 
-      <div className="editUser__view__img">
-        <img src={ img || imgPerfil } alt="imagen de perfil" />
-      </div>
+      <InputImg 
+        handleFileChange={ handleFileChange }
+        title="Ingresar una imagen"
+        id="editUser-img"
+        img={img}
+      />
 
       <ul className='editUser__view__ul'>
 

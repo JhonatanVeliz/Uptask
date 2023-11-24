@@ -9,18 +9,21 @@ import Modal from "../components/Modal";
 import MessageWelcome from "../components/MessageWelcome";
 
 // SLICE
-import { deleteProject } from "../features/projects/projectsSlice";
 import ShowMessage from "../components/ShowMessage";
 
 // Helpers
 import { getApiConst } from "../helpers";
+import { getMacroTasks } from "../data/macroTasks";
+import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
 
 const Dashboard = () => {
 
   const { token } = useSelector( ({ login }) => login );
-  const stateProjects = useSelector( ({projects}) => projects);
-  const { userData } = useSelector( ({ user }) => user);
+  const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks);
+  const { id } = useSelector( ({ user }) => user.userData );
   const dispatch = useDispatch();
+
+  // const [ listMacroTasks, setListMacroTasks ] = useState( [] );
 
   const initialStateModal = localStorage.getItem('warning') ? false : true;
   const [showModal, setShowModal] = useState( token !== 'root' ? false : initialStateModal );
@@ -28,8 +31,11 @@ const Dashboard = () => {
   useEffect(() => {
 
     const getDataConst = getApiConst();
+    
+    if (token !== 'root') {
+      getMacrotasksUser();
+    };
 
-    if (token !== 'root') return;
     localStorage.setItem('warning', JSON.stringify(true));
 
     // Agregar un event listener para que al salir el usuario se elimine su registro
@@ -42,12 +48,18 @@ const Dashboard = () => {
 
   }, []);
 
-  const handleBeforeUnload = () => {
-    localStorage.removeItem('warning');
+  const getMacrotasksUser = async () => {
+
+    try {
+      const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`);
+      dispatch(createMacroTasksState(macroTasks));
+    } 
+    catch (error) { console.log(error) };
+
   }
 
-  const removeProject = projectId => {
-    dispatch(deleteProject(projectId));
+  const handleBeforeUnload = () => {
+    localStorage.removeItem('warning');
   }
 
   return (
@@ -70,14 +82,14 @@ const Dashboard = () => {
           </div>
 
           {
-            stateProjects.length !== 0
-              ? stateProjects.map((project) => (
+            stateMacroTasks.length !== 0
+              ? stateMacroTasks.map(( {id, name, description} ) => (
                 <CardsDashboard
-                  key={project.id}
-                  routeTo={`/tasks/${project.id}`}
-                  title={project.project}
-                  description={project.description}
-                  id={project.id}
+                  key={id}
+                  routeTo={`/tasks/${id}`}
+                  name={name}
+                  description={description}
+                  id={id}
                 />
               ))
               : <ShowMessage message="listado de proyectos vacío" />

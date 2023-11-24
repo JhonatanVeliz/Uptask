@@ -25,6 +25,7 @@ const EditUser = () => {
       setIsThereError(true);
       setTimeout( () => setIsThereError(false), disassemblyTime );
     }
+    console.log(user);
   }
 
   return (
@@ -40,7 +41,8 @@ const EditUser = () => {
       }
 
       <EditUserData
-        changeDataUser={changeDataUser}
+        changeDataUser={ changeDataUser }
+        handleSave={handleSave}
         user={user}
       />
 
@@ -48,7 +50,8 @@ const EditUser = () => {
         name={user.name}
         img={user.img}
         password={user.password}
-        handleSave={handleSave}
+        changeDataUser={ changeDataUser }
+        handleSave={ handleSave }
       />
 
     </div>

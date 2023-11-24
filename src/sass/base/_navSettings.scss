@@ -30,8 +30,24 @@
         z-index: 20;
         box-shadow: -1px 1px 5px #191919;
 
+        @media screen and (min-width: 700px) {
+            padding:  3rem  1rem 3rem 1rem;
+            height: auto;
+            top: 10rem;
+            right: 10rem;
+            border-radius: 1rem;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            z-index: -1;
+        }
+        
         &--active{
             right: 0;
+            @media screen and (min-width: 700px) {
+                right: 10rem;
+                opacity: 1;
+                z-index: 60;
+            }
         }
     }
 
@@ -59,6 +75,10 @@
             width: 25rem;
             height: 25rem;
             object-fit: contain;
+            @media screen and (min-width: 700px) {
+                max-width: 10rem;
+                max-height: 10rem;
+            }
         }
 
         &__btn{

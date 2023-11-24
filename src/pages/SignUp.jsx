@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 // HELPERS
 import { verifyDataSignup } from "../helpers";
+import { removeMessageError } from "../utilities";
 import { createUser } from "../data/login";
 
 // Components
@@ -30,9 +31,9 @@ const Login = () => {
     const verifiedData = verifyDataSignup(data);
 
     if (verifiedData.invalid) {
-      const removeInvalidText = 6000;
-      setTimeout(() => setInvalidText({ invalid: false, text: '' }), removeInvalidText);
-      return setInvalidText(verifiedData);
+      setTimeout(() => setInvalidText({ invalid: false, text: '' }), removeMessageError);
+      setInvalidText(verifiedData);
+      return;
     }
 
     try {

@@ -7,8 +7,12 @@ const MicroTasks = () => {
 
   const { id } = useParams();
 
-  const state = useSelector( state => state.projects );
-  const project = state.find( projectItem => projectItem.id == id );
+  const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
+  const { name, created_at, updated_at, user_id } = stateMacroTasks.find( macroTask => macroTask.id == id );
+  console.log(name, created_at, updated_at, user_id);
+
+  const createdDate = created_at.slice(0, 10);
+  console.log(createdDate);
 
   return (
     <>
@@ -16,7 +20,11 @@ const MicroTasks = () => {
 
       <div className="viewTask section">
           
-          <h1 className="viewTask__title">{ project.project }</h1>
+          <h1 className="viewTask__title">{ name }</h1>
+          <p className="viewTask__text">
+            { 'Macro Tarea creada :'}
+            <span>{ createdDate }</span>
+          </p>
 
       </div>
     </>

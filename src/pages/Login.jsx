@@ -19,12 +19,13 @@ import { changeUserState } from "../features/user/userSlice";
 // HELPERS
 import { userLogin } from "../data/login";
 import { verifyData } from "../helpers";
+import { removeMessageError } from "../utilities";
 
 const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const firtsVisitState = useSelector( state => state.firstVisit.value );
+  const firtsVisitState = useSelector( ({firstVisit}) => firstVisit.value );
 
   const initialState = { password: '', email: '' }
   const [data, setData] = useState(initialState);
@@ -42,11 +43,7 @@ const Login = () => {
     const verifiedData = verifyData(data);
 
     if (verifiedData.invalid) {
-
-      setTimeout(() => {
-        setInvalidText({ invalid: false, text: '' });
-      }, 6000);
-
+      setTimeout(() => setInvalidText({ invalid: false, text: '' }), removeMessageError);
       setInvalidText(verifiedData);
       return;
     }
@@ -59,9 +56,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const {token, userName} = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
+      const {token, name, id } = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
-      dispatch(changeUserState({ ...userData, name : userName, isRegistered : true}));
+      dispatch(changeUserState({ ...userData, name, id, isRegistered : true}));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });
