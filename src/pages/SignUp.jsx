@@ -10,8 +10,8 @@ import { createUser } from "../data/login";
 import Nav from "../components/Nav";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
-import InputFileImg from "../components/inputFileImg";
 import MessageError from "../components/MessageError";
+import Loader from "../components/Loader";
 
 const Login = () => {
 
@@ -19,6 +19,7 @@ const Login = () => {
 
   const initialState = { name: '', password: '', password2 : '', email: '' }
   const [data, setData] = useState(initialState);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [invalidText, setInvalidText] = useState({ invalid: false, text: '' });
 
   const changeData = (value, name) => {
@@ -36,11 +37,14 @@ const Login = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const newData = { name : data.name, password : data.password, email : data.email };
       const createdUser = await createUser( import.meta.env.VITE_API_URL + 'sign_up', newData);
     }
     catch (error) {
+      setIsLoading(false);
       setInvalidText({ invalid: true, text: `El usuario ${data.name} no se pudo crear porfavor intentalo de nuevo cambiando algunos datos.` });
       return;
     }
@@ -50,6 +54,8 @@ const Login = () => {
 
   return (
     <>
+      { isLoading && <Loader /> }
+
       <Nav/>
 
       <section className='login'>
@@ -94,14 +100,9 @@ const Login = () => {
 
             </div>
 
-            <div className="login__form__buttons">
+            <div className="login__form__buttons__singup">
 
-              {/* <InputFileImg 
-                fileValue={ data.file } 
-                changeData={ changeData }
-              /> */}
-
-              <button type="submit" className="login__form__btn-login">Crear</button>
+              <button type="submit" className="login__form__btn-signup">Crear</button>
 
             </div>
 

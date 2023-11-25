@@ -43,7 +43,7 @@ const verifyDataSignup = ( data ) => {
   if(verifiedData.invalid) return verifiedData;
 
   if(password !== password2){
-    return { invalid: true, text: 'tu contraseña no coicide' };
+    return { invalid: true, text: 'Tu contraseña no coincide' };
   }
 
   if(name === '') return { invalid : true, text : 'Tu nombre se encuentra vacío' };

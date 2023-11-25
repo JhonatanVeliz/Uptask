@@ -11,6 +11,8 @@ const createUser = async (url, data) => {
   const json = response.json();
 
   if (response.status !== 200 || !response.ok) throw new Error(`Error al Crear el usuario ${data.name}`);
+
+  localStorage.setItem('isUserCreated', true);
   return json;
 
 }
@@ -19,22 +21,21 @@ const userLogin = async (url, data) => {
 
   const options = {
     method: 'POST',
-    body: JSON.stringify({ user : data }),
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user : data })
   };
 
   const response = await fetch(url, options);
   const json =  await response.json();
   const token = response.headers.get('Authorization');
-  const { name, id } = await json.status.data.user;
+  const { name, id, avatar_url } = await json.status.data.user;
 
   if (response.status !== 200 || !response.ok) throw new Error(`${response.status}`);
 
   if(token){
     localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(data));
-    localStorage.setItem('userName', name);
-    return {token,  name, id};
+    return {token,  name, id, avatar_url};
   }
 
 }

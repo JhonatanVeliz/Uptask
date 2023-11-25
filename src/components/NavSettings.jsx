@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import NavSettingsOptions from "./NavSettingsOptions";
-import imgSettings from '../assets/icons/settings.svg'
+import imgSettings from '../assets/icons/settings.svg';
 
 const NavSettings = () => {
 
@@ -13,7 +13,7 @@ const NavSettings = () => {
     <nav className="navSettings">
 
       <button className="navSettings__btn" onClick={changeShow}>
-        <img src={imgSettings} alt="configuración del perfil"/>
+        <img src={ imgSettings} alt="configuración del perfil"/>
       </button>
 
       <NavSettingsOptions isShow={ isShow }/>

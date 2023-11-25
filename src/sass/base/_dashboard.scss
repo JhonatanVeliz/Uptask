@@ -3,7 +3,7 @@
 
 .dashboard{
 
-    &__welcome{
+    &__welcome, &__succes{
         padding: 1.5rem 3rem;
         background: #242C32;
         border-radius: 1rem;
@@ -33,11 +33,15 @@
             padding-bottom: .7rem;
             font-size: 2rem;
         }
-        &__name{
+        &__name, &__message{
             grid-area: text;
             text-align: center;
             font-size: 1.5rem;
         }
+    }
+
+    &__succes{
+        box-shadow: 0px 2px v.$color-blue;
     }
 
     &__container{
@@ -64,6 +68,8 @@
             border-radius: .5rem;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             word-wrap: break-word;
             overflow: auto;
             cursor: pointer;

@@ -8,13 +8,13 @@ const NavSettingsOptions = ({ isShow = false }) => {
 
   const { token } = useSelector( ({ login }) => login );
   const userDefault = { email: ' no registrado ', name: 'user root' };
-  const { email, name } = useSelector( ({ user }) => user.userData );
+  const { email, name, avatar } = useSelector( ({ user }) => user.userData );
 
   return (
     <ul className={`navSettings__ul ${isShow ? 'navSettings__ul--active' : ''}`}>
 
       <li className="navSettings__li">
-        <img className="navSettings__li__img" src={img} alt="imagen del perfil" />
+        <img className="navSettings__li__img" src={ avatar || img } alt="imagen del perfil" />
       </li>
 
       {

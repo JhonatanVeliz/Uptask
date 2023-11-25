@@ -10,6 +10,7 @@ import Loader from "../components/Loader";
 import InputText from "../components/InputText";
 import InputPassword from "../components/InputPassword";
 import MessageError from "../components/MessageError";
+import MessageSucces from "../components/MessageSucces";
 
 // REDUCERS SLICE DIFFERENT STATES
 import { login as loginSlice } from "../features/login/loginSlice";
@@ -56,9 +57,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const {token, name, id } = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
+      const {token, name, id, avatar_url } = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
-      dispatch(changeUserState({ ...userData, name, id, isRegistered : true}));
+      dispatch(changeUserState({ ...userData, name, id, avatar : avatar_url, isRegistered : true}));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });
@@ -74,26 +75,22 @@ const Login = () => {
 
     // funcion para que otro usuario pueda usar el mismo dispositivo pero con una cuenta diferente
     if(!firtsVisitState) return;
-    
 
     // hace la llamada para iniciar sesion de inmediato si el usuario ya ingreso con anterioridad
     const userData = JSON.parse(localStorage.getItem('userData')) || null;
-    if (userData){
-      fetchUser(userData);
-    }
-    dispatch(modifyFisrtVisit(false));
+    if (userData) fetchUser(userData);
+    
+    return () => dispatch(modifyFisrtVisit(false));
 
-  }, [])
+  }, []);
 
   return (
     <> 
 
-      {
-        isLoading 
-        ? <Loader />
-        : null
-      }
+      { isLoading && <Loader />}
 
+      <MessageSucces title="¡ Exito !" message="Usuario Creado" id="isUserCreated" />
+      
       <Nav />
 
       <section className='login'>

@@ -1,6 +1,13 @@
-export const getMacroTasks = async ( url ) => {
+export const getMacroTasks = async ( url, token ) => {
 
-    const response = await fetch( url );
+    const options = {
+        method: 'GET', 
+        headers: {
+            'Content-Type' : 'application/json',
+            'Authorization' : token
+        }
+    }
+    const response = await fetch( url, options );
     const respJson = await response.json();
 
     if(!response.ok) throw new Error(response.status);
@@ -8,11 +15,14 @@ export const getMacroTasks = async ( url ) => {
     return respJson;
 }
 
-export const createMacroTaskApi = async ( url, macroTask ) => {
+export const createMacroTaskApi = async ( url, macroTask, token ) => {
 
     const options = {
         method : 'POST',
-        headers : {'Content-Type' : 'application/json'},
+        headers : {
+            'Content-Type' : 'application/json',
+            'Authorization' : token
+        },
         body : JSON.stringify(macroTask)
     };
 
@@ -21,9 +31,8 @@ export const createMacroTaskApi = async ( url, macroTask ) => {
 
     if(!response.ok) throw new Error(response.status);
 
-    console.log(respJson);
+    localStorage.setItem('macroTaskCreated', true);
     return respJson;
-
 }
 
 export const deleteMacroTask = async ( url ) => {

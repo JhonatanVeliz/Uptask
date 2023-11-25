@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import Nav from "../components/Nav";
+import DashboardCommits from "../components/DashboardCommits";
 
 const MicroTasks = () => {
 
@@ -12,7 +13,6 @@ const MicroTasks = () => {
   console.log(name, created_at, updated_at, user_id);
 
   const createdDate = created_at.slice(0, 10);
-  console.log(createdDate);
 
   return (
     <>
@@ -27,6 +27,8 @@ const MicroTasks = () => {
           </p>
 
       </div>
+
+      <DashboardCommits />
     </>
   )
 }

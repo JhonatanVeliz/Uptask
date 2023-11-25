@@ -7,6 +7,7 @@ import Nav from "../components/Nav";
 import CardsDashboard from "../components/CardsDashboard";
 import Modal from "../components/Modal";
 import MessageWelcome from "../components/MessageWelcome";
+import MessageSucces from "../components/MessageSucces";
 
 // SLICE
 import ShowMessage from "../components/ShowMessage";
@@ -31,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
 
     const getDataConst = getApiConst();
-    
+
     if (token !== 'root') {
       getMacrotasksUser();
     };
@@ -51,7 +52,9 @@ const Dashboard = () => {
   const getMacrotasksUser = async () => {
 
     try {
-      const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`);
+      const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
+      if(macroTasks.length === stateMacroTasks.length) return;
+
       dispatch(createMacroTasksState(macroTasks));
     } 
     catch (error) { console.log(error) };
@@ -62,12 +65,14 @@ const Dashboard = () => {
     localStorage.removeItem('warning');
   }
 
+  console.log('se renderizo dashoard');
+
   return (
     <>
 
       <Nav />
-
       <MessageWelcome />
+      <MessageSucces title="¡ Exito !" message="Macro Tarea Creada" id="macroTaskCreated"/>
 
       <section className='section dashboard'>
 

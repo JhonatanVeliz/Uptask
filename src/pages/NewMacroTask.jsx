@@ -21,8 +21,9 @@ const NewMacroTask = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id, name } = useSelector( ({ user }) => user.userData );
+  const { token } = useSelector( ({ login }) => login );
 
-  const initialStateData = { title : '', description: '' }
+  const initialStateData = { name : '', description: '' }
   const [ data, setData ] = useState(initialStateData);
   const [ InvalidText, setInvalidText ] = useState({ invalid : false, text : '' });
 
@@ -38,11 +39,11 @@ const NewMacroTask = () => {
       return;
     }
     
-    const macroTask = { name : data.title, user_id : id };
+    const macroTask = { name : data.name, user_id : id, description : data.description };
 
     try {
-      const createdMacroTask = await createMacroTaskApi( import.meta.env.VITE_API_URL + `habits`, macroTask );
-      dispatch(createMacroTask(macroTask));
+      const macroTaskCreated = await createMacroTaskApi( import.meta.env.VITE_API_URL + `habits`, macroTask, token );
+      dispatch(createMacroTask(macroTaskCreated));
     } 
     catch (error) { console.log(error) }
     return navigate('/dashboard');
@@ -67,8 +68,8 @@ const NewMacroTask = () => {
           <InputText 
             title="Nombre del proyecto" 
             changeData={changeData}
-            name="title"
-            value={data.title}
+            name="name"
+            value={data.name}
           />
 
           <FormTextArea 
