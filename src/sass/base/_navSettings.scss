@@ -8,7 +8,11 @@
         display: flex;
         background: transparent;
         border: none;
-        max-width: 8rem;
+        border-radius: 50%;
+        overflow: hidden;
+        object-fit: cover;
+        width: 8rem;
+        height: 8rem;
         cursor: pointer;
         z-index: 55;
         position: relative;

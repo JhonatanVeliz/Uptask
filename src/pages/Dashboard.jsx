@@ -82,7 +82,7 @@ const Dashboard = () => {
 
           <div className="dashboard__container__btn">
             <NavLink to={`/new-project/${token}`} className='dashboard__container__btn__item'>
-              Crear Nuevo Proyecto
+              Crear Nueva Tarea
             </NavLink>
           </div>
 
