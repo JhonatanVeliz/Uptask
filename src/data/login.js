@@ -35,7 +35,7 @@ const userLogin = async (url, user) => {
 
   if (token) {
     localStorage.setItem('token', token);
-    localStorage.setItem('userData', JSON.stringify(data));
+    localStorage.setItem('userData', JSON.stringify(user));
     return { token, name, id, avatar_url };
   }
 
