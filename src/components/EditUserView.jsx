@@ -4,7 +4,7 @@ import InputImg from './InputImg';
 
 import imgCancel from '../assets/icons/cancel.svg';
 
-const EditUserView = ({ name = '', password = '', img, handleSave = () => {}, changeDataUser = () => {} }) => { 
+const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', handleSave = () => {}, changeDataUser = () => {} }) => { 
 
   const handleFileChange = (e) => {
 
@@ -12,9 +12,11 @@ const EditUserView = ({ name = '', password = '', img, handleSave = () => {}, ch
 
     if (!file.type.includes('image')) return;
 
+    console.log(file);
     const reader = new FileReader(); // Crear un lector de archivos
     // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
-    reader.onloadend = () => changeDataUser(reader.result, 'img');
+    reader.onloadend = () => changeDataUser(reader.result, 'avatar_view');
+    reader.onloadend = () => changeDataUser(file, 'avatar');
     reader.readAsDataURL(file); // Convertir el archivo a una URL base64
   }
 
@@ -29,7 +31,7 @@ const EditUserView = ({ name = '', password = '', img, handleSave = () => {}, ch
         handleFileChange={ handleFileChange }
         title="Ingresar una imagen"
         id="editUser-img"
-        img={img}
+        img={avatar_view}
       />
 
       <ul className='editUser__view__ul'>

@@ -7,7 +7,7 @@ import imgSettings from '../assets/icons/settings.svg';
 const NavSettings = () => {
 
   const [isShow, setIsShow] = useState(false);
-  const { avatar } = useSelector( ({ user }) => user.userData)
+  const { avatar } = useSelector( ({ user }) => user.userData);
 
   const changeShow = () => setIsShow(!isShow);
 

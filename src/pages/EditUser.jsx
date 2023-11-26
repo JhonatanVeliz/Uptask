@@ -8,24 +8,34 @@ import Modal from "../components/Modal";
 
 // UTILITIES
 import { disassemblyTime } from "../utilities";
+import { updateUser } from "../data/login";
 
 const EditUser = () => {
 
-  const { name, password } = useSelector(({ user }) => user.userData);
+  const { name, password, avatar } = useSelector(({ user }) => user.userData);
+  const { token } = useSelector( ({ login }) => login );
 
-  const [user, setUser] = useState({ name, password, img: '' });
+  const [user, setUser] = useState({ name, password, avatar, avatar_view : '' });
   const [isThereError, setIsThereError] = useState(false);
 
   const changeDataUser = (value, name) => {
     setUser({ ...user, [name]: value })
   }
 
-  const handleSave = () => {
-    if (password === user.password && name === user.name && user.img == '') {
+  const handleSave = async () => {
+
+    if (password === user.password && name === user.name && user.avatar_view === avatar) {
       setIsThereError(true);
       setTimeout( () => setIsThereError(false), disassemblyTime );
+      return
     }
-    console.log(user);
+
+    try {
+      const updatedUser = await updateUser( import.meta.env.VITE_API_URL + 'sign_up', user, token);
+      console.log(updatedUser);
+      console.log('correcto');
+    } 
+    catch (error) { console.log(error); }
   }
 
   return (
@@ -48,7 +58,8 @@ const EditUser = () => {
 
       <EditUserView
         name={user.name}
-        img={user.img}
+        avatar={user.avatar}
+        avatar_view={user.avatar_view}
         password={user.password}
         changeDataUser={ changeDataUser }
         handleSave={ handleSave }
