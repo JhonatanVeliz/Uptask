@@ -32,6 +32,7 @@ const EditUser = () => {
 
     try {
       const userData = { name : user.name, password : user.password, avatar : user.avatar };
+      console.log(user.avatar);
       const updatedUser = await updateUser( import.meta.env.VITE_API_URL + 'sign_up', userData, token);
       console.log(updatedUser);
       console.log('correcto');

@@ -65,7 +65,7 @@ const userLogout = async (url, token) => {
 
 const updateUser = async (url, user, token) => {
 
-  const data = { name : user.name, password : user.password, avatar_url : user.avatar }
+  const data = { name : user.name, password : user.password, avatar : user.avatar }
 
   const options = {
     method: 'PUT',
