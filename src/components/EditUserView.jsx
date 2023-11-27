@@ -12,11 +12,12 @@ const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', hand
 
     if (!file.type.includes('image')) return;
 
-    console.log(file);
     const reader = new FileReader(); // Crear un lector de archivos
     // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
-    reader.onloadend = () => changeDataUser(reader.result, 'avatar_view');
-    reader.onloadend = () => changeDataUser(file, 'avatar');
+    reader.onloadend = () => {
+      changeDataUser(file, 'avatar');
+      changeDataUser(reader.result, 'avatar_view');
+    }
     reader.readAsDataURL(file); // Convertir el archivo a una URL base64
   }
 
@@ -31,7 +32,7 @@ const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', hand
         handleFileChange={ handleFileChange }
         title="Ingresar una imagen"
         id="editUser-img"
-        img={avatar_view}
+        avatar_view={avatar_view}
       />
 
       <ul className='editUser__view__ul'>
