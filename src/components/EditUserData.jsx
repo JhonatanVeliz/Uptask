@@ -2,10 +2,10 @@ import InputText from "./InputText";
 
 const EditUserData = ({ changeDataUser = () => {}, user = {} }) => {
 
-  const { name, password } = user;
+  const { name, password, email } = user;
 
   return (
-    <form className="editUser__data">
+    <div className="editUser__data">
 
         <legend className="editUser__data__title">Datos a Editar</legend>
 
@@ -17,13 +17,20 @@ const EditUserData = ({ changeDataUser = () => {}, user = {} }) => {
         />
 
         <InputText
+          title="email"
+          name="email"
+          changeData={changeDataUser}
+          value={ email }
+        />
+
+        <InputText
           title="contraseña"
           name="password"
           changeData={changeDataUser}
           value={ password }
         />
 
-    </form>
+    </div>
   )
 }
 

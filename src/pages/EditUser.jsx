@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { changeUserState } from "../features/user/userSlice";
 
 // COMPONENTS
 import EditUserView from "../components/EditUserView";
@@ -12,36 +14,45 @@ import { updateUser } from "../data/login";
 
 const EditUser = () => {
 
-  const { name, password, avatar } = useSelector(({ user }) => user.userData);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { name, password, email, avatar, id, isRegistered } = useSelector(({ user }) => user.userData);
   const { token } = useSelector( ({ login }) => login );
 
-  const [user, setUser] = useState({ name, password, avatar, avatar_view : '' });
+  const [user, setUser] = useState({ name, password, email,  avatar, avatar_view : '' });
+  const [ avatarView, setAvatarView ] = useState(avatar);
   const [isThereError, setIsThereError] = useState(false);
 
   const changeDataUser = (value, name) => {
-    setUser({ ...user, [name]: value })
+    setUser({ ...user, [name]: value });
   }
 
-  const handleSave = async () => {
+  const changeDataAvatarView = ( value ) => {
+    setAvatarView(value);
+  };
 
-    if (password === user.password && name === user.name && user.avatar_view === avatar) {
+  const handleSave = async (e) => {
+
+    e.preventDefault();
+
+    if (password === user.password && name === user.name && avatarView === avatar && email === user.email) {
       setIsThereError(true);
       setTimeout( () => setIsThereError(false), disassemblyTime );
       return
     }
 
     try {
-      const userData = { name : user.name, password : user.password, avatar : user.avatar };
-      console.log(user.avatar);
+      const userData = { name : user.name, password : user.password, email : user.email, avatar : user.avatar };
       const updatedUser = await updateUser( import.meta.env.VITE_API_URL + 'sign_up', userData, token);
-      console.log(updatedUser);
-      console.log('correcto');
+      dispatch(changeUserState({ ...userData, avatar : avatarView, id, isRegistered }));
     } 
     catch (error) { console.log(error); }
+    navigate('/dashboard');
   }
 
   return (
-    <div className="editUser">
+    <form className="editUser" onSubmit={handleSave} encType="multipart/form-data">
 
       {
         isThereError &&
@@ -54,20 +65,18 @@ const EditUser = () => {
 
       <EditUserData
         changeDataUser={ changeDataUser }
-        handleSave={handleSave}
         user={user}
       />
 
       <EditUserView
         name={user.name}
-        avatar={user.avatar}
-        avatar_view={user.avatar_view}
+        avatar_view={avatarView}
         password={user.password}
         changeDataUser={ changeDataUser }
-        handleSave={ handleSave }
+        changeDataAvatarView={ changeDataAvatarView }
       />
 
-    </div>
+    </form>
   )
 }
 

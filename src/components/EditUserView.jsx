@@ -4,11 +4,12 @@ import InputImg from './InputImg';
 
 import imgCancel from '../assets/icons/cancel.svg';
 
-const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', handleSave = () => {}, changeDataUser = () => {} }) => { 
+const EditUserView = ({ name = '', password = '', avatar_view = '', changeDataUser = () => {}, changeDataAvatarView = () => {} }) => { 
 
   const handleFileChange = (e) => {
 
     const file = e.target.files[0];
+    const urlFile = URL.createObjectURL(file);
 
     if (!file.type.includes('image')) return;
 
@@ -16,9 +17,9 @@ const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', hand
     // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
     reader.onloadend = () => {
       changeDataUser(file, 'avatar');
-      changeDataUser(reader.result, 'avatar_view');
     }
     reader.readAsDataURL(file); // Convertir el archivo a una URL base64
+    changeDataAvatarView(urlFile);
   }
 
   return (
@@ -46,7 +47,7 @@ const EditUserView = ({ name = '', password = '', avatar, avatar_view = '', hand
         </li>
 
         <li className='editUser__view__li'>
-          <button onClick={handleSave} className='editUser__view__btn'>
+          <button type='submit' className='editUser__view__btn'>
             Guardar
           </button>
         </li>

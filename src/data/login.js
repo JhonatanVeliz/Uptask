@@ -60,30 +60,32 @@ const userLogout = async (url, token) => {
   return json;
 }
 
-// const userData = new FormData();
-// userData.append('avatar_url', avatar_url);
-
 const updateUser = async (url, user, token) => {
 
-  const data = { name : user.name, password : user.password, avatar : user.avatar }
+  const { name, password, email, avatar } = user;
+
+  console.log(avatar);
+
+  const userData = new FormData();
+  userData.append('user[name]', name);
+  userData.append('user[password]', password);
+  userData.append('user[avatar]', avatar);
 
   const options = {
     method: 'PUT',
     headers: {
-      'Content-type' : 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify( { user : data } )
+    body: userData
   }
 
   const response = await fetch(url, options);
-  console.log(user);
-  const respJson = await response.json();
+  console.log(response);
 
   if (!response.ok) throw new Error(response.status);
 
-  localStorage.setItem('userData', JSON.stringify(user));
-  return respJson;
+  localStorage.setItem('userData', JSON.stringify({ email, password }));
+  return;
 }
 
 export {
