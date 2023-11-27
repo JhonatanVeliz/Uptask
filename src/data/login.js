@@ -65,7 +65,7 @@ const userLogout = async (url, token) => {
 
 const updateUser = async (url, user, token) => {
 
-  console.log(user.avatar);
+  const data = { name : user.name, password : user.password, avatar_url : user.avatar }
 
   const options = {
     method: 'PUT',
@@ -73,10 +73,11 @@ const updateUser = async (url, user, token) => {
       'Content-type' : 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify( { user } )
+    body: JSON.stringify( { user : data } )
   }
 
   const response = await fetch(url, options);
+  console.log(user);
   const respJson = await response.json();
 
   if (!response.ok) throw new Error(response.status);
