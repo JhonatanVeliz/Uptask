@@ -7,6 +7,7 @@ import { changeUserState } from "../features/user/userSlice";
 import EditUserView from "../components/EditUserView";
 import EditUserData from "../components/EditUserData";
 import Modal from "../components/Modal";
+import AuthorizationRoute from "../components/protectedRoutes/AuthorizationRoute";
 
 // UTILITIES
 import { disassemblyTime } from "../utilities";
@@ -52,6 +53,10 @@ const EditUser = () => {
   }
 
   return (
+    <>
+
+    <AuthorizationRoute />
+
     <form className="editUser" onSubmit={handleSave} encType="multipart/form-data">
 
       {
@@ -77,6 +82,7 @@ const EditUser = () => {
       />
 
     </form>
+    </>
   )
 }
 

@@ -65,14 +65,12 @@ const Dashboard = () => {
     localStorage.removeItem('warning');
   }
 
-  console.log('se renderizo dashoard');
-
   return (
     <>
 
       <Nav />
       <MessageWelcome />
-      <MessageSucces title="¡ Exito !" message="Macro Tarea Creada" id="macroTaskCreated"/>
+      <MessageSucces title="¡ Exito !" message="Nueva Tarea Creada" id="macroTaskCreated"/>
 
       <section className='section dashboard'>
 

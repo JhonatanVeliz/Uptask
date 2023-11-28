@@ -1,4 +1,3 @@
-
 const createUser = async (url, data) => {
 
   const options = {
@@ -29,7 +28,6 @@ const userLogin = async (url, user) => {
   const json = await response.json();
   const token = response.headers.get('Authorization');
   const { name, id, avatar_url } = await json.status.data.user;
-  console.log(json.status.data.user);
 
   if (response.status !== 200 || !response.ok) throw new Error(`${response.status}`);
 

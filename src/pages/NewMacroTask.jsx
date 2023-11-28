@@ -10,7 +10,6 @@ import MessageError from "../components/MessageError";
 import InputText from "../components/InputText";
 
 // Helpers
-import { generatorId } from "../helpers/index";
 import { clearThisState } from "../utilities";
 
 // FUNCTIONS API
