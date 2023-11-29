@@ -6,22 +6,6 @@ import imgCancel from '../assets/icons/cancel.svg';
 
 const EditUserView = ({ name = '', password = '', avatar_view = '', changeDataUser = () => {}, changeDataAvatarView = () => {} }) => { 
 
-  const handleFileChange = (e) => {
-
-    const file = e.target.files[0];
-    const urlFile = URL.createObjectURL(file);
-
-    if (!file.type.includes('image')) return;
-
-    const reader = new FileReader(); // Crear un lector de archivos
-    // Cuando el archivo se carga correctamente, obtener la URL y establecerla en el estado
-    reader.onloadend = () => {
-      changeDataUser(file, 'avatar');
-    }
-    reader.readAsDataURL(file); // Convertir el archivo a una URL base64
-    changeDataAvatarView(urlFile);
-  }
-
   return (
     <aside className='editUser__view'>
 
