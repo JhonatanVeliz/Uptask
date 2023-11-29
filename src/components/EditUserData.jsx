@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import InputText from "./InputText";
 import InputImg from "./InputImg";
 
@@ -62,8 +64,13 @@ const EditUserData = ({ changeDataUser = () => {}, user = {}, avatar_view = '', 
         />
 
         <div className="editUser__data__btns">
-          <button className="editUser__data__btns__red">Cancelar</button>
+
+          <Link to="/dashboard" className="editUser__data__btns__red">
+            Cancelar
+          </Link>
+
           <button type="submit" className="editUser__data__btns__blue">Guardar</button>
+          
         </div>
 
     </div>
