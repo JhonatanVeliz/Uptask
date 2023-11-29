@@ -41,17 +41,17 @@ const EditUserData = ({ changeDataUser = () => {}, user = {}, avatar_view = '', 
         </div>
 
         <InputText
-          title="nombre"
-          name="name"
-          changeData={changeDataUser}
-          value={ name }
-        />
-
-        <InputText
           title="email"
           name="email"
           changeData={changeDataUser}
           value={ email }
+        />
+        
+        <InputText
+          title="nombre"
+          name="name"
+          changeData={changeDataUser}
+          value={ name }
         />
 
         <InputText

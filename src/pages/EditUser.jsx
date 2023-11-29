@@ -22,7 +22,8 @@ const EditUser = () => {
   const { name, password, email, avatar, id, isRegistered } = useSelector(({ user }) => user.userData);
   const { token } = useSelector(({ login }) => login);
 
-  const [user, setUser] = useState({ name, password: '', email, avatar, avatar_view: '' });
+  const userInitialState = { name, email, password: '', passwordModify : '', passwordRepit : '', avatar, avatar_view: '' }
+  const [user, setUser] = useState(userInitialState);
   const [avatarView, setAvatarView] = useState(avatar);
   const [isThereError, setIsThereError] = useState(false);
   const [isEditUser, setIsEditUser] = useState(true);
@@ -40,17 +41,24 @@ const EditUser = () => {
   }
 
   const handleSave = async (e) => {
-
     e.preventDefault();
 
-    if (password === user.password && name === user.name && avatarView === avatar && email === user.email) {
+    if ( password === user.passwordModify && name === user.name && avatarView === avatar && email === user.email) {
       setIsThereError(true);
       setTimeout(() => setIsThereError(false), disassemblyTime);
       return
     }
 
+    if(user.password == '') return;
+
+    if(user.password !== password ){
+      console.log('password diferente');
+      return;
+    }
+
     try {
-      const userData = { name: user.name, password: user.password, email: user.email, avatar: user.avatar };
+      const newPassword = user.passwordModify === '' ? password : user.passwordModify;
+      const userData = { name: user.name, password: newPassword, email: user.email, avatar: user.avatar, avatarVerify : avatar };
       const updatedUser = await updateUser(import.meta.env.VITE_API_URL + 'sign_up', userData, token);
       dispatch(changeUserState({ ...userData, avatar: avatarView, id, isRegistered }));
     }
@@ -85,7 +93,7 @@ const EditUser = () => {
               avatar_view={avatarView}
               changeDataAvatarView={changeDataAvatarView}
             />
-            : <EditUserPassword />
+            : <EditUserPassword user={user} changeDataUser={ changeDataUser } changeIsEditUser={ changeIsEditUser } />
       }
 
 

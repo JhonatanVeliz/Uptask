@@ -60,14 +60,15 @@ const userLogout = async (url, token) => {
 
 const updateUser = async (url, user, token) => {
 
-  const { name, password, email, avatar } = user;
-
-  console.log(avatar);
+  const { name, password, email, avatar, avatarVerify } = user;
 
   const userData = new FormData();
   userData.append('user[name]', name);
   userData.append('user[password]', password);
-  userData.append('user[avatar]', avatar);
+
+  if(avatar !== avatarVerify){
+    userData.append('user[avatar]', avatar);
+  }
 
   const options = {
     method: 'PUT',
@@ -78,7 +79,6 @@ const updateUser = async (url, user, token) => {
   }
 
   const response = await fetch(url, options);
-  console.log(response);
 
   if (!response.ok) throw new Error(response.status);
 
