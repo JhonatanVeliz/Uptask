@@ -7,70 +7,30 @@
     max-width: 70rem;
     margin: 0 auto;
     display: flex;
+    min-height: 90vh;
 
     &__nav{
         background: #171717;
         padding: 3rem;
-    }
 
-    &__view{
-        width: 50%;
-        height: 95vh;
-        background-color: v.$color-violet;
-        padding: 10rem 5rem;
-        display: grid;
-        place-items: center;
-        border-bottom-left-radius: 2rem;
-        border-top-left-radius: 2rem;
-        position: relative;
-        max-height: 700px;
-
-        &__cancel{
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background-color: transparent;
-            border: none;
-            max-width: 7rem;
+        &__item{
+            max-width: 8rem;
             cursor: pointer;
-        }
-
-        &__img{
-            max-width: 15rem;
-            position: relative;
-            
-            &__label{
-                position: absolute;
-                top: -2rem;
-                right: -5.5rem;
-                width: 5rem;
-                height: 5rem;
-                cursor: pointer;
-                background: v.$color-bg;
-                padding: .8rem;
-                border-radius: 1rem;
-            }
-        }
-
-        &__ul{
-            display: grid;
-            gap: 1rem;
-        }
-
-        &__li{
             list-style: none;
-            font-weight: v.$weight-800;
-            font-size: 2rem;
-            width: 100%;
-            max-width: 30rem;
-            text-overflow: ellipsis;
-            text-align: center;
-            overflow: hidden;
-        }
+            position: relative;
 
-        &__btn{
-            margin-top: 4rem;
-            @include mixins.btn(v.$color-bg, 1.7rem, 5rem, 1.8rem);
+            &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            img{
+                z-index: -1;
+            }
         }
     }
 
@@ -152,6 +112,21 @@
             &__blue{
                 @include mixins.btn(v.$color-blue, 1.5rem, 0, 1.8rem);
             }
+        }
+    }
+
+    &__password{
+        padding: 3rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        &__save{
+            width: 100%;
+            @include mixins.btn(v.$color-blue, 1.3rem, 0, 1.8rem);
         }
     }
 }

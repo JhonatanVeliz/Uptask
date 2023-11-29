@@ -5,14 +5,14 @@ import { changeUserState } from "../features/user/userSlice";
 
 // COMPONENTS
 import EditUserData from "../components/EditUserData";
-import Modal from "../components/Modal";
+import EditUserPassword from "../components/EditUserPassword";
 import EditUserNav from "../components/EditUserNav";
 import AuthorizationRoute from "../components/protectedRoutes/AuthorizationRoute";
+import Modal from "../components/Modal";
 
 // UTILITIES
 import { disassemblyTime } from "../utilities";
 import { updateUser } from "../data/login";
-import InputText from "../components/InputText";
 
 const EditUser = () => {
 
@@ -85,7 +85,7 @@ const EditUser = () => {
               avatar_view={avatarView}
               changeDataAvatarView={changeDataAvatarView}
             />
-            : <InputText/>
+            : <EditUserPassword />
       }
 
 
