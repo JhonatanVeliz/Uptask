@@ -71,14 +71,14 @@ const EditUserPassword = () => {
       />
 
       <InputPassword 
-        title='Actualizar Contraseña'
+        title='Nueva Contraseña'
         changeData={changePasswordState }
         name='passwordModify'
         value={ passwordState.passwordModify }
       />
 
       <InputPassword 
-        title='Repetir Contraseña'
+        title='Repetir Nueva Contraseña'
         changeData={ changePasswordState }
         name='passwordConfirm'
         value={ passwordState.passwordConfirm }
