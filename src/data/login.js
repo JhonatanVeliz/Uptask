@@ -58,17 +58,15 @@ const userLogout = async (url, token) => {
   return json;
 }
 
-const updateUser = async (url, user, token) => {
+const updateUserData = async (url, user, token) => {
 
-  const { name, password, email, avatar, avatarVerify } = user;
+  const { name, email, avatar, password } = user;
 
   const userData = new FormData();
   userData.append('user[name]', name);
-  userData.append('user[password]', password);
+  userData.append('user[email]', email);
 
-  if(avatar !== avatarVerify){
-    userData.append('user[avatar]', avatar);
-  }
+  if(avatar){userData.append('user[avatar]', avatar)};
 
   const options = {
     method: 'PUT',
@@ -83,12 +81,34 @@ const updateUser = async (url, user, token) => {
   if (!response.ok) throw new Error(response.status);
 
   localStorage.setItem('userData', JSON.stringify({ email, password }));
-  return;
+}
+
+const updateUserPassword = async ( url, password, token ) => {
+
+  const userData = new FormData();
+  userData.append('user[password]', password);
+
+  const options = {
+    method : 'PUT', 
+    headers : { 'Authorization' : token },
+    body : userData
+  }
+
+  const response = await fetch( url, options );
+
+  if(!response.ok) throw new Error(response.status);
+
+  const dataStorage = JSON.parse(localStorage.getItem('userData'));
+  const email = dataStorage.email;
+
+  localStorage.setItem('userData', JSON.stringify({ email, password }));
+
 }
 
 export {
   createUser,
   userLogin,
   userLogout,
-  updateUser
+  updateUserData,
+  updateUserPassword
 }

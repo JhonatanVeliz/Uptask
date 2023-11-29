@@ -21,7 +21,7 @@ const NavSettingsOptions = ({ isShow = false }) => {
         token !== 'root'
         ?
         <li className="navSettings__li" >
-          <Link to={`/editUser/${token}`}>
+          <Link to={`/editUser/${name}`}>
             Editar mi perfil
           </Link>
         </li>

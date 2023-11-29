@@ -14,10 +14,11 @@
         padding: 3rem;
 
         &__item{
-            max-width: 8rem;
+            max-width: 5rem;
             cursor: pointer;
             list-style: none;
             position: relative;
+            padding: 2rem 0;
 
             &::before{
                 content: '';
@@ -120,8 +121,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 2rem;
+
+        &__title{
+            text-align: center;
+            padding-bottom: 2rem;
+            font-size: 3.5rem;
+        }
 
         &__save{
             width: 100%;

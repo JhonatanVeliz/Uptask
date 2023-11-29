@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import imgKey from '../assets/icons/key.svg'
+import imgPerfil from '../assets/icons/user-perfil.svg'
 
 const EditUserNav = ({ changeIsEditUser }) => {
 
@@ -25,7 +26,7 @@ const EditUserNav = ({ changeIsEditUser }) => {
     <nav className="editUser__nav">
       <ul>
         <li data-edit="data" onClick={changeState} className='editUser__nav__item'>
-          <img src={ avatar } alt="actualizar perfil" />
+          <img src={ imgPerfil } alt="actualizar perfil" />
         </li>
 
         <li data-edit="password" onClick={changeState} className='editUser__nav__item'>

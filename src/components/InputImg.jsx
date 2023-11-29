@@ -1,9 +1,7 @@
 import imgPerfil from '../../public/img/profiles/user-perfil.svg';
 import imgPencil from '../assets/icons/pencil.svg'
 
-const InputImg = ({ title = '', id = '', handleFileChange = () => { }, avatar_view = '' }) => {
-
-  
+const InputImg = ({ id = '', handleFileChange = () => { }, avatar_view = '' }) => {
 
   return (
     <div className="editUser__data__perfil__img">
