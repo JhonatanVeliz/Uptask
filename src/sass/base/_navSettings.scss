@@ -3,6 +3,7 @@
 
 .navSettings{
     position: relative;
+    overflow: visible;
 
     &__btn{
         display: flex;
@@ -19,9 +20,9 @@
     }
 
     &__ul{
-        position: fixed;
+        position: absolute;
         top: 0;
-        right: -100%;
+        right: -100;
         width: 100%;
         max-width: 35rem;
         height: 100vh;
@@ -29,16 +30,17 @@
         padding: 9rem  1rem 5rem 1rem;
         display: grid;
         place-items: center;
-        gap: 1rem;
+        gap: 1.5rem;
         transition: right .3s ease-in-out;
         z-index: 20;
         box-shadow: -1px 1px 5px #191919;
 
         @media screen and (min-width: 700px) {
-            padding:  3rem  1rem 3rem 1rem;
+            width: 35rem;
+            padding:  3rem 3rem;
             height: auto;
-            top: 10rem;
-            right: 10rem;
+            top: 9rem;
+            right: 0;
             border-radius: 1rem;
             opacity: 0;
             transition: opacity .3s ease-in-out;
@@ -48,7 +50,6 @@
         &--active{
             right: 0;
             @media screen and (min-width: 700px) {
-                right: 10rem;
                 opacity: 1;
                 z-index: 60;
             }
@@ -58,14 +59,29 @@
     &__li{
         text-decoration: none;
         list-style: none;
-        font-weight: v.$weight-800;
+        font-weight: v.$weight-500;
         cursor: pointer;
-        font-size: 1.8rem;
+        font-size: 2rem;
         width: 100%;
-        max-width: 30rem;
         text-overflow: ellipsis;
         text-align: center;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        &__info{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 20rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            &__email{
+                font-size: 1.4rem;
+            }
+        }
 
         a{
             color: v.$color-white;
@@ -76,17 +92,13 @@
         }
 
         &__img{
-            width: 25rem;
-            height: 25rem;
+            // width: 5rem;
+            height: 4rem;
             object-fit: contain;
-            @media screen and (min-width: 700px) {
-                max-width: 10rem;
-                max-height: 10rem;
-            }
         }
 
         &__btn{
-            @include mixins.btn(v.$color-violet, 1.5rem, 3rem, 2rem)
+            @include mixins.btn(transparent, 0, 0, 2rem)
         }
     }
 }

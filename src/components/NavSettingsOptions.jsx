@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import BtnLogout from "./BtnLogout";
-import img from '../../public/img/profiles/user-perfil.svg';
+import imgAvatar from '../../public/img/profiles/user-perfil.svg';
+import imgEdit from '../assets/icons/pencil.svg';
+import imgExit from '../assets/icons/exit.svg';
 
 const NavSettingsOptions = ({ isShow = false }) => {
 
@@ -14,29 +16,32 @@ const NavSettingsOptions = ({ isShow = false }) => {
     <ul className={`navSettings__ul ${isShow ? 'navSettings__ul--active' : ''}`}>
 
       <li className="navSettings__li">
-        <img className="navSettings__li__img" src={ avatar || img } alt="imagen del perfil" />
+        <img className="navSettings__li__img" src={ avatar || imgAvatar } alt="imagen del perfil" />
+
+        <p className="navSettings__li__info">
+          <span>{ name }</span>
+          <span className="navSettings__li__info__email">{ email }</span>
+        </p>
+        
       </li>
 
       {
         token !== 'root'
         ?
         <li className="navSettings__li" >
+
+          <img className="navSettings__li__img" src={ imgEdit } alt="editar perfil" />
+
           <Link to={`/editUser/${name}`}>
             Editar mi perfil
           </Link>
+
         </li>
         : null
       }
 
       <li className="navSettings__li" >
-        { name || userDefault.name }
-      </li>
-
-      <li className="navSettings__li navSettings__li__gmail" >
-        { email || userDefault.email}
-      </li>
-
-      <li className="navSettings__li" >
+        <img className="navSettings__li__img" src={ imgExit } alt="editar perfil" />
         <BtnLogout />
       </li>
 
