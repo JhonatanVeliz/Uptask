@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createMacroTask } from "../features/macroTasks/macroTaskSlice";
+import { createMacroTask, updateMacroTask } from "../features/macroTasks/macroTaskSlice";
 
 // Components
 import Nav from "../components/Nav";
@@ -13,43 +13,53 @@ import InputText from "../components/InputText";
 import { clearThisState } from "../utilities";
 
 // FUNCTIONS API
-import { createMacroTaskApi } from "../data/macroTasks";
+import { createMacroTaskApi, updateMacroTaskApi } from "../data/macroTasks";
 
 const NewMacroTask = () => {
 
   const { taskId } = useParams();
-  const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
-  const macroTaskData = stateMacroTasks.find( macroTask => macroTask.id == taskId ) || { name : '', description : '' };
+  const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
+  const macroTaskData = stateMacroTasks.find(macroTask => macroTask.id == taskId) || { name: '', description: '' };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useSelector( ({ user }) => user.userData );
-  const { token } = useSelector( ({ login }) => login );
+  const { id } = useSelector(({ user }) => user.userData);
+  const { token } = useSelector(({ login }) => login);
 
-  const initialStateData = { name : macroTaskData.name || '', description: macroTaskData.description || '' }
-  const [ data, setData ] = useState(initialStateData);
-  const [ InvalidText, setInvalidText ] = useState({ invalid : false, text : '' });
+  const initialStateData = { name: macroTaskData.name || '', description: macroTaskData.description || '' }
+  const [data, setData] = useState(initialStateData);
+  const [InvalidText, setInvalidText] = useState({ invalid: false, text: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Se utiliza para que el usuario no cree una MacroTask vacia
-    const dataClean = Object.values(data).map( eachString => eachString.trim());
+    const dataClean = Object.values(data).map(eachString => eachString.trim());
 
-    if(dataClean.includes('')){
-      setInvalidText({ invalid : true, text : 'Todos los campos son obligatorios' });
-      setTimeout( () => setInvalidText({ invalid: false, text: '' }), clearThisState);
+    if (dataClean.includes('')) {
+      setInvalidText({ invalid: true, text: 'Todos los campos son obligatorios' });
+      setTimeout(() => setInvalidText({ invalid: false, text: '' }), clearThisState);
       return;
     }
-    
-    const macroTask = { name : data.name, user_id : id, description : data.description };
+
+    const macroTask = { name: data.name, user_id: id, description: data.description };
+
+    if (!taskId) {
+      try {
+        const macroTaskCreated = await createMacroTaskApi(import.meta.env.VITE_API_URL + `habits`, macroTask, token);
+        dispatch(createMacroTask(macroTaskCreated));
+        return navigate('/dashboard');
+      }
+      catch (error) { console.log(error) }
+    }
 
     try {
-      const macroTaskCreated = await createMacroTaskApi( import.meta.env.VITE_API_URL + `habits`, macroTask, token );
-      dispatch(createMacroTask(macroTaskCreated));
-    } 
+      const macroTaskUpdated = await updateMacroTaskApi(import.meta.env.VITE_API_URL + `habits/${taskId}`, macroTask, token);
+      dispatch( updateMacroTask({ ...macroTask, id : taskId }));
+      return navigate('/dashboard');
+    }
     catch (error) { console.log(error) }
-    return navigate('/dashboard');
+
   }
 
   const changeData = (value, name) => {
@@ -62,31 +72,31 @@ const NewMacroTask = () => {
 
       <div className='section new-proyect'>
 
-        <h1>Crear un proyecto</h1>
+        <h1> {taskId ? 'Actualizar Tarea' : 'Crea una Tarea'} </h1>
 
         <form className="new-project__form" onSubmit={handleSubmit}>
 
           <MessageError invalid={InvalidText.invalid} text={InvalidText.text} />
 
-          <InputText 
-            title="Nombre del proyecto" 
+          <InputText
+            title="Nombre del proyecto"
             changeData={changeData}
             name="name"
             value={data.name}
           />
 
-          <FormTextArea 
-            title="Descripción del proyecto" 
-            name="description" 
+          <FormTextArea
+            title="Descripción del proyecto"
+            name="description"
             changeData={changeData}
             value={data.description}
           />
 
-          <button 
+          <button
             className="new-project__form__btn"
             type="submit"
           >
-            Iniciar proyecto
+            {taskId ? 'Guardar Cambios' : 'Crear Tarea'}
           </button>
 
         </form>
