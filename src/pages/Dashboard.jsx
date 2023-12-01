@@ -71,6 +71,7 @@ const Dashboard = () => {
       <Nav />
       <MessageWelcome />
       <MessageSucces title="¡ Exito !" message="Nueva Tarea Creada" id="macroTaskCreated"/>
+      <MessageSucces title="¡ Exito !" message="Tarea Eliminada Correctamente" id="taskDelete"/>
 
       <section className='section dashboard'>
 

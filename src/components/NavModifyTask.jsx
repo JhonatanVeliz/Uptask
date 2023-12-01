@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import imgMore from '../assets/icons/more.svg';
 
-import { deleteMacroTask } from "../data/macroTasks";
 import NavModifyBtnUpdate from "./NavModifyBtnUpdate";
 import NavModifyTaskDelete from "./NavModifyTaskDelete";
 import NavModifyShowDescription from "./NavModifyShowDescription";
 import ViewTaskConfirmDelete from "./ViewTaskConfirmDelete";
+import MessageSucces from "./MessageSucces";
+
+import { deleteMacroTask } from "../data/macroTasks";
 
 const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId }) => {
 
@@ -24,7 +26,7 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
   const deleteTask = async () => {
     try {
       const taskDeleted = await deleteMacroTask( import.meta.env.VITE_API_URL + `habits/${taskId}`, token);
-      console.log('se elimino ahora recarga');
+      localStorage.setItem('taskDelete', true);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +44,6 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
             deleteTask={ deleteTask } 
           />
       }
-
 
       <nav className="viewTask__navModify">
 
