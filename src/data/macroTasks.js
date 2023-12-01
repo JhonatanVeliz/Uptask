@@ -35,17 +35,17 @@ export const createMacroTaskApi = async ( url, macroTask, token ) => {
     return respJson;
 }
 
-export const deleteMacroTask = async ( url ) => {
+export const deleteMacroTask = async ( url, token ) => {
 
     const options = {
         method : 'DELETE',
-        headers : { 'Content-Type' : 'application/json'}
+        headers : { 
+            'Content-Type' : 'application/json',
+            'Authorization' : token
+        }
     }
 
     const response = await fetch( url, options );
-    const respJson = await response.json();
 
-    if(!response.ok) throw new Error(response.status);
-
-    return respJson;
+    if(!response.ok) throw new Error(response.statusText);
 }

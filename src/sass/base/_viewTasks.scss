@@ -1,6 +1,10 @@
 @use '../abstracts/variables' as v;
+@use '../abstracts/mixins';
 
 .viewTask{
+
+    display: flex;
+    flex-direction: column;
 
     &__title{
         text-transform: capitalize;
@@ -10,13 +14,77 @@
         font-size: 1.8rem;
         font-weight: v.$weight-800;
         text-align: left;
-        width: 100%;
         display: flex;
+        align-self: flex-start;
         padding: 2rem 0;
-        color: v.$color-bg-task;
-        span{
+        &__title{
+            color: v.$color-bg-task;
+        }
+        &__date{
             padding-left: 1rem;
             color: v.$color-blue;
+        }
+        &__description{
+            align-self: flex-start;
+        }
+    }
+
+    &__navModify{
+        align-self: flex-end;
+        position: relative;
+
+        &__more{
+            @include mixins.btn( transparent, 0, 0, 0 );
+        }
+
+        &__options{
+            width: 23rem;
+            height: auto;
+            position: absolute;
+            background-color: #0c0c0c;
+            right: 0;
+            display: grid;
+            gap: 1rem;
+            overflow: hidden;
+            transition: .3s ease-in-out;
+            opacity: 0;
+            transform: scaleY(0);
+            border-radius: .5rem;
+
+            &__active{
+                opacity: 1;
+                padding: 2rem;   
+                transform: scaleY(1);             
+            }
+
+            li{
+                list-style: none;
+            }
+
+            &__item{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+                position: relative;
+                color: v.$color-white;
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                &::before{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                }
+
+                &__img{
+                    max-width: 3rem;
+                }
+            }
         }
     }
 
@@ -46,6 +114,44 @@
             cursor: pointer;
             &:hover{
                 opacity: .8;
+            }
+        }
+    }
+
+    &__confirmDelete{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #000000de;
+        display: grid;
+        place-content: center;
+        gap: 3rem;
+        z-index: 90;
+        padding: 2rem;
+
+        &__title{
+            font-weight: v.$weight-800;
+            font-size: 3.5rem;
+            text-align: center;
+
+            &__name{
+                color: v.$color-red;
+            }
+        }
+
+        &__buttons{
+            display: flex;
+            justify-content: flex-end;
+            gap: 1.5rem;
+
+            &__red{
+                @include mixins.btn( v.$color-red, 1rem, 2.5rem, 1.8rem );
+            }
+
+            &__orange{
+                @include mixins.btn( v.$color-orange, 1rem, 2.5rem, 1.8rem );
             }
         }
     }
