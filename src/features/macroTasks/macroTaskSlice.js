@@ -11,12 +11,6 @@ export const macroTasks = createSlice({
         },
         createMacroTask : (state, actions) => {
             state.push(actions.payload);
-        },
-        deleteMacroTask : ( state, actions ) => {
-            const macroTaskId = actions.payload;
-            const indexToDelete = state.findIndex(item => item.id === macroTaskId);
-
-            if (indexToDelete !== -1) { state.splice(indexToDelete, 1) }
         }
     }
 })

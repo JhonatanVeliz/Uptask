@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 import imgEdit from '../assets/icons/pencil.svg';
 
-const NavModifyBtnUpdate = React.memo(() => {
+const NavModifyBtnUpdate = React.memo(({ taskId }) => {
   return (
-    <NavLink to="/">
+    <NavLink to={ `/update-task/${ taskId }` }>
       <li className="viewTask__navModify__options__item">
 
         <img

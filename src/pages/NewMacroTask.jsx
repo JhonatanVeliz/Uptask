@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createMacroTask } from "../features/macroTasks/macroTaskSlice";
 
@@ -17,12 +17,16 @@ import { createMacroTaskApi } from "../data/macroTasks";
 
 const NewMacroTask = () => {
 
+  const { taskId } = useParams();
+  const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
+  const macroTaskData = stateMacroTasks.find( macroTask => macroTask.id == taskId ) || { name : '', description : '' };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id, name } = useSelector( ({ user }) => user.userData );
+  const { id } = useSelector( ({ user }) => user.userData );
   const { token } = useSelector( ({ login }) => login );
 
-  const initialStateData = { name : '', description: '' }
+  const initialStateData = { name : macroTaskData.name || '', description: macroTaskData.description || '' }
   const [ data, setData ] = useState(initialStateData);
   const [ InvalidText, setInvalidText ] = useState({ invalid : false, text : '' });
 
