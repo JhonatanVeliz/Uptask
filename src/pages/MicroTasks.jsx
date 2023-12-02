@@ -20,6 +20,7 @@ const MicroTasks = () => {
   const changeDescription = () => setShowDescription(!showDescription);
   
   const createdDate = created_at.slice(0, 10);
+  const yearForMicroTask = createdDate.slice(0, 4);
 
   return (
     <>
@@ -40,7 +41,7 @@ const MicroTasks = () => {
 
       </div>
 
-      <DashboardCommits />
+      <DashboardCommits yearForMicroTask={ yearForMicroTask } />
     </>
   )
 }

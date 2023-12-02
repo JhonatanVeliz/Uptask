@@ -2,7 +2,6 @@
 @use '../abstracts/mixins';
 
 .viewTask{
-
     display: flex;
     flex-direction: column;
 
@@ -93,21 +92,23 @@
     }
 
     &__commits{
-        padding: 1.5rem;
+        padding: 1.5rem 2rem;
         background-color: v.$color-bg-commits;
         border-radius: 1rem;
+        display: grid;
+        gap: 1.5rem;
 
         &__title{
             text-align: center;
         }
 
         &__dashboard{
-            padding: 1rem 0;
             display: grid;
             grid-auto-flow: column; /* Filas generadas automáticamente, se extiende hacia los lados */
             overflow: auto; /* Habilitar desplazamiento horizontal */
             gap: 0.5rem; /* Espacio entre los elementos */
             grid-template-rows: repeat(7, 1fr);
+            padding: .5rem;
         }
 
         &__item{
@@ -118,6 +119,34 @@
             cursor: pointer;
             &:hover{
                 opacity: .8;
+            }
+        }
+
+        &__create{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            &__title{
+                width: 100%;
+                font-weight: v.$weight-black;
+            }
+
+            &__textarea{
+                flex-grow: 1;
+                padding: 1.5rem;
+                font-size: 1.6rem;
+                border: none;
+                border-radius: .7rem;
+                background-color: v.$color-white;
+                resize: none;
+                height: 4.5rem;
+                overflow: hidden;
+            }
+
+            &__btn{
+                @include mixins.btn( v.$color-orange, 1rem, 3rem, 1.6rem )
             }
         }
     }

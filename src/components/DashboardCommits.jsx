@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
-
-const DashboardCommits = () => {
+const DashboardCommits = ({ yearForMicroTask }) => {
 
   const [listMicroTasks, setListMicroTasks] = useState([]);
 
-  const date = new Date();
-  const year = date.getFullYear();
+  const year = yearForMicroTask;
 
   useEffect(() => {
 
@@ -36,13 +34,28 @@ const DashboardCommits = () => {
 
       <h3 className="viewTask__commits__title">{ year }</h3>
 
-
       <div className="viewTask__commits__dashboard">
         {
           listMicroTasks.map((day, i) => (
             <span className="viewTask__commits__item" key={i}></span>
           ))
         }
+      </div>
+
+      <div className="viewTask__commits__create">
+
+        <label htmlFor="tracker" className="viewTask__commits__create__title">Avance Diario</label>
+
+        <textarea 
+          name="tracker" 
+          id="tracker" 
+          className="viewTask__commits__create__textarea"
+          placeholder="Avance del dia de hoy:"
+        >
+        </textarea>
+
+        <button className="viewTask__commits__create__btn">Crear</button>
+
       </div>
       
     </div>
