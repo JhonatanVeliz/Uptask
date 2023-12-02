@@ -26,14 +26,14 @@ const NewMacroTask = () => {
   const { id } = useSelector(({ user }) => user.userData);
   const { token } = useSelector(({ login }) => login);
 
-  const initialStateData = { name: macroTaskData.name || '', description: macroTaskData.description || '' }
+  const initialStateData = { name: macroTaskData.name, description: macroTaskData.description }
   const [data, setData] = useState(initialStateData);
   const [InvalidText, setInvalidText] = useState({ invalid: false, text: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Se utiliza para que el usuario no cree una MacroTask vacia
+    // Se utiliza para que el usuario no cree una MacroTask vacia y llena de escpacios vacios
     const dataClean = Object.values(data).map(eachString => eachString.trim());
 
     if (dataClean.includes('')) {
@@ -55,8 +55,8 @@ const NewMacroTask = () => {
 
     try {
       const macroTaskUpdated = await updateMacroTaskApi(import.meta.env.VITE_API_URL + `habits/${taskId}`, macroTask, token);
-      dispatch( updateMacroTask({ ...macroTask, id : taskId }));
-      return navigate('/dashboard');
+      dispatch( updateMacroTask({ ...macroTaskData, name : data.name, description : data.description }));
+      return navigate(`/tasks/${taskId}`);
     }
     catch (error) { console.log(error) }
 

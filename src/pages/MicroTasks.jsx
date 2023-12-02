@@ -11,10 +11,10 @@ import ViewTaskData from "../components/ViewTaskData";
 
 const MicroTasks = () => {
 
-  const { id } = useParams();
+  const { taskId } = useParams();
 
   const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
-  const { name, created_at, updated_at, user_id, description } = stateMacroTasks.find( macroTask => macroTask.id == id );
+  const { name, created_at, updated_at, user_id, description } = stateMacroTasks.find( macroTask => macroTask.id == taskId );
 
   const [showDescription, setShowDescription] = useState(false);
   const changeDescription = () => setShowDescription(!showDescription);
@@ -35,7 +35,7 @@ const MicroTasks = () => {
           changeDescription={changeDescription}
           showDescription={ showDescription }
           nameTask={ name }
-          taskId={ id }
+          taskId={ taskId }
         />
 
       </div>

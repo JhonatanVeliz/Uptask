@@ -35,7 +35,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/new-project/:user" element={<NewMacroTask />} />
             <Route path="/update-task/:taskId" element={<NewMacroTask />} />
-            <Route path="/tasks/:id" element={<MicroTasks />} />
+            <Route path="/tasks/:taskId" element={<MicroTasks />} />
             <Route path="/editUser/:token" element={<EditUser />} />
           </Route>
 
