@@ -1,7 +1,5 @@
 const createMicroTask = async ( url, tracker, token ) => {
 
-    console.log(token);
-
     const options = {
         method : 'POST',
         headers : {

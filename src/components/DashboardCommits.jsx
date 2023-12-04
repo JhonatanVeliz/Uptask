@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import TextTarea from "./TextTarea";
 import { createMicroTask } from "../data/microTasks";
 import Commit from "./Commit";
+
+import { getMacroTasks } from "../data/macroTasks";
+import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
 
 const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
   const [listMicroTasks, setListMicroTasks] = useState([]);
   const [tracker, setTracker] = useState({ notes: '' });
   const { token } = useSelector(({ login }) => login);
+  const dispatch = useDispatch();
 
   const year = yearForMicroTask;
 
@@ -17,8 +21,10 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
     e.preventDefault();
 
     try {
-      const trackerCreated = createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
-      console.log('succes');
+      const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
+      const getNewStateForStateGlobal = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
+      dispatch(createMacroTasksState(getNewStateForStateGlobal));
+      setTracker( { notes : '' } );
     }
     catch (error) { console.log(error); }
   }
