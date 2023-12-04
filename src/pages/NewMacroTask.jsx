@@ -19,7 +19,8 @@ const NewMacroTask = () => {
 
   const { taskId } = useParams();
   const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
-  const macroTaskData = stateMacroTasks.find(macroTask => macroTask.id == taskId) || { name: '', description: '' };
+  const findMacroTask = stateMacroTasks.find( ({ habit }) => habit.id == taskId ) || false;
+  const macroTaskData = findMacroTask.habit  || { name: '', description: '' };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -16,6 +16,7 @@ import ShowMessage from "../components/ShowMessage";
 import { getApiConst } from "../helpers";
 import { getMacroTasks } from "../data/macroTasks";
 import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
+import MessageDelete from "../components/MessageDelete";
 
 const Dashboard = () => {
 
@@ -54,7 +55,7 @@ const Dashboard = () => {
     try {
       const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
       if(macroTasks.length === stateMacroTasks.length) return;
-
+      console.log(macroTasks);
       dispatch(createMacroTasksState(macroTasks));
     } 
     catch (error) { console.log(error) };
@@ -71,7 +72,7 @@ const Dashboard = () => {
       <Nav />
       <MessageWelcome />
       <MessageSucces title="¡ Exito !" message="Nueva Tarea Creada" id="macroTaskCreated"/>
-      <MessageSucces title="¡ Exito !" message="Tarea Eliminada Correctamente" id="taskDelete"/>
+      <MessageDelete title="¡ Exito !" message="Tarea Eliminada" id="taskDelete"/>
 
       <section className='section dashboard'>
 
@@ -87,13 +88,13 @@ const Dashboard = () => {
 
           {
             stateMacroTasks.length !== 0
-              ? stateMacroTasks.map(( {id, name, description} ) => (
+              ? stateMacroTasks.map(( { habit } ) => (
                 <CardsDashboard
-                  key={id}
-                  routeTo={`/tasks/${id}`}
-                  name={name}
-                  description={description}
-                  id={id}
+                  key={habit.id}
+                  routeTo={`/tasks/${habit.id}`}
+                  name={habit.name}
+                  description={habit.description}
+                  id={habit.id}
                 />
               ))
               : <ShowMessage message="listado de proyectos vacío" />

@@ -25,6 +25,8 @@
         }
         &__description{
             align-self: flex-start;
+            width: 100%;
+            word-wrap: break-word;
         }
     }
 
@@ -120,6 +122,10 @@
             &:hover{
                 opacity: .8;
             }
+
+            &--active{
+                background-color: v.$color-primary;
+            }
         }
 
         &__create{
@@ -160,31 +166,42 @@
         background: #000000de;
         display: grid;
         place-content: center;
-        gap: 3rem;
         z-index: 90;
         padding: 2rem;
+
+        &-container{
+            background: v.$color-bg-task;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 5px #4c4c4c;
+            display: grid;
+            gap: 2rem;
+        }
 
         &__title{
             font-weight: v.$weight-800;
             font-size: 3.5rem;
             text-align: center;
-
-            &__name{
-                color: v.$color-red;
-            }
+        }
+        
+        &__name{
+            color: v.$color-bg-commits;
+            font-size: 2rem;
+            font-weight: v.$weight-black;
         }
 
         &__buttons{
             display: flex;
             justify-content: flex-end;
-            gap: 1.5rem;
-
+            gap: 1rem;
             &__red{
                 @include mixins.btn( v.$color-red, 1rem, 2.5rem, 1.8rem );
+                flex-grow: 1
             }
 
             &__orange{
                 @include mixins.btn( v.$color-orange, 1rem, 2.5rem, 1.8rem );
+                flex-grow: 1;
             }
         }
     }

@@ -14,13 +14,16 @@ const MicroTasks = () => {
   const { taskId } = useParams();
 
   const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
-  const { name, created_at, updated_at, user_id, description } = stateMacroTasks.find( macroTask => macroTask.id == taskId );
+  const macroTaskAndTrackers = stateMacroTasks.find( ({ habit }) => habit.id == taskId );
+  const { name, created_at, user_id, description } = macroTaskAndTrackers.habit;
 
   const [showDescription, setShowDescription] = useState(false);
   const changeDescription = () => setShowDescription(!showDescription);
-  
-  const createdDate = created_at.slice(0, 10);
-  const yearForMicroTask = createdDate.slice(0, 4);
+
+  const dateTask= new Date(created_at);
+  const createdDate = (Intl.DateTimeFormat('en-GB').format(dateTask));
+
+  const yearForMicroTask = createdDate.slice(6);
 
   return (
     <>
@@ -41,7 +44,7 @@ const MicroTasks = () => {
 
       </div>
 
-      <DashboardCommits yearForMicroTask={ yearForMicroTask } />
+      <DashboardCommits yearForMicroTask={ yearForMicroTask } taskId={taskId}/>
     </>
   )
 }

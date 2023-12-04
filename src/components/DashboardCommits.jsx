@@ -1,10 +1,31 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const DashboardCommits = ({ yearForMicroTask }) => {
+import TextTarea from "./TextTarea";
+import { createMicroTask } from "../data/microTasks";
+import Commit from "./Commit";
+
+const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
   const [listMicroTasks, setListMicroTasks] = useState([]);
+  const [tracker, setTracker] = useState({ notes: '' });
+  const { token } = useSelector(({ login }) => login);
 
   const year = yearForMicroTask;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const trackerCreated = createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
+      console.log('succes');
+    }
+    catch (error) { console.log(error); }
+  }
+
+  const changeTracker = (name, value) => {
+    setTracker({ ...tracker, [name]: value });
+  }
 
   useEffect(() => {
 
@@ -23,43 +44,43 @@ const DashboardCommits = ({ yearForMicroTask }) => {
       }
 
     }
-    
+
     // Ahora, todosLosDias contendrá todas las fechas del año especificado
     setListMicroTasks(todosLosDias);
 
   }, []);
 
+
   return (
     <div className="viewTask__commits">
 
-      <h3 className="viewTask__commits__title">{ year }</h3>
+      <h3 className="viewTask__commits__title">{year}</h3>
 
       <div className="viewTask__commits__dashboard">
         {
-          listMicroTasks.map((day, i) => (
-            <span className="viewTask__commits__item" key={i}></span>
-          ))
+          listMicroTasks.map(( date, id) => <Commit id={ id } dateTracker={ date } taskId={ taskId } />)
         }
       </div>
 
-      <div className="viewTask__commits__create">
+      <form onSubmit={handleSubmit} className="viewTask__commits__create">
 
-        <label htmlFor="tracker" className="viewTask__commits__create__title">Avance Diario</label>
+        <TextTarea
+          htmlId="tracker"
+          name="notes"
+          changeNote={changeTracker}
+          value={tracker.notes}
+        />
 
-        <textarea 
-          name="tracker" 
-          id="tracker" 
-          className="viewTask__commits__create__textarea"
-          placeholder="Avance del dia de hoy:"
-        >
-        </textarea>
+        <button type="submit" className="viewTask__commits__create__btn">Crear</button>
 
-        <button className="viewTask__commits__create__btn">Crear</button>
+      </form>
 
-      </div>
-      
     </div>
   )
 }
+
+// (
+//   <span className="viewTask__commits__item" key={i} data-date={ day || 'no hay' }></span>
+// )
 
 export default DashboardCommits

@@ -1,3 +1,6 @@
+import { format } from 'date-fns/esm';
+import { es } from 'date-fns/esm/locale';
+
 const generatorId = () => {
   const timestamp = new Date().getTime();
   const randomValue = Math.floor(Math.random() * 1000);
@@ -61,6 +64,7 @@ const getApiConst = () => {
   // Llamar a 'fetchData' cada 2 minutos para que el servidor se mantenga activo
   setInterval(fetchData, 20000);
 };
+
 
 export {
   verifyDataSignup,
