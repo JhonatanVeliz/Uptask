@@ -64,7 +64,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
       <div className="viewTask__commits__dashboard">
         {
-          listMicroTasks.map(( date, id) => <Commit id={ id } dateTracker={ date } taskId={ taskId } />)
+          listMicroTasks.map(( date, id) => <Commit id={ id * 2 } dateTracker={ date } taskId={ taskId } />)
         }
       </div>
 
