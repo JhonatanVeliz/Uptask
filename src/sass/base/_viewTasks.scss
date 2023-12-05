@@ -51,6 +51,7 @@
             opacity: 0;
             transform: scaleY(0);
             border-radius: .5rem;
+            z-index: 100;
 
             &__active{
                 opacity: 1;
@@ -98,7 +99,17 @@
         background-color: v.$color-bg-commits;
         border-radius: 1rem;
         display: grid;
-        gap: 1.5rem;
+        gap: .5rem;
+        overflow: hidden;
+
+        &__tooltip{
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 1rem;
+            border-radius: .5rem;
+            border: 1px solid v.$color-primary;
+        }
 
         &__title{
             text-align: center;
@@ -107,18 +118,20 @@
         &__dashboard{
             display: grid;
             grid-auto-flow: column; /* Filas generadas automáticamente, se extiende hacia los lados */
-            overflow: auto; /* Habilitar desplazamiento horizontal */
-            gap: 0.5rem; /* Espacio entre los elementos */
+            overflow: auto;/* Habilitar desplazamiento horizontal */
+            gap: .5rem; /* Espacio entre los elementos */
             grid-template-rows: repeat(7, 1fr);
-            padding: .5rem;
+            padding: .2rem;
         }
 
         &__item{
-            background-color: v.$color-commit;
-            width: 2rem;
-            height: 2rem;
+            background-color: #7c7c7c;
+            width: 1.5rem;
+            height: 1.5rem;
             border-radius: .3rem;
             cursor: pointer;
+            position: relative;
+
             &:hover{
                 opacity: .8;
             }
@@ -126,6 +139,12 @@
             &--active{
                 background-color: v.$color-primary;
             }
+        }
+
+        &__months{
+            // width: 1300px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
         }
 
         &__create{

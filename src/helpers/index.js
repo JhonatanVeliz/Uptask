@@ -1,5 +1,3 @@
-import { format } from 'date-fns/esm';
-import { es } from 'date-fns/esm/locale';
 
 const generatorId = () => {
   const timestamp = new Date().getTime();
@@ -65,10 +63,20 @@ const getApiConst = () => {
   setInterval(fetchData, 20000);
 };
 
+function IsLeapYear( year ) {
+  // Un año es bisiesto si es divisible por 4 y no es divisible por 100,
+  // excepto si también es divisible por 400.
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+function getDaysOfTheYear( year ) {
+  return IsLeapYear(year) ? 366 : 365;
+}
 
 export {
   verifyDataSignup,
   getApiConst,
   generatorId,
-  verifyData
+  verifyData,
+  getDaysOfTheYear
 }

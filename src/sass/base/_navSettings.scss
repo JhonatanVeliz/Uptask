@@ -21,13 +21,12 @@
 
     &__ul{
         position: absolute;
-        top: 0;
-        right: -100;
-        width: 100%;
-        max-width: 35rem;
+        top: -35%;
+        right: -500%;
+        width: 35rem;
         height: 100vh;
         background: #242C32;
-        padding: 9rem  1rem 5rem 1rem;
+        padding: 9rem  5rem;
         display: grid;
         place-items: center;
         gap: 1.5rem;
@@ -48,10 +47,11 @@
         }
         
         &--active{
-            right: 0;
+            right: -3rem;
             @media screen and (min-width: 700px) {
                 opacity: 1;
                 z-index: 60;
+                right: 0;
             }
         }
     }

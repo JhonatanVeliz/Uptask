@@ -8,6 +8,14 @@ import Commit from "./Commit";
 import { getMacroTasks } from "../data/macroTasks";
 import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
 
+const Months = ({ month }) => {
+
+  return (
+    <span>{month}</span>
+  )
+
+}
+
 const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
   const [listMicroTasks, setListMicroTasks] = useState([]);
@@ -16,6 +24,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
   const dispatch = useDispatch();
 
   const year = yearForMicroTask;
+  const months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul', 'Ago.', 'Sep.', 'Oct.', 'Nov', 'Dic'];;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +33,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
       const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
       const getNewStateForStateGlobal = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
       dispatch(createMacroTasksState(getNewStateForStateGlobal));
-      setTracker( { notes : '' } );
+      setTracker({ notes: '' });
     }
     catch (error) { console.log(error); }
   }
@@ -36,23 +45,23 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
   useEffect(() => {
 
     // Crear un array para almacenar todos los días del año
-    const todosLosDias = [];
+    const allDays = [];
 
-    // Recorrer cada mes del año
-    for (let mes = 0; mes < 12; mes++) {
-      // Obtener el último día del mes actual
-      const ultimoDiaDelMes = new Date(year, mes + 1, 0).getDate();
+    // Recorrer cada month del año
+    for (let month = 0; month < 12; month++) {
+      // Obtener el último día del month actual
+      const lastDayOfTheMonth = new Date(year, month + 1, 0).getDate();
 
-      // Generar y agregar todos los días del mes al array
-      for (let dia = 1; dia <= ultimoDiaDelMes; dia++) {
-        const fecha = new Date(year, mes, dia);
-        todosLosDias.push({ date: fecha });
+      // Generar y agregar todos los días del month al array
+      for (let day = 1; day <= lastDayOfTheMonth; day++) {
+        const fecha = new Date(year, month, day);
+        allDays.push({ date: fecha });
       }
 
     }
 
-    // Ahora, todosLosDias contendrá todas las fechas del año especificado
-    setListMicroTasks(todosLosDias);
+    // Ahora, allDays contendrá todas las fechas del año especificado
+    setListMicroTasks(allDays);
 
   }, []);
 
@@ -62,9 +71,15 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
       <h3 className="viewTask__commits__title">{year}</h3>
 
+      <div className="viewTask__commits__months">
+        {
+          months.map((month, i) => <Months key={i * 12} month={month} />)
+        }
+      </div>
+
       <div className="viewTask__commits__dashboard">
         {
-          listMicroTasks.map(( date, id) => <Commit id={ id * 2 } dateTracker={ date } taskId={ taskId } />)
+          listMicroTasks.map((date, id) => <Commit key={id * 2} dateTracker={date} taskId={taskId} />)
         }
       </div>
 
