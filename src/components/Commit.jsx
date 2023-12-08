@@ -18,7 +18,6 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
   const listOfTheTrackers = macroTaskAndTrackers.trackers;
 
   const searchTrackerCommit = listOfTheTrackers.filter(({ created_at }) => created_at.slice(0, 10) == thisDate);
-  searchTrackerCommit.length !== 0 ? console.log(searchTrackerCommit) : '';
 
   const showTooltip = (e) => {
     const commit = e.target;
@@ -58,7 +57,6 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
         </div>
       }
 
-{/* 'viewTask__commits__item--active' */}
       <span
         className={
           `viewTask__commits__item 

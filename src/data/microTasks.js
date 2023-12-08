@@ -14,6 +14,22 @@ const createMicroTask = async ( url, tracker, token ) => {
     if( !response.ok ) throw new Error(response.statusText);
 }
 
+const deleteMicroTask = async ( url, token ) => {
+
+    const options = {
+        method : 'DELETE',
+        headers : {
+            'Authorization' : token
+        }
+    };
+
+    const response = await fetch( url, options );
+
+    if(!response.ok) throw new Error(response.status);
+
+}
+
 export {
-    createMicroTask
+    createMicroTask, 
+    deleteMicroTask
 }

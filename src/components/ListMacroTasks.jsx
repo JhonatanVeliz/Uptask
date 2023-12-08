@@ -1,9 +1,25 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-const MicroTask = ({ notes, created_at, index, taskId }) => {
+import { deleteMicroTask } from '../data/microTasks';
+import { deleteMicroTaskState } from '../features/microTasksShow/microTaskSlice';
 
-  const date = created_at.slice(0, 10)
+import imgDelete from '../assets/icons/delete.svg'
+
+const MicroTask = React.memo(({ notes, created_at, index, taskId, microTaskId, token }) => {
+
+  const date = created_at.slice(0, 10);
+  const dispathc = useDispatch();
+
+  const deleteTracker = async () => {
+
+    try {
+      const microTaskDeleted = 
+        await deleteMicroTask( import.meta.env.VITE_API_URL + `habits/${taskId}/trackers/${microTaskId}`, token );
+        dispathc(deleteMicroTaskState(index -1));
+    } 
+    catch (error) {console.log(error);}
+  }
 
   return (
     <div className='microTasks__container'>
@@ -15,19 +31,27 @@ const MicroTask = ({ notes, created_at, index, taskId }) => {
         </ul>
       </header>
 
-      <p className='microTasks__container__note'>{notes}</p>
+      <ul className='microTasks__container__body' >
+        <li className='microTasks__container__body__li'>
+          <p className='microTasks__container__body__note'>{notes}</p>
+        </li>
 
+        <li className='microTasks__container__body__li'>
+          <button className='microTasks__container__body__btn btn' onClick={deleteTracker}>
+            <img src={imgDelete} alt=" eliminar tarea " />
+          </button>
+        </li>
+      </ul>
 
     </div>
   )
 
-}
+})
 
 const ListMacroTasks = () => {
 
   const { taskId, microTasks } = useSelector(({ microTasksList }) => microTasksList);
-
-  console.log(microTasks);
+  const { token } = useSelector( ({ login }) => login);
 
   return (
     <>
@@ -44,6 +68,8 @@ const ListMacroTasks = () => {
                 created_at={created_at}
                 index={index + 1}
                 taskId={taskId}
+                microTaskId={id}
+                token={token}
               />
             ))
             : null

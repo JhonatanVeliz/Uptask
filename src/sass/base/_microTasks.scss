@@ -1,19 +1,19 @@
 @use '../abstracts/variables' as v;
 
-.microTasks{
+.microTasks {
     text-align: center;
 
-    &--show{
+    &--show {
         margin-top: 2rem;
         padding: 2rem;
         border-radius: 1rem;
         width: 100%;
         display: grid;
         gap: 1rem;
-        background-color: v.$color-bg-commits;    
+        background-color: v.$color-bg-commits;
     }
 
-    &--hidden{
+    &--hidden {
         margin-top: 2rem;
         padding: 2rem;
         border-radius: 1rem;
@@ -23,33 +23,47 @@
         background-color: v.$color-bg;
     }
 
-    &__container{
-        padding: 1.5rem;
+    &__container {
+        padding: 1rem;
         background-color: v.$color-white;
-        border-radius: 1rem;
+        border-radius: .5rem;
         color: v.$color-bg-commits;
         display: flex;
         flex-direction: column;
         gap: .5rem;
 
-        &__header{
+        &__header {
             display: flex;
             justify-content: space-between;
 
-            &__li{
+            &__li {
                 list-style: none;
                 font-weight: v.$weight-black;
                 color: v.$color-bg-task;
             }
         }
 
-        &__note{
-            font-weight: v.$weight-black;
-            align-self: flex-start;
-        }
+        &__body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
 
-        &__date{
-            align-self: flex-end;
+            &__li{
+                list-style: none;
+            }
+
+            &__note {
+                font-weight: v.$weight-black;
+                align-self: flex-start;
+            }
+
+            &__btn {
+                max-width: 3rem;
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+            }
         }
     }
 }

@@ -8,9 +8,16 @@ const microTaskSlice = createSlice({
     reducers : {
         createState : (state, actions) => {
             return { ...actions.payload }
+        },
+        deleteMicroTaskState : ( state, actions ) => {
+            const microTaskIndex = actions.payload;
+            state.microTasks = state.microTasks.filter((_, index) => {
+                console.log(index, microTaskIndex);
+                return index !== microTaskIndex
+            });
         }
     }
 });
 
-export const { createState } = microTaskSlice.actions;
+export const { createState, deleteMicroTaskState } = microTaskSlice.actions;
 export default microTaskSlice.reducer;
