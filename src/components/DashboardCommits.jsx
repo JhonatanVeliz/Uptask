@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TextTarea from "./TextTarea";
-import { createMicroTask } from "../data/microTasks";
 import Commit from "./Commit";
 
+import { createMicroTask } from "../data/microTasks";
+import { createState } from "../features/microTasksShow/microTaskSlice";
 import { getMacroTasks } from "../data/macroTasks";
 import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
 
@@ -22,7 +23,10 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
   const dispatch = useDispatch();
 
   const year = yearForMicroTask;
-  const months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul', 'Ago.', 'Sep.', 'Oct.', 'Nov', 'Dic'];;
+  const months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul', 'Ago.', 'Sep.', 'Oct.', 'Nov', 'Dic'];
+
+  const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
+  const macroTaskAndTrackers = stateMacroTasks.find(({ habit }) => habit.id == taskId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +35,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
       const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
       const getNewStateForStateGlobal = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
       dispatch(createMacroTasksState(getNewStateForStateGlobal));
+      dispatch(createState({ taskId, microTasks : macroTaskAndTrackers.trackers }));
       setTracker({ notes: '' });
     }
     catch (error) { console.log(error); }

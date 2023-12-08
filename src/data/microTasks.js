@@ -12,6 +12,9 @@ const createMicroTask = async ( url, tracker, token ) => {
     const response = await fetch(url, options);
 
     if( !response.ok ) throw new Error(response.statusText);
+
+    const respJson = response.json();
+    return respJson;
 }
 
 const deleteMicroTask = async ( url, token ) => {
@@ -24,9 +27,7 @@ const deleteMicroTask = async ( url, token ) => {
     };
 
     const response = await fetch( url, options );
-
     if(!response.ok) throw new Error(response.status);
-
 }
 
 export {
