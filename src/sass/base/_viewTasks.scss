@@ -120,14 +120,22 @@
             grid-auto-flow: column; /* Filas generadas automáticamente, se extiende hacia los lados */
             overflow: auto;/* Habilitar desplazamiento horizontal */
             gap: .5rem; /* Espacio entre los elementos */
-            grid-template-rows: repeat(7, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            grid-template-areas: 
+            "months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months months";
             padding: .2rem;
+
+            @media screen and (max-width : 868px) {
+                &{
+                    padding: 2rem .2rem;
+                }
+            }
         }
 
         &__item{
             background-color: #7c7c7c;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.6rem;
+            height: 1.6rem;
             border-radius: .3rem;
             cursor: pointer;
             position: relative;
@@ -137,14 +145,32 @@
             }
 
             &--active{
-                background-color: v.$color-primary;
+                
+                &__level-1{
+                    background-color: v.$color-primary-level-1;
+                }
+
+                &__level-2{
+                    background-color: v.$color-primary-level-2;
+                }
+                &__level-3{
+                    background-color: v.$color-primary-level-3;
+                }
+            }
+
+            @media screen and (max-width : 868px) {
+                &{
+                    width: 3rem;
+                    height: 3rem;
+                }
             }
         }
 
         &__months{
-            // width: 1300px;
+            width: 100%;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
+            grid-area: months;
         }
 
         &__create{
@@ -185,7 +211,7 @@
         background: #000000de;
         display: grid;
         place-content: center;
-        z-index: 90;
+        z-index: 200;
         padding: 2rem;
 
         &-container{

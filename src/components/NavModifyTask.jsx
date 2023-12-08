@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import NavModifyBtnUpdate from "./NavModifyBtnUpdate";
 import NavModifyTaskDelete from "./NavModifyTaskDelete";
 import NavModifyShowDescription from "./NavModifyShowDescription";
 import ViewTaskConfirmDelete from "./ViewTaskConfirmDelete";
-import { deleteMacroTask } from "../data/macroTasks";
+import { deleteMacroTask as deleteMacroTaskApi } from "../data/macroTasks";
 
 import imgMore from '../assets/icons/more.svg';
+
+import { deleteMacroTask } from "../features/macroTasks/macroTaskSlice";
 
 const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId }) => {
 
@@ -20,10 +22,19 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
   const changeConfirm = (value) => setIsShowConfirm(value);
 
   const navigate = useNavigate();
+  const dispathc = useDispatch()
 
   const deleteTask = async () => {
+
+    localStorage.setItem('taskDelete', true);
+
+    if (token.includes('root')) {
+      dispathc(deleteMacroTask(taskId));
+      return navigate('/dashboard');
+    }
+
     try {
-      const taskDeleted = await deleteMacroTask(import.meta.env.VITE_API_URL + `habits/${taskId}`, token);
+      const taskDeleted = await deleteMacroTaskApi(import.meta.env.VITE_API_URL + `habits/${taskId}`, token);
       localStorage.setItem('taskDelete', true);
     }
     catch (error) { console.log(error); }

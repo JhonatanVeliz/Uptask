@@ -1,0 +1,55 @@
+@use '../abstracts/variables' as v;
+
+.microTasks{
+    text-align: center;
+
+    &--show{
+        margin-top: 2rem;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 100%;
+        display: grid;
+        gap: 1rem;
+        background-color: v.$color-bg-commits;    
+    }
+
+    &--hidden{
+        margin-top: 2rem;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 100%;
+        display: grid;
+        gap: 1rem;
+        background-color: v.$color-bg;
+    }
+
+    &__container{
+        padding: 1.5rem;
+        background-color: v.$color-white;
+        border-radius: 1rem;
+        color: v.$color-bg-commits;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        &__header{
+            display: flex;
+            justify-content: space-between;
+
+            &__li{
+                list-style: none;
+                font-weight: v.$weight-black;
+                color: v.$color-bg-task;
+            }
+        }
+
+        &__note{
+            font-weight: v.$weight-black;
+            align-self: flex-start;
+        }
+
+        &__date{
+            align-self: flex-end;
+        }
+    }
+}

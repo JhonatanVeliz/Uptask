@@ -10,11 +10,8 @@ const createMicroTask = async ( url, tracker, token ) => {
     }
 
     const response = await fetch(url, options);
-    console.log(response);
 
     if( !response.ok ) throw new Error(response.statusText);
-
-
 }
 
 export {

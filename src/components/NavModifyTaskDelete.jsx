@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import imgDelete from '../assets/icons/delete.svg';
 
 const NavModifyTaskDelete = React.memo(({ changeConfirm }) => {

@@ -4,6 +4,7 @@ import macroTasksReducer from "../features/macroTasks/macroTaskSlice";
 import firstVisitReducer from "../features/firstVisit/firstVistiSlice"; 
 import messageWelcomeReducer from "../features/messageWelcome/messageWelcomeSlice";
 import userReducer from "../features/user/userSlice";
+import microTaskSlice from "../features/microTasksShow/microTaskSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         macroTasks : macroTasksReducer,
         firstVisit: firstVisitReducer,
         isShowMessageWelcome : messageWelcomeReducer,
-        user : userReducer
+        user : userReducer,
+        microTasksList : microTaskSlice
     }
 })

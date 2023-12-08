@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { createState } from '../features/microTasksShow/microTaskSlice';
 
 const Commit = React.memo(({ id, dateTracker, taskId }) => {
+
+  const dispatch = useDispatch();
 
   const [dataCommit, setDataCommit] = useState({ isShow: false, text: '' });
   const [fixedDivPosition, setFixedDivPosition] = useState({ x: 0, y: 0 });
@@ -32,6 +36,10 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
     setDataCommit({isShow : false, text : ''});
   }
 
+  const showData = () => {
+    dispatch(createState( {taskId, microTasks : searchTrackerCommit} ));
+  }
+
   return (
     <>
       {
@@ -50,19 +58,23 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
         </div>
       }
 
+{/* 'viewTask__commits__item--active' */}
       <span
         className={
           `viewTask__commits__item 
-          ${searchTrackerCommit.length !== 0
-            ? 'viewTask__commits__item--active'
+          viewTask__commits__item--${searchTrackerCommit.length !== 0
+            ? searchTrackerCommit.length == 3 
+              ? 'active__level-2' : 
+                searchTrackerCommit.length > 3 ? 'active__level-3' : 'active__level-1'
             : ''
           }`
         }
         title={`${searchTrackerCommit.length} tareas ${thisDate}`}
         data-date={thisDate || ''}
         data-info={searchTrackerCommit.length || 0 }
-        onMouseEnter={showTooltip}
-        onMouseLeave={hiddenTooltip}
+        onClick={showData}
+        // onMouseEnter={showTooltip}
+        // onMouseLeave={hiddenTooltip}
       >
       </span>
     </>

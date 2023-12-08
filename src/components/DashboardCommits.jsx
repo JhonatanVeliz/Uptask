@@ -9,11 +9,9 @@ import { getMacroTasks } from "../data/macroTasks";
 import { createMacroTasksState } from "../features/macroTasks/macroTaskSlice";
 
 const Months = ({ month }) => {
-
   return (
     <span>{month}</span>
   )
-
 }
 
 const DashboardCommits = ({ yearForMicroTask, taskId }) => {
@@ -71,13 +69,12 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
       <h3 className="viewTask__commits__title">{year}</h3>
 
-      <div className="viewTask__commits__months">
-        {
-          months.map((month, i) => <Months key={i * 12} month={month} />)
-        }
-      </div>
-
       <div className="viewTask__commits__dashboard">
+        <div className="viewTask__commits__months">
+          {
+            months.map((month, i) => <Months key={i * 12} month={month} />)
+          }
+        </div>
         {
           listMicroTasks.map((date, id) => <Commit key={id * 2} dateTracker={date} taskId={taskId} />)
         }
@@ -99,9 +96,4 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
     </div>
   )
 }
-
-// (
-//   <span className="viewTask__commits__item" key={i} data-date={ day || 'no hay' }></span>
-// )
-
 export default DashboardCommits

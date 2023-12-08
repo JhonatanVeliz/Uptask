@@ -19,8 +19,8 @@ const NavSettingsOptions = ({ isShow = false }) => {
         <img className="navSettings__li__img" src={ avatar || imgAvatar } alt="imagen del perfil" />
 
         <p className="navSettings__li__info">
-          <span>{ name }</span>
-          <span className="navSettings__li__info__email">{ email }</span>
+          <span>{ name || userDefault.name }</span>
+          <span className="navSettings__li__info__email">{ email || userDefault.email }</span>
         </p>
         
       </li>

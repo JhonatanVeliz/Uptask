@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createMacroTask, updateMacroTask } from "../features/macroTasks/macroTaskSlice";
+import { createMacroTasksState, updateMacroTask, createMacroTask } from "../features/macroTasks/macroTaskSlice";
 
 // Components
 import Nav from "../components/Nav";
@@ -11,16 +11,18 @@ import InputText from "../components/InputText";
 
 // Helpers
 import { clearThisState } from "../utilities";
+import { generatorId } from "../helpers";
 
 // FUNCTIONS API
-import { createMacroTaskApi, updateMacroTaskApi } from "../data/macroTasks";
+import { createMacroTaskApi, updateMacroTaskApi, getMacroTasks } from "../data/macroTasks";
+import { createMicroTask } from "../data/microTasks";
 
 const NewMacroTask = () => {
 
   const { taskId } = useParams();
   const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
-  const findMacroTask = stateMacroTasks.find( ({ habit }) => habit.id == taskId ) || false;
-  const macroTaskData = findMacroTask.habit  || { name: '', description: '' };
+  const findMacroTask = stateMacroTasks.find(({ habit }) => habit.id == taskId) || false;
+  const macroTaskData = findMacroTask.habit || { name: '', description: '' };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,17 +48,32 @@ const NewMacroTask = () => {
     const macroTask = { name: data.name, user_id: id, description: data.description };
 
     if (!taskId) {
+
+      if (token.includes('root')) {
+        dispatch(createMacroTask({ ...macroTask, id: generatorId(), created_at: new Date() }));
+        return navigate(`/dashboard`);
+      }
+
       try {
         const macroTaskCreated = await createMacroTaskApi(import.meta.env.VITE_API_URL + `habits`, macroTask, token);
-        dispatch(createMacroTask(macroTaskCreated));
+        const tracker = { notes: 'Se creo una tarea' };
+        const { id } = macroTaskCreated;
+        const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${id}/trackers`, tracker, token);
+        const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
+        dispatch(createMacroTasksState(macroTasks));
         return navigate('/dashboard');
       }
       catch (error) { console.log(error) }
     }
 
+    if (token.includes('root')) {
+      dispatch(updateMacroTask({ ...macroTaskData, name: data.name, description: data.description }));
+      return navigate(`/tasks/${taskId}`);
+    }
+
     try {
       const macroTaskUpdated = await updateMacroTaskApi(import.meta.env.VITE_API_URL + `habits/${taskId}`, macroTask, token);
-      dispatch( updateMacroTask({ ...macroTaskData, name : data.name, description : data.description }));
+      dispatch(updateMacroTask({ ...macroTaskData, name: data.name, description: data.description }));
       return navigate(`/tasks/${taskId}`);
     }
     catch (error) { console.log(error) }

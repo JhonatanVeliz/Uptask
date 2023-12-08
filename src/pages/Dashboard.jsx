@@ -25,8 +25,6 @@ const Dashboard = () => {
   const { id } = useSelector( ({ user }) => user.userData );
   const dispatch = useDispatch();
 
-  // const [ listMacroTasks, setListMacroTasks ] = useState( [] );
-
   const initialStateModal = localStorage.getItem('warning') ? false : true;
   const [showModal, setShowModal] = useState( token !== 'root' ? false : initialStateModal );
 
@@ -55,7 +53,7 @@ const Dashboard = () => {
     try {
       const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
       if(macroTasks.length === stateMacroTasks.length) return;
-      console.log(macroTasks);
+
       dispatch(createMacroTasksState(macroTasks));
     } 
     catch (error) { console.log(error) };

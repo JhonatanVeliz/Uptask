@@ -17,9 +17,15 @@ export const macroTasks = createSlice({
             const indexToDelete = state.findIndex(item => item.habit.id == macroTask.id);
 
             if (indexToDelete !== -1) { state[indexToDelete].habit = macroTask };
+        },
+        deleteMacroTask : ( state, actions ) => {
+            const macroTaskId = actions.payload;
+            const indexToDelete = state.findIndex(item => item.habit.id == macroTaskId);
+
+            if (indexToDelete !== -1) { state.splice(state[indexToDelete]) };
         }
     }
 })
 
-export const { createMacroTasksState, createMacroTask, updateMacroTask } = macroTasks.actions;
+export const { createMacroTasksState, createMacroTask, updateMacroTask, deleteMacroTask } = macroTasks.actions;
 export default macroTasks.reducer;
