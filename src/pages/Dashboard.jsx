@@ -92,7 +92,7 @@ const Dashboard = () => {
                   routeTo={`/tasks/${habit.id}`}
                   name={habit.name}
                   description={habit.description}
-                  id={habit.id}
+                  taskId={habit.id}
                 />
               ))
               : <ShowMessage message="listado de proyectos vacío" />

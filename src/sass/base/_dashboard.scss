@@ -51,7 +51,7 @@
     &__container{
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
 
         &__btn{
@@ -68,12 +68,12 @@
 
         &__card{
             max-width: 100%;
-            padding: 3rem 2rem;
+            padding: 3rem;
             border-radius: .5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            gap: 1.5rem;
             word-wrap: break-word;
             overflow: auto;
             cursor: pointer;
@@ -85,16 +85,69 @@
                 opacity: .9;
             }
 
+            &__commits{
+                display: flex;
+                gap: 1rem;
+                &__li{
+                    list-style: none;
+                    display: grid;
+                    gap: .5rem;
+                    place-items: center;
+                }
+
+                &__date{
+                    display: block;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                    background-color: v.$color-commit;
+                    border-radius: .5rem;
+                    &:hover{
+                        opacity: .8;
+                    }
+
+                    &__active{
+                        background-color: v.$color-primary;
+                    }
+                }
+            }
+
             h3{
                 font-size: 2.5rem;
-                text-align: center;
+                text-align: left;
                 text-transform: capitalize;
-                padding-bottom: 2rem;
             }
 
             p{
                 line-height: 1.2;
                 font-size: 2rem;
+                position: relative;
+                transition: .3s ease-in-out;
+                overflow: hidden;
+                text-transform: capitalize;
+
+                &::before{
+                    content: attr(data-task);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: v.$color-bg-project;
+                    width: 100%;
+                    height: 150%;
+                    transition: .5s ease-in-out;
+                    opacity: 0;
+                    color: v.$color-white;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                &:hover{
+                    color: v.$color-bg-project;
+                }
+
+                &:hover::before{
+                    opacity: 1;
+                }
             }
         }
     }
