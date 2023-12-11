@@ -13,6 +13,13 @@
         display: inline-block;
         font-weight: v.$weight-black;
         font-size: 3.5rem;
+
+        @media screen and (max-width: 420px) {
+            &{
+                font-size: 2.7rem
+            }
+        }
+
     }
 
     &__user-root{
@@ -20,13 +27,7 @@
 
         @media screen and (max-width: 550px) {
             &{
-                @include mixins.btn(v.$color-violet, 1.8rem, 1.5rem, 1.5rem);
-            }
-        }
-
-        @media screen and (max-width: 420px) {
-            &{
-                @include mixins.btn(v.$color-violet, 1.5rem, 1.5rem, 1.2rem);
+                display: none;
             }
         }
     }
