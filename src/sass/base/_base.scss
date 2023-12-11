@@ -15,7 +15,6 @@
 @use './navSettings';
 @use './editUser';
 @use './authorization';
-@use './commits';
 @use './microTasks';
 
 // CODE
@@ -30,4 +29,5 @@ body{
     margin: 0 auto;
     width: 100%;
     max-width: 1400px;
+    overflow: hidden;
 }

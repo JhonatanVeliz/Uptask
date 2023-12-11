@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import imgKey from '../assets/icons/key.svg'
 import imgPerfil from '../assets/icons/user-perfil.svg'
 
 const EditUserNav = ({ changeIsEditUser }) => {
-
-  const { avatar } = useSelector( ({ user }) => user.userData );
 
   const changeState = ( e ) => {
 

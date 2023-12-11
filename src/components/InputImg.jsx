@@ -1,4 +1,4 @@
-import imgPerfil from '../../public/img/profiles/user-perfil.svg';
+import imgPerfil from '/img/profiles/user-perfil.svg';
 import imgPencil from '../assets/icons/pencil.svg'
 
 const InputImg = ({ id = '', handleFileChange = () => { }, avatar_view = '' }) => {

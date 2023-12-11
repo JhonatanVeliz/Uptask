@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { createState } from '../features/microTasksShow/microTaskSlice';
 
-const Commit = React.memo(({ id, dateTracker, taskId }) => {
+const Commit = React.memo(({ dateTracker, taskId }) => {
 
   const dispatch = useDispatch();
 
@@ -18,6 +18,13 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
   const listOfTheTrackers = macroTaskAndTrackers.trackers;
 
   const searchTrackerCommit = listOfTheTrackers.filter(({ created_at }) => created_at.slice(0, 10) == thisDate);
+
+  const theDate = new Date();
+  const dateYear = theDate.getFullYear();
+  const dateMonth = theDate.getMonth() +1;
+  const dateDay = `0${theDate.getDate()}`;
+
+  const dateComparation = `${dateYear}-${dateMonth}-${dateDay.slice(-2)}`
 
   const showTooltip = (e) => {
     const commit = e.target;
@@ -65,7 +72,8 @@ const Commit = React.memo(({ id, dateTracker, taskId }) => {
               ? 'active__level-2' : 
                 searchTrackerCommit.length > 3 ? 'active__level-3' : 'active__level-1'
             : ''
-          }`
+          }
+          viewTask__commits__item--${dateComparation === thisDate ? 'appear' : ''}`
         }
         title={`${searchTrackerCommit.length} tareas ${thisDate}`}
         data-date={thisDate || ''}

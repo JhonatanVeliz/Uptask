@@ -33,6 +33,10 @@
             font-size: 1.8rem;
             &--active{
                 color: v.$color-red;
+
+                &__light{
+                    color: #df2828;
+                }
             }
         }
 

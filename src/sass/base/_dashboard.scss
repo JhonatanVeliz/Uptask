@@ -54,6 +54,16 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
 
+        @media screen and (max-width: 1050px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (max-width: 700px) {
+            &{
+                grid-template-columns: 1fr;
+            }
+        }
+
         &__btn{
             margin: 3rem 0;
             grid-column: 2 / -1;
@@ -63,6 +73,12 @@
 
             &__item{
                 @include mixins.btn(v.$color-red, 1.8rem, 4.5rem, 1.8rem);
+            }
+
+            @media screen and (max-width: 700px) {
+                &{
+                    grid-column: 1 / -1;
+                }
             }
         }
 
@@ -97,8 +113,8 @@
 
                 &__date{
                     display: block;
-                    width: 3.5rem;
-                    height: 3.5rem;
+                    width: calc(3.5rem);
+                    height: calc(3.5rem);
                     background-color: v.$color-commit;
                     border-radius: .5rem;
                     &:hover{
@@ -115,6 +131,20 @@
                         &-level-3{
                             background-color: v.$color-primary-level-3;
                         }
+                    }
+
+                    @media screen and (max-width: 1176px) {
+                        &{
+                            width: 3rem;
+                            height: 3rem;
+                          }
+                    }
+
+                    @media screen and (max-width: 380px) {
+                        &{
+                            width: 2.5rem;
+                            height: 2.5rem;
+                          }
                     }
                 }
             }

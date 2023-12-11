@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+// COMPONENTS
 import InputPassword from './InputPassword';
+import MessageError from './MessageError';
 import BtnsSubmit from './BtnsSubmit';
 
 import { updateUserPassword } from '../data/login';
@@ -17,6 +19,7 @@ const EditUserPassword = () => {
   const { name, email, password, id, avatar, isRegistered } = useSelector( ({ user }) => user.userData );
   const initialState = { password : '', passwordModify : '', passwordConfirm : '' };
   const [ passwordState, setPasswordState ] = useState(initialState);
+  const [ isThereError, setIsThereError ] = useState({ isError : false, text : '' });
 
   const changePasswordState = (value, name) => {
     setPasswordState({ ...passwordState, [name] : value });
@@ -62,6 +65,8 @@ const EditUserPassword = () => {
     <form onSubmit={handleSave} className='editUser__password'>
 
       <h2 className='editUser__password__title'>Edita Tu Contraseña:</h2>
+
+      <MessageError  invalid={isThereError.isError} text={isThereError.text} />
 
       <InputPassword 
         title='Contraseña Actual'

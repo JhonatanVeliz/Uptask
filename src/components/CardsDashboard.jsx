@@ -8,19 +8,16 @@ const Day = ({ day, trackers, todayIndex }) => {
   let dayOfTheWeek = null;
   let valueColoration = 0;
 
-
   if(trackers){
 
     const search = trackers.some( ( {created_at} ) => {
       const date = new Date(created_at).getDay();
-
       valueColoration++;
       return date -1 == todayIndex
     });
 
     dayOfTheWeek = search;
   }
-
 
   return (
     <li className="dashboard__container__card__commits__li">
@@ -31,7 +28,6 @@ const Day = ({ day, trackers, todayIndex }) => {
             ? valueColoration == 1 ? '__active' : valueColoration === 3 ? '__active-level-2' : '__active-level-3'
             : ''}`
         }
-        title={`${valueColoration} tareas`}
       >
       </span>
 

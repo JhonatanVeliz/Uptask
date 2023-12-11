@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 // Components
 import Modal from "./Modal";
 import BtnsSubmit from "./BtnsSubmit";
+import MessageError from "./MessageError";
 
 // Utilities 
 import { disassemblyTime } from "../utilities";
@@ -26,6 +27,7 @@ const EditUserData = () => {
   const [user, setUser] = useState({ name, password: '', email, avatar : '' });
   const [avatarView, setAvatarView] = useState(avatar);
   const [isThereError, setIsThereError] = useState(false);
+  const [isInvalidPassword, setIsInvalidPassword ] = useState({ isInvalid : false, text : '' });
 
   const changeDataUser = (value, name) => {
     setUser({ ...user, [name]: value });
@@ -60,10 +62,13 @@ const EditUserData = () => {
       return
     }
 
-    if (user.password == '') return;
+    if (user.password == '') {
+      setIsInvalidPassword({ isInvalid : true, text : 'Contraseña Vacía' });
+      return;
+    };
 
     if (user.password !== password) {
-      console.log('password diferente');
+      setIsInvalidPassword({ isInvalid : false, text : 'Contraseña Incorrecta' });
       return;
     }
 
@@ -103,6 +108,12 @@ const EditUserData = () => {
         </label>
 
       </div>
+
+      <MessageError 
+        invalid={isInvalidPassword.isInvalid} 
+        text={isInvalidPassword.text} 
+        isLight={true}
+      />
 
       <InputText
         title="email"

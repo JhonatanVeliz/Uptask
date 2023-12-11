@@ -65,7 +65,6 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
     // Ahora, allDays contendrá todas las fechas del año especificado
     setListMicroTasks(allDays);
-
   }, []);
 
 

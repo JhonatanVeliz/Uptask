@@ -158,6 +158,10 @@
                 }
             }
 
+            &--appear{
+                animation: appear 2s forwards;
+            }
+
             @media screen and (max-width : 868px) {
                 &{
                     width: 3rem;
@@ -249,5 +253,15 @@
                 flex-grow: 1;
             }
         }
+    }
+}
+
+@keyframes appear {
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+        outline: 1.6px solid v.$color-primary;
     }
 }
