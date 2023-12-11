@@ -7,8 +7,6 @@ import Modal from "./Modal";
 import BtnsSubmit from "./BtnsSubmit";
 import MessageError from "./MessageError";
 
-// Utilities 
-import { disassemblyTime } from "../utilities";
 // STATE
 import { updateUserData } from "../data/login";
 import { changeUserState } from "../features/user/userSlice";
@@ -58,7 +56,6 @@ const EditUserData = () => {
 
     if (name === user.name && avatar === avatarView && email === user.email) {
       setIsThereError(true);
-      setTimeout(() => setIsThereError(false), disassemblyTime);
       return
     }
 

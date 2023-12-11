@@ -32,22 +32,22 @@ const EditUserPassword = () => {
     const regexNumber = /\d/;
 
     if( passwordState.password !== password ){
-      console.log('La contraseña del usuario no coincide');
+      setIsThereError({ isError : true, text : 'La Contraseña Actual No Coincide' });
       return;
     }
 
     if(passwordState.passwordModify === '' && passwordState.passwordConfirm === ''){
-      console.log('Campos vacios');
+      setIsThereError({ isError : true, text : 'Campos Vacíos' });
       return
     }
     
     if(passwordState.passwordModify !== passwordState.passwordConfirm){
-      console.log('La contraseña a actualizar no coincide');
+      setIsThereError({ isError : true, text : 'La Contraseña a Actualizar No Coincide' });
       return;
     }
 
     if(!passwordState.passwordModify.match(regexNumber) || !passwordState.passwordConfirm.match(regexNumber)){;
-      console.log('No contiene numeros');
+      setIsThereError({ isError : true, text : 'Tu contraseña necesita almenos un numero' });
       return
     }
 
@@ -66,7 +66,7 @@ const EditUserPassword = () => {
 
       <h2 className='editUser__password__title'>Edita Tu Contraseña:</h2>
 
-      <MessageError  invalid={isThereError.isError} text={isThereError.text} />
+      <MessageError  invalid={isThereError.isError} text={isThereError.text} isLight={true} />
 
       <InputPassword 
         title='Contraseña Actual'

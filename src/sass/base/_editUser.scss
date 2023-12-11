@@ -9,9 +9,30 @@
     display: flex;
     min-height: 90vh;
 
+    @media screen and (max-width: 650px) {
+        &{
+            flex-direction: column;
+        }
+    }
+
     &__nav{
         background: #171717;
         padding: 3rem;
+
+        @media screen and (max-width: 650px) {
+            &{
+                background-color: v.$color-bg;
+                padding: 0;
+            }
+            ul{
+                width: 20rem;
+                display: flex;
+                justify-content: space-evenly;
+                gap: 1rem;
+                background: #171717;
+                padding: .5rem 2rem;
+            }
+        }
 
         &__item{
             max-width: 5rem;
@@ -46,6 +67,14 @@
             display: flex;
             align-items: end;
             gap: 4rem;
+
+            @media screen and (max-width: 520px) {
+                &{
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 1rem;
+                }
+            }
 
             &__img{
                 width: 15rem;
