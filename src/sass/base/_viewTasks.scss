@@ -100,6 +100,7 @@
         gap: .5rem;
         overflow: hidden;
         position: relative;
+        animation: appearDashboard .8s ease-in-out;
 
         &__years{
             position: absolute;
@@ -183,7 +184,7 @@
 
             &--appear{
                 transition: .2s linear;
-                animation: appear 2s forwards;
+                animation: appear 3s forwards;
             }
 
             @media screen and (max-width : 868px) {
@@ -290,5 +291,16 @@
     }
     100%{
         transform: scale(1);
+    }
+}
+
+@keyframes appearDashboard {
+    from{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
     }
 }

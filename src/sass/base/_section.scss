@@ -5,4 +5,14 @@
     width: 100%;
     display: grid;
     place-items: center;
+    animation: appearSection .6s ease-in-out;
+}
+
+@keyframes appearSection {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

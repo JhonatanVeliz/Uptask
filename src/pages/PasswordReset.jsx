@@ -9,7 +9,6 @@ import { REGEX } from '../helpers';
 import { resetPasswordApi } from '../data/passwordReset';
 
 import fingerPrint from '../assets/icons/fingerprint.svg';
-// import fingerPrintGreen from '../assets/icons/fingerprint-green.svg';
 
 const PasswordReset = () => {
 

@@ -22,7 +22,10 @@ const MessageWelcome = () => {
   setTimeout( removeComponent, disassemblyTime);
 
   useEffect(() => {
-    if (!isShow) { setIsShowMessage(false) };
+
+    if (!isShow) { 
+      setIsShowMessage(false) 
+    };
 
     dispatch(changeMessageStatus(false));  
   }, [])

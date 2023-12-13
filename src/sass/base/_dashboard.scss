@@ -19,7 +19,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         transition: top .5s ease-in-out;
-        animation: appear 4s ease-out forwards;
+        animation: appearMessage 4s ease-out forwards;
         z-index: 75;
 
         &__img{
@@ -96,6 +96,7 @@
             background-color: v.$color-bg-project;
             color: v.$color-white;
             z-index: 10;
+            animation: appearCards .6s forwards ease-out;
 
             &:hover{
                 opacity: .9;
@@ -191,7 +192,7 @@
     }
 }
 
-@keyframes appear {
+@keyframes appearMessage {
     from{
         top: -50%;
     }
@@ -205,5 +206,16 @@
     100%{
         top: 6rem;
         opacity: 0;
+    }
+}
+
+@keyframes appearCards {
+    from{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
     }
 }

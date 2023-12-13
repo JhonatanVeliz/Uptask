@@ -53,6 +53,10 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
         />
       }
 
+      {
+        isShow && <div className="div-remove" onClick={changeState}></div>
+      }
+
       <nav className="viewTask__navModify">
 
         <button type="button" onClick={changeState} className="viewTask__navModify__more">

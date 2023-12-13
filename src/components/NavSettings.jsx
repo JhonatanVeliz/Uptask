@@ -7,33 +7,32 @@ import imgSettings from '../assets/icons/settings.svg';
 const NavSettings = () => {
 
   const [isShow, setIsShow] = useState(false);
-  const { avatar } = useSelector( ({ user }) => user.userData);
+  const { avatar } = useSelector(({ user }) => user.userData);
 
-  const changeShow = (e) => {
+  const changeShow = () => {
 
-    if( e.target.className !== 'navSettings__btn' && isShow){
-      console.log('entre');
-      return
-    }
+    setIsShow(!isShow);
 
-    if(isShow){
-      setIsShow(false);
-      return;
-    }
-    
-    setIsShow(true);
   };
 
   return (
-    <nav className="navSettings">
+    <>
 
-      <button className="navSettings__btn" onClick={changeShow}>
-        <img src={ avatar || imgSettings } alt="configuración del perfil"/>
-      </button>
+      {
+        isShow && <div className="div-remove" onClick={changeShow}></div>
+      }
 
-      <NavSettingsOptions isShow={ isShow }/>
+      <nav className="navSettings">
 
-    </nav>
+        <button className="navSettings__btn" onClick={changeShow}>
+          <img src={avatar || imgSettings} alt="configuración del perfil" />
+        </button>
+
+        <NavSettingsOptions isShow={isShow} />
+
+      </nav>
+
+    </>
   )
 }
 

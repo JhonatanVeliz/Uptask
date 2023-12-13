@@ -11,6 +11,7 @@
         display: grid;
         gap: 1rem;
         background-color: v.$color-bg-commits;
+        animation: appearMicroTask .6s ease-in-out;
     }
 
     &--hidden {
@@ -65,5 +66,16 @@
                 cursor: pointer;
             }
         }
+    }
+}
+
+@keyframes appearMicroTask {
+    from{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
     }
 }
