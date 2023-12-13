@@ -9,7 +9,7 @@ import { REGEX } from '../helpers';
 import { resetPasswordApi } from '../data/passwordReset';
 
 import fingerPrint from '../assets/icons/fingerprint.svg';
-import fingerPrintGreen from '../assets/icons/fingerprint-green.svg';
+// import fingerPrintGreen from '../assets/icons/fingerprint-green.svg';
 
 const PasswordReset = () => {
 
@@ -60,7 +60,7 @@ const PasswordReset = () => {
           <form className='passwordReset__form' onSubmit={handleSubmit}>
 
             <div className='passwordReset__form__logo'>
-              <img src={isResolve ? fingerPrintGreen : fingerPrint} alt="recupera tu contraseña" />
+              <img src={fingerPrint} alt="recupera tu contraseña" />
             </div>
 
             {
