@@ -9,7 +9,20 @@ const NavSettings = () => {
   const [isShow, setIsShow] = useState(false);
   const { avatar } = useSelector( ({ user }) => user.userData);
 
-  const changeShow = () => setIsShow(!isShow);
+  const changeShow = (e) => {
+
+    if( e.target.className !== 'navSettings__btn' && isShow){
+      console.log('entre');
+      return
+    }
+
+    if(isShow){
+      setIsShow(false);
+      return;
+    }
+    
+    setIsShow(true);
+  };
 
   return (
     <nav className="navSettings">
