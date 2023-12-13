@@ -9,7 +9,7 @@ const createUser = async (url, data) => {
   const response = await fetch(url, options);
   const json = response.json();
 
-  if (response.status !== 200 || !response.ok) throw new Error(`Error al Crear el usuario ${data.name}`);
+  if (!response.ok) throw new Error(`Error al Crear el usuario ${data.name}`);
 
   localStorage.setItem('isUserCreated', true);
   return json;

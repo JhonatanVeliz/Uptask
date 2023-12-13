@@ -22,7 +22,8 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
   const { token } = useSelector(({ login }) => login);
   const dispatch = useDispatch();
 
-  const year = yearForMicroTask;
+  const [year, setYear] = useState(yearForMicroTask);
+  const [isShowYear, setIsShowYear] = useState(false);
   const months = ['Ene.', 'Feb.', 'Mar.', 'Abr.', 'May.', 'Jun.', 'Jul', 'Ago.', 'Sep.', 'Oct.', 'Nov', 'Dic'];
 
   const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
@@ -35,7 +36,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
       const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${taskId}/trackers`, tracker, token);
       const getNewStateForStateGlobal = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
       dispatch(createMacroTasksState(getNewStateForStateGlobal));
-      dispatch(createState({ taskId, microTasks : macroTaskAndTrackers.trackers }));
+      dispatch(createState({ taskId, microTasks: macroTaskAndTrackers.trackers }));
       setTracker({ notes: '' });
     }
     catch (error) { console.log(error); }
@@ -45,7 +46,7 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
     setTracker({ ...tracker, [name]: value });
   }
 
-  useEffect(() => {
+  const createAllDays = () => {
 
     // Crear un array para almacenar todos los días del año
     const allDays = [];
@@ -63,15 +64,37 @@ const DashboardCommits = ({ yearForMicroTask, taskId }) => {
 
     }
 
+    return allDays;
+
+  }
+
+  useEffect(() => {
     // Ahora, allDays contendrá todas las fechas del año especificado
-    setListMicroTasks(allDays);
+    setListMicroTasks(createAllDays());
   }, []);
 
+  const changeYear = () => {
+    setIsShowYear(!isShowYear);
+  }
 
   return (
     <div className="viewTask__commits">
 
-      <h3 className="viewTask__commits__title">{year}</h3>
+      <h3 className="viewTask__commits__title" onClick={changeYear}>{year}</h3>
+
+      {
+        isShowYear && 
+        <div className="viewTask__commits__years">
+          <span>2023</span>
+          <span>2024</span>
+          <span>2025</span>
+          <span>2026</span>
+          <span>2027</span>
+          <span>2028</span>
+          <span>2029</span>
+          <span>2030</span>
+        </div>
+      }
 
       <div className="viewTask__commits__dashboard">
         <div className="viewTask__commits__months">

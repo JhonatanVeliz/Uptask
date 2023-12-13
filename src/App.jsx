@@ -12,6 +12,7 @@ import EditUser from "./pages/EditUser";
 
 // COMPONENTS
 import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
+import PasswordReset from "./pages/PasswordReset";
 
 const App = () => {
 
@@ -46,6 +47,7 @@ const App = () => {
           } />
 
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/password-reset" element={<PasswordReset />} />
           <Route path="/farewell" element={<Farewell />} />
 
         </Routes>

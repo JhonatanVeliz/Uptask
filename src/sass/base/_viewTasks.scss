@@ -42,7 +42,7 @@
             width: 23rem;
             height: auto;
             position: absolute;
-            background-color: #0c0c0c;
+            background-color: v.$color-black;
             right: 0;
             display: grid;
             gap: 1rem;
@@ -101,6 +101,30 @@
         display: grid;
         gap: .5rem;
         overflow: hidden;
+        position: relative;
+
+        &__years{
+            position: absolute;
+            top: 5rem;
+            left: 5rem;
+            width: fit-content;
+            padding: 2rem;
+            background-color: v.$color-black;
+            z-index: 100;
+            border-radius: 1rem;
+            display: flex;
+            font-size: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            span{
+                cursor: pointer;
+
+                &:hover{
+                    opacity: .7;
+                }
+            }
+        }
 
         &__tooltip{
             position: fixed;
@@ -113,6 +137,7 @@
 
         &__title{
             text-align: center;
+            cursor: pointer;
         }
 
         &__dashboard{

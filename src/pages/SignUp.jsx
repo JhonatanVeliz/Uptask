@@ -42,6 +42,8 @@ const Login = () => {
     try {
       const newData = { name : data.name, password : data.password, email : data.email };
       const createdUser = await createUser( import.meta.env.VITE_API_URL + 'sign_up', newData);
+      console.log('usuario creado');
+      console.log(createdUser);
     }
     catch (error) {
       setIsLoading(false);

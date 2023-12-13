@@ -16,7 +16,7 @@ const MicroTasks = () => {
 
   const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
   const macroTaskAndTrackers = stateMacroTasks.find( ({ habit }) => habit.id == taskId );
-  const { name, created_at, user_id, description } = macroTaskAndTrackers.habit;
+  const { name, created_at, description } = macroTaskAndTrackers.habit;
 
   const [showDescription, setShowDescription] = useState(false);
   const changeDescription = () => setShowDescription(!showDescription);

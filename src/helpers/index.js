@@ -74,6 +74,7 @@ function getDaysOfTheYear( year ) {
 }
 
 export {
+  REGEX,
   verifyDataSignup,
   getApiConst,
   generatorId,

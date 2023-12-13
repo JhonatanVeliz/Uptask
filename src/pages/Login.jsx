@@ -128,7 +128,7 @@ const Login = () => {
 
           </form>
 
-          <NavLink to={'/'} className="login__remember-password">
+          <NavLink to={'/password-reset'} className="login__remember-password">
             Olvide mi contraseña
           </NavLink>
 
