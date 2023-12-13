@@ -13,7 +13,7 @@ import fingerPrintGreen from '../assets/icons/fingerprint-green.svg';
 
 const PasswordReset = () => {
 
-  const [user, setUser] = useState({ email: '', name: '' });
+  const [user, setUser] = useState({ email: '' });
   const [isThereErrors, setIsThereErrors] = useState({ isError: false, error: '' });
   const [isResolve, setIsResolve] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,10 +28,6 @@ const PasswordReset = () => {
     if (!user.email.match(REGEX.email)) {
       setIsThereErrors({ isError: true, error: 'Porfavor ingresa un correo valido' });
       return;
-    }
-
-    if (!user.name.includes(' ')) {
-      setIsThereErrors({ isError: true, error: 'campos vacíos' })
     }
 
     setIsLoading(true);
@@ -95,13 +91,6 @@ const PasswordReset = () => {
                     name='email'
                     title='email'
                     value={user.email}
-                    changeData={changeUser}
-                  />
-
-                  <InputText
-                    name='name'
-                    title='nombre'
-                    value={user.name}
                     changeData={changeUser}
                   />
 
