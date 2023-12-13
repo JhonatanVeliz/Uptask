@@ -47,7 +47,7 @@ const PasswordReset = () => {
         isLoading && <Loader />
       }
 
-      <section className='passwordReset'>
+      {/* <section className='passwordReset'>
 
         <nav className="nav">
           <NavLink to="/dashboard">
@@ -104,7 +104,7 @@ const PasswordReset = () => {
 
         </div>
 
-      </section>
+      </section> */}
     </>
   )
 }
