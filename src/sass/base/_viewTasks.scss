@@ -287,10 +287,10 @@
     }
     50%{
         transform: scale(1.1);
-        outline: 1.6px solid v.$color-primary;
     }
     100%{
         transform: scale(1);
+        outline: 1.6px solid v.$color-primary;
     }
 }
 
