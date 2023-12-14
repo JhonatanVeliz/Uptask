@@ -22,6 +22,10 @@
         animation: appearMessage 4s ease-out forwards;
         z-index: 75;
 
+        @media screen and (max-width: 480px) {
+            width: 25rem;
+        }
+
         &__img{
             max-width: 4rem;
             grid-area: icon;
@@ -31,7 +35,7 @@
             text-align: center;
             font-weight: v.$weight-800;
             padding-bottom: .7rem;
-            font-size: 2rem;
+            font-size: 2rem;  
         }
         &__name, &__message{
             grid-area: text;
