@@ -16,6 +16,7 @@ import { generatorId } from "../helpers";
 // FUNCTIONS API
 import { createMacroTaskApi, updateMacroTaskApi, getMacroTasks } from "../data/macroTasks";
 import { createMicroTask } from "../data/microTasks";
+import LoaderApp from "./LoaderApp";
 
 const NewMacroTask = () => {
 
@@ -32,6 +33,7 @@ const NewMacroTask = () => {
   const initialStateData = { name: macroTaskData.name, description: macroTaskData.description }
   const [data, setData] = useState(initialStateData);
   const [InvalidText, setInvalidText] = useState({ invalid: false, text: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +46,8 @@ const NewMacroTask = () => {
       setTimeout(() => setInvalidText({ invalid: false, text: '' }), clearThisState);
       return;
     }
+
+    setIsLoading(true);
 
     const macroTask = { name: data.name, user_id: id, description: data.description };
 
@@ -87,6 +91,7 @@ const NewMacroTask = () => {
   return (
     <>
       <Nav />
+      { isLoading && <LoaderApp />}
 
       <div className='section new-proyect'>
 

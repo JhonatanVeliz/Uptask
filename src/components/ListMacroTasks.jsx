@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
+import { createMacroTasksState } from '../features/macroTasks/macroTaskSlice';
+import { createState, deleteMicroTaskState } from '../features/microTasksShow/microTaskSlice';
+
+import { getMacroTasks } from '../data/macroTasks';
 import { deleteMicroTask } from '../data/microTasks';
-import { deleteMicroTaskState } from '../features/microTasksShow/microTaskSlice';
 
 import imgDelete from '../assets/icons/delete.svg'
 
 const MicroTask = React.memo(({ notes, created_at, index, taskId, microTaskId, token }) => {
 
   const date = created_at.slice(0, 10);
-  const dispathc = useDispatch();
+  const dispatch = useDispatch();
 
   const deleteTracker = async () => {
 
     try {
       const microTaskDeleted = 
         await deleteMicroTask( import.meta.env.VITE_API_URL + `habits/${taskId}/trackers/${microTaskId}`, token );
-        dispathc(deleteMicroTaskState(index -1));
+        const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);
+        dispatch(deleteMicroTaskState(index -1));
+        dispatch(createMacroTasksState(macroTasks));
     } 
     catch (error) {console.log(error);}
   }
@@ -52,6 +57,15 @@ const ListMacroTasks = () => {
 
   const { taskId, microTasks } = useSelector(({ microTasksList }) => microTasksList);
   const { token } = useSelector( ({ login }) => login);
+  const dispatch = useDispatch();
+
+  useEffect( () => {
+    const showData = () => {
+      dispatch(createState( {taskId, microTasks : [] } ));
+    }
+
+    showData();
+  }, [] )
 
   return (
     <>

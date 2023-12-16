@@ -50,11 +50,11 @@
             transition: .2s ease-in-out;
             opacity: 0;
             border-radius: .5rem;
-            z-index: 100;
 
             &__active{
                 opacity: 1;
-                padding: 2rem;   
+                padding: 2rem;  
+                z-index: 100;
             }
 
             li{
@@ -105,16 +105,21 @@
         &__years{
             position: absolute;
             top: 5rem;
-            left: 5rem;
+            left: 0;
+            right: 0;
+            margin: auto;
             width: fit-content;
+            height: fit-content;
             padding: 2rem;
             background-color: v.$color-black;
             z-index: 100;
             border-radius: 1rem;
             display: flex;
+            flex-direction: column;
             font-size: 2rem;
             flex-wrap: wrap;
             gap: 1rem;
+            animation: appearYears .3s;
 
             span{
                 cursor: pointer;
@@ -137,6 +142,11 @@
         &__title{
             text-align: center;
             cursor: pointer;
+            background-color: transparent;
+            border: none;
+            color: v.$color-white;
+            font-weight: v.$weight-black;
+            font-size: 2rem;
         }
 
         &__dashboard{
@@ -302,5 +312,14 @@
     to{
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes appearYears {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
     }
 }

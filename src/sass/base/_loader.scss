@@ -1,6 +1,6 @@
 @use '../abstracts/variables' as v;
 
-.loader{
+.loader, .loaderApp{
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #000000d0;
+    background-color: #000000e0;
     z-index: 50;
     gap: 2rem;
 
@@ -45,6 +45,41 @@
     }
 }
 
+.loaderApp{
+    &__container{
+        
+        ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+    }
+
+    &__li{
+        width: 2rem;
+        height: 2rem;
+        background-color: #c9c9c9;
+        transition: .3s linear;
+
+        &-1{
+            animation: colorsAppear .5s infinite;
+        }
+        &-2{
+            animation: colorsAppear .5s infinite;
+            animation-delay: .2s;
+        }
+        &-3{
+            animation: colorsAppear .5s infinite;
+            animation-delay: .4s;
+        }
+        &-4{
+            animation: colorsAppear .5s infinite;
+            animation-delay: .6s;
+        }
+    }
+}
+
 @keyframes increase {
     from{
         transform: scale(0);
@@ -53,5 +88,14 @@
     to{
         transform: scale(1);
         opacity: 0;
+    }
+}
+
+@keyframes colorsAppear {
+    from {
+        background-color: #c9c9c9;
+    }
+    to {
+        background-color: v.$color-primary;
     }
 }
