@@ -49,7 +49,7 @@ const App = () => {
 
           <Route path="/signup" element={<SignUp />} />
           <Route path="/password-reset" element={<PasswordReset />} />
-          <Route path="/password/edit" element={<ForgotPassword />} />
+          <Route path="/password/edit/:id" element={<ForgotPassword />} />
           <Route path="/farewell" element={<Farewell />} />
 
         </Routes>
