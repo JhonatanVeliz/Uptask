@@ -1,24 +1,64 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import MessageError from '../components/MessageError'
 import InputText from '../components/InputText'
 import Loader from '../components/Loader'
+
+import { REGEX } from '../helpers';
+import { updateResetPassword } from '../data/passwordReset'
 
 import fingerPrint from '../assets/icons/fingerprint.svg';
 
 const ForgotPassword = () => {
 
+  const URL = useLocation();
+
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isThereErrors, setIsThereErrors] = useState({ isError: false, error: '' });
-  const [user, setUser] = useState({ email: '' });
+  const [user, setUser] = useState({ password: '', password_confirmation : '' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { password, password_confirmation } = user;
+
+    if([password, password_confirmation].includes('')){
+      setIsThereErrors({ isError : true, error : 'Faltan Datos' });
+      return;
+    }
+
+    if(!password_confirmation.match(REGEX.number) || !password.match(REGEX.number)){
+      setIsThereErrors({ isError : true, error : 'Tu contraseña debe incluir números' });
+      return;
+    }
+
+    if(password != password_confirmation){
+      setIsThereErrors({ isError : true, error : 'Tus Datos No Coinciden' });
+      return;
+    }
+
+    try {
+      const passwordReseted = 
+        await updateResetPassword(import.meta.env.VITE_API_URL + '/password/edit', {...user, reset_password_token : token});
+      console.log('Se cambio contraseña');
+    } 
+    catch (error) {console.log(error);}
+
   }
 
-  const changeUser = (name, value) => {
-    setUser({ [name]: value });
+  const changeUser = (value, name) => {
+    setUser({ ...user, [name]: value });
   }
+
+  useEffect( () => {
+
+    const queryParams = new URLSearchParams(URL.search);
+    const resetPasswordToken = queryParams.get('reset_password_token');
+    setToken(resetPasswordToken);
+
+  }, []);
+
 
   return (
     <>
@@ -53,9 +93,16 @@ const ForgotPassword = () => {
             />
 
             <InputText
-              name='email'
-              title='email'
-              value={user.email}
+              name='password'
+              title='Nueva contraseña'
+              value={user.password}
+              changeData={changeUser}
+            />
+
+            <InputText
+              name='password_confirmation'
+              title='Repetir contraseña'
+              value={user.password_confirmation}
               changeData={changeUser}
             />
 
