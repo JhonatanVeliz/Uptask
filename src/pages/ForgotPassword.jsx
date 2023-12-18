@@ -4,6 +4,8 @@ import MessageError from '../components/MessageError'
 import InputText from '../components/InputText'
 import Loader from '../components/Loader'
 
+import fingerPrint from '../assets/icons/fingerprint.svg';
+
 const ForgotPassword = () => {
 
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +39,7 @@ const ForgotPassword = () => {
           <form className='passwordReset__form' onSubmit={handleSubmit}>
 
             <div className='passwordReset__form__logo'>
-              <img src={''} alt="recupera tu contraseña" />
+              <img src={fingerPrint} alt="recupera tu contraseña" />
             </div>
 
             <h2>

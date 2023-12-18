@@ -49,7 +49,6 @@ const App = () => {
 
           <Route path="/signup" element={<SignUp />} />
           <Route path="/password-reset" element={<PasswordReset />} />
-          {/* <Route path="https://uptask-one.vercel.app/password/edit.:userId?:reset_password_token=token" element={<ForgotPassword />} /> */}
           <Route path="/password/:edit?" element={<ForgotPassword />} />
           <Route path="/farewell" element={<Farewell />} />
 
