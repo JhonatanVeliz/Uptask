@@ -40,7 +40,7 @@ const ForgotPassword = () => {
 
     try {
       const passwordReseted = 
-        await updateResetPassword(import.meta.env.VITE_API_URL + '/password/edit', {...user, reset_password_token : token});
+        await updateResetPassword(import.meta.env.VITE_API_URL + `/password/edit?password=${password}&password_confirmation=${password_confirmation}&reset_password_token${token}`);
       console.log('Se cambio contraseña');
     } 
     catch (error) {console.log(error);}

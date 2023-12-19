@@ -14,15 +14,9 @@ export const resetPasswordApi = async (url, user) => {
 
 }
 
-export const updateResetPassword = async (url, dataUser) => {
+export const updateResetPassword = async ( url ) => {
 
-    const options = {
-        method : 'GET',
-        headers : {'Content-Type': 'application/json'},
-        body : JSON.stringify(dataUser)
-    }
-
-    const response = await fetch(url, options);
+    const response = await fetch(url);
 
     if(!response.ok) throw new Error(response.status, response.text)
 
