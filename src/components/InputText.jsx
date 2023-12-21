@@ -16,13 +16,14 @@ const InputText = ({ title = '', changeData = '', name = '', value = '' }) => {
       </label>
 
       <input
-        type="text"
+        type={`${name !== 'email' ? 'text' : 'email' }`}
         id={title}
         placeholder={`Escribe tu ${title}:`}
         className="login__form__input"
         onChange={writingData}
         name={name}
         value={value}
+        autoComplete="off"
       />
 
     </>

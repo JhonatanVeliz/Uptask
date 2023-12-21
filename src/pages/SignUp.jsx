@@ -13,7 +13,7 @@ import InputPassword from "../components/InputPassword";
 import MessageError from "../components/MessageError";
 import Loader from "../components/Loader";
 
-const Login = () => {
+const Signup = () => {
 
   const navigate = useNavigate();
 
@@ -53,6 +53,10 @@ const Login = () => {
 
     navigate('/login');
   }
+
+  useEffect( () => {
+    const getDataConst = getApiConst();
+  }, []);
 
   return (
     <>
@@ -122,4 +126,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup 

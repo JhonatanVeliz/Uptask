@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import MessageError from '../components/MessageError'
 import InputText from '../components/InputText'
 import Loader from '../components/Loader'
@@ -12,6 +12,7 @@ import fingerPrint from '../assets/icons/fingerprint.svg';
 const ForgotPassword = () => {
 
   const URL = useLocation();
+  const navigate = useNavigate();
 
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,8 @@ const ForgotPassword = () => {
     try {
       const passwordReseted = 
         await updateResetPassword(import.meta.env.VITE_API_URL + `/password/edit?password=${password}&password_confirmation=${password_confirmation}&reset_password_token=${token}`);
-      console.log('Se cambio contraseña');
+      navigate('/login');
+      localStorage.setItem('changePassword', true);
     } 
     catch (error) {console.log(error);}
 

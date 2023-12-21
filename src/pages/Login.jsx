@@ -19,7 +19,7 @@ import { changeUserState } from "../features/user/userSlice";
 
 // HELPERS
 import { userLogin } from "../data/login";
-import { verifyData } from "../helpers";
+import { getApiConst, verifyData } from "../helpers";
 import { removeMessageError } from "../utilities";
 
 const Login = () => {
@@ -73,12 +73,10 @@ const Login = () => {
 
   useEffect(() => {
 
+    const getDataConst = getApiConst();
+
     // funcion para que otro usuario pueda usar el mismo dispositivo pero con una cuenta diferente
     if(!firtsVisitState) return;
-
-    // hace la llamada para iniciar sesion de inmediato si el usuario ya ingreso con anterioridad
-    const userData = JSON.parse(localStorage.getItem('userData')) || null;
-    if (userData) fetchUser(userData);
     
     return () => dispatch(modifyFisrtVisit(false));
 
@@ -90,6 +88,7 @@ const Login = () => {
       { isLoading && <Loader />}
 
       <MessageSucces title="¡ Exito !" message="Usuario Creado" id="isUserCreated" />
+      <MessageSucces title="¡ Exito !" message="Contraseña actualizada" id="changePassword" />
       
       <Nav />
 

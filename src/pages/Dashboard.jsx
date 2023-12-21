@@ -22,7 +22,6 @@ const Dashboard = () => {
 
   const { token } = useSelector( ({ login }) => login );
   const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks);
-  const { id } = useSelector( ({ user }) => user.userData );
   const dispatch = useDispatch();
 
   const initialStateModal = localStorage.getItem('warning') ? false : true;
@@ -62,7 +61,7 @@ const Dashboard = () => {
 
   const handleBeforeUnload = () => {
     localStorage.removeItem('warning');
-  }
+  };
 
   return (
     <>
