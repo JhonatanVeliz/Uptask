@@ -39,14 +39,16 @@ const ForgotPassword = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const passwordReseted = 
         await updateResetPassword(import.meta.env.VITE_API_URL + `/password/edit?password=${password}&password_confirmation=${password_confirmation}&reset_password_token=${token}`);
       navigate('/login');
       localStorage.setItem('changePassword', true);
+      setIsLoading(false);
     } 
     catch (error) {console.log(error);}
-
   }
 
   const changeUser = (value, name) => {
