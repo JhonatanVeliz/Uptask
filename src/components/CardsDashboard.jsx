@@ -69,7 +69,7 @@ const CardsDashboard = ({ routeTo = '/dashboard', name = '', description = '', t
         }
       </ul>
 
-      <p data-task={description }>descripción de la tarea</p>
+      <p data-task="Descripción de la tarea">{ description }</p>
 
     </NavLink>
   )
