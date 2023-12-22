@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 // HELPERS
-import { verifyDataSignup } from "../helpers";
+import { getApiConst, verifyDataSignup } from "../helpers";
 import { removeMessageError } from "../utilities";
 import { createUser } from "../data/login";
 

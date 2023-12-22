@@ -78,7 +78,7 @@ const Dashboard = () => {
         <div className="dashboard__container">
 
           <div className="dashboard__container__btn">
-            <NavLink to={`/new-project/${token}`} className='dashboard__container__btn__item'>
+            <NavLink to={`/new-project`} className='dashboard__container__btn__item'>
               Crear Nueva Tarea
             </NavLink>
           </div>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // PAGES
 import SignUp from "./pages/SignUp";
@@ -15,9 +15,29 @@ import ProtectedRoute from "./components/protectedRoutes/ProtectedRoute";
 import PasswordReset from "./pages/PasswordReset";
 import ForgotPassword from "./pages/ForgotPassword";
 
+// SLICE
+import { login } from "./features/login/loginSlice";
+import { changeUserState } from "./features/user/userSlice";
+
 const App = () => {
 
-  const { token } = useSelector(({ login }) => login );
+  const dispatch = useDispatch();
+
+  const tokenSlice = useSelector(({ login }) => login.token);
+  const tokenStorage = sessionStorage.getItem('token');
+
+  const user = useSelector( ({ user }) => user.userData);
+
+  const token = tokenStorage || tokenSlice;
+
+  if(token && !user.name){
+    const userData = JSON.parse(sessionStorage.getItem('user'));
+    dispatch(changeUserState(userData));
+  }
+
+  if(!tokenSlice){
+    dispatch(login(token));
+  }
 
   return (
     <BrowserRouter>
@@ -35,7 +55,7 @@ const App = () => {
 
           <Route element={<ProtectedRoute isAllowed={token} />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/new-project/:user" element={<NewMacroTask />} />
+            <Route path="/new-project" element={<NewMacroTask />} />
             <Route path="/update-task/:taskId" element={<NewMacroTask />} />
             <Route path="/tasks/:taskId" element={<MicroTasks />} />
             <Route path="/editUser/:token" element={<EditUser />} />

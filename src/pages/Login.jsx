@@ -57,9 +57,12 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const {token, name, id, avatar_url } = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
+      const { token, name, id, avatar_url } = await userLogin(import.meta.env.VITE_API_URL + 'login', userData);
       dispatch(loginSlice(token));
-      dispatch(changeUserState({ ...userData, name, id, avatar : avatar_url, isRegistered : true}));
+      const userDataToSlice = { ...userData, name, id, avatar : avatar_url, isRegistered : true};
+      dispatch(changeUserState(userDataToSlice));
+      localStorage.setItem('token', token);
+      sessionStorage.setItem('user', JSON.stringify(userDataToSlice));
     }
     catch (error) {
       setInvalidText({ invalid: true, text: `Usuario no encontrado porfavor Verifica tus datos y vuelve a intentar` });

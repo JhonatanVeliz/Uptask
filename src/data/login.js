@@ -32,7 +32,7 @@ const userLogin = async (url, user) => {
   if (response.status !== 200 || !response.ok) throw new Error(`${response.status}`);
 
   if (token) {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(user));
     return { token, name, id, avatar_url };
   }
