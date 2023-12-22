@@ -19,9 +19,7 @@ const Nav = React.memo(() => {
       </NavLink>
 
       {
-        token
-        ? <NavSettings />
-        : <BtnNotRegistered />
+        token && <NavSettings />
       }
 
     </nav>

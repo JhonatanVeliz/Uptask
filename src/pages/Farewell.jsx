@@ -8,18 +8,20 @@ import { changeUserState } from '../features/user/userSlice';
 
 // Components
 import FarewellImg from '../components/FarewellImg';
+import { logout } from '../features/login/loginSlice';
 
 const Farewell = () => {
 
   const dispatch = useDispatch();
 
-  useEffect( () => {
+  const hanldeLogOut = () => {
     const removeMessageState = dispatch(changeMessageStatus(true));  
     const removeLocalStorage = localStorage.clear();
     const removeSessionStorage = sessionStorage.clear();
     const removeMacroTasks = dispatch(createMacroTasksState([]));
     dispatch(changeUserState({ name: '', email : '', password : '', id : '', avatar : '', isRegistered : false}));
-  }, []);
+    dispatch(logout());
+  }
 
   return (
     <section className="farewell">
@@ -46,7 +48,7 @@ const Farewell = () => {
 
       </div>
 
-      <NavLink to="/login" className="login__form__btn-red">
+      <NavLink to="/login" className="login__form__btn-red" onClick={hanldeLogOut}>
         Ir a pagina de inicio
       </NavLink>
       

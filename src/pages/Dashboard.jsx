@@ -54,6 +54,7 @@ const Dashboard = () => {
       if(macroTasks.length === stateMacroTasks.length) return;
 
       dispatch(createMacroTasksState(macroTasks));
+      sessionStorage.setItem('macroTasks', JSON.stringify(macroTasks));;
     } 
     catch (error) { console.log(error) };
 

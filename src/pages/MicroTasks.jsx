@@ -14,10 +14,12 @@ const MicroTasks = () => {
 
   const { taskId } = useParams();
 
-  const stateMacroTasks = useSelector( ({macroTasks}) => macroTasks );
+  const macroTasksSlice = useSelector( ({macroTasks}) => macroTasks );
+  const stateOfStorage = JSON.parse(sessionStorage.getItem('macroTasks'));
+  const stateMacroTasks = macroTasksSlice.length > 0 ? macroTasksSlice : stateOfStorage;
+  
   const macroTaskAndTrackers = stateMacroTasks.find( ({ habit }) => habit.id == taskId );
   const { name, created_at, description } = macroTaskAndTrackers.habit;
-
   const [showDescription, setShowDescription] = useState(false);
   const changeDescription = () => setShowDescription(!showDescription);
 

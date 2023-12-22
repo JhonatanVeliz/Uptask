@@ -13,7 +13,10 @@ const Commit = React.memo(({ dateTracker, taskId }) => {
   const { date } = dateTracker;
   const thisDate = new Date(date).toISOString().slice(0, 10);
 
-  const stateMacroTasks = useSelector(({ macroTasks }) => macroTasks);
+  const macroTasksSlice = useSelector( ({macroTasks}) => macroTasks );
+  const stateOfStorage = JSON.parse(sessionStorage.getItem('macroTasks'));
+  const stateMacroTasks = macroTasksSlice.length > 0 ? macroTasksSlice : stateOfStorage;
+
   const macroTaskAndTrackers = stateMacroTasks.find(({ habit }) => habit.id == taskId);
   const listOfTheTrackers = macroTaskAndTrackers.trackers;
 

@@ -26,7 +26,7 @@ const App = () => {
   const tokenSlice = useSelector(({ login }) => login.token);
   const tokenStorage = sessionStorage.getItem('token');
 
-  const user = useSelector( ({ user }) => user.userData);
+  const user = useSelector( ({ user }) => user.userData) || { name : false };
 
   const token = tokenStorage || tokenSlice;
 
