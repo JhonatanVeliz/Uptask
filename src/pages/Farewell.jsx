@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 // REDUX
 import { useDispatch } from 'react-redux';
 import { changeMessageStatus } from '../features/messageWelcome/messageWelcomeSlice';
+import { createMacroTasksState } from '../features/macroTasks/macroTaskSlice';
+import { changeUserState } from '../features/user/userSlice';
 
 // Components
 import FarewellImg from '../components/FarewellImg';
@@ -13,13 +15,16 @@ const Farewell = () => {
 
   useEffect( () => {
     const removeMessageState = dispatch(changeMessageStatus(true));  
-    const removeMessageWelcomeStorage = localStorage.removeItem('userName');
+    const removeLocalStorage = localStorage.clear();
+    const removeSessionStorage = sessionStorage.clear();
+    const removeMacroTasks = dispatch(createMacroTasksState([]));
+    dispatch(changeUserState({ name: '', email : '', password : '', id : '', avatar : '', isRegistered : false}));
   }, []);
 
   return (
     <section className="farewell">
 
-      <h1>Nos vemos la proxima vez !!!</h1>
+      <h1>Nos vemos la próxima vez !!!</h1>
 
       <p>Esperamos que te aya gustado la aplicación y le ayas sacado el mejor provecho posible, esperamos verte pronto !</p>
       
@@ -41,7 +46,7 @@ const Farewell = () => {
 
       </div>
 
-      <NavLink to="/" className="login__form__btn-red">
+      <NavLink to="/login" className="login__form__btn-red">
         Ir a pagina de inicio
       </NavLink>
       
