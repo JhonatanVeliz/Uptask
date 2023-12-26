@@ -60,7 +60,7 @@ const NewMacroTask = () => {
 
       try {
         const macroTaskCreated = await createMacroTaskApi(import.meta.env.VITE_API_URL + `habits`, macroTask, token);
-        const tracker = { notes: 'Se creo una tarea' };
+        const tracker = { notes: 'Tarea : 👋 Hola te damos la Bienvenida a upConst esperamos que la app sea de tu agrado 🤗' };
         const { id } = macroTaskCreated;
         const trackerCreated = await createMicroTask(import.meta.env.VITE_API_URL + `habits/${id}/trackers`, tracker, token);
         const macroTasks = await getMacroTasks(import.meta.env.VITE_API_URL + `habits`, token);

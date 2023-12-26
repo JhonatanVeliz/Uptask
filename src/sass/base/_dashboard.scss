@@ -87,7 +87,7 @@
         }
 
         &__card{
-            max-width: 100%;
+            width: 100%;
             padding: 3rem;
             border-radius: .5rem;
             display: flex;
@@ -95,7 +95,7 @@
             justify-content: center;
             gap: 1.5rem;
             word-wrap: break-word;
-            overflow: auto;
+            overflow: hidden;
             cursor: pointer;
             background-color: v.$color-bg-project;
             color: v.$color-white;
@@ -154,19 +154,20 @@
                 }
             }
 
-            h3{
+            h3, p{
                 font-size: 2.5rem;
                 text-align: left;
                 text-transform: capitalize;
+                overflow: hidden;
+                width: 100%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             p{
-                line-height: 1.2;
-                font-size: 2rem;
+                font-size: 2.2rem;
                 position: relative;
                 transition: .3s ease-in-out;
-                overflow: hidden;
-                text-transform: capitalize;
 
                 &::before{
                     content: attr(data-task);

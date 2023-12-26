@@ -11,6 +11,7 @@ import { deleteMacroTask as deleteMacroTaskApi } from "../data/macroTasks";
 import imgMore from '../assets/icons/more.svg';
 
 import { deleteMacroTask } from "../features/macroTasks/macroTaskSlice";
+import LoaderApp from "../pages/LoaderApp";
 
 const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId }) => {
 
@@ -18,18 +19,21 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
   const [isShow, setIsShow] = useState(false);
   const [isShowConfirm, setIsShowConfirm] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const changeState = () => setIsShow(!isShow);
   const changeConfirm = (value) => setIsShowConfirm(value);
 
   const navigate = useNavigate();
-  const dispathc = useDispatch()
+  const dispatch = useDispatch()
 
   const deleteTask = async () => {
 
+    setIsLoading(true);
     localStorage.setItem('taskDelete', true);
 
     if (token.includes('root')) {
-      dispathc(deleteMacroTask(taskId));
+      dispatch(deleteMacroTask(taskId));
       return navigate('/dashboard');
     }
 
@@ -44,6 +48,9 @@ const NavModifyTask = ({ changeDescription, showDescription, nameTask, taskId })
 
   return (
     <>
+
+      { isLoading && <LoaderApp /> }
+
       {
         isShowConfirm &&
         <ViewTaskConfirmDelete

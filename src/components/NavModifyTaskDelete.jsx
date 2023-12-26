@@ -1,14 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import imgDelete from '../assets/icons/delete.svg';
-import LoaderApp from '../pages/LoaderApp';
 
 const NavModifyTaskDelete = React.memo(({ changeConfirm }) => {
 
-  const [isLoading, setIsLoading] = useState(false);
 
   const changeIsShowConfirm = (e) => {
-
-    setIsLoading(true);
 
     const btn = e.target;
     const btnData = btn.getAttribute('data-value');
@@ -22,24 +18,20 @@ const NavModifyTaskDelete = React.memo(({ changeConfirm }) => {
   }
 
   return (
-    <>
-      { isLoading && <LoaderApp /> }
+    <li>
 
-      <li>
+      <button className="viewTask__navModify__options__item" onClick={changeIsShowConfirm} data-value="open">
 
-        <button className="viewTask__navModify__options__item" onClick={changeIsShowConfirm} data-value="open">
+        <img
+          className="viewTask__navModify__options__item__img"
+          src={imgDelete}
+          alt="Eliminar tarea"
+        />
 
-          <img
-            className="viewTask__navModify__options__item__img"
-            src={imgDelete}
-            alt="Eliminar tarea"
-          />
+        <span>Eliminar Tarea</span>
 
-          <span>Eliminar Tarea</span>
-
-        </button>
-      </li>
-    </>
+      </button>
+    </li>
   )
 })
 
